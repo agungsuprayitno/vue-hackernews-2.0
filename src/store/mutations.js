@@ -1,5 +1,5 @@
 import Vue from 'vue'
-
+const parseString = require('xml2js').parseString
 export default {
   SET_ACTIVE_TYPE: (state, { type }) => {
     state.activeType = type
@@ -19,5 +19,13 @@ export default {
 
   SET_USER: (state, { id, user }) => {
     Vue.set(state.users, id, user || false) /* false means user not found */
+  },
+
+  SET_PROMO: (state, promo) => {
+    console.log(promo)
+    parseString(promo, function (err, result) {
+      console.log(result)
+      state.promo = result
+    })
   }
 }

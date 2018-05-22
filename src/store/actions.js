@@ -1,7 +1,9 @@
+const parseString = require('xml2js').parseString
 import {
   fetchUser,
   fetchItems,
-  fetchIdsByType
+  fetchIdsByType,
+  fetchPromo
 } from '../api'
 
 export default {
@@ -45,5 +47,12 @@ export default {
     return state.users[id]
       ? Promise.resolve(state.users[id])
       : fetchUser(id).then(user => commit('SET_USER', { id, user }))
+  },
+
+  FETCH_PROMO: ({commit}) => {
+    console.log(parseString)
+    return fetchPromo().then(function(promo) {
+      commit('SET_PROMO', promo)
+    })
   }
 }

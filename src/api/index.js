@@ -1,6 +1,8 @@
 // this is aliased in webpack config based on server/client build
 import { createAPI } from 'create-api'
 
+import axios from 'axios'
+
 const logRequests = !!process.env.DEBUG_API
 
 const api = createAPI({
@@ -73,4 +75,10 @@ export function watchList (type, cb) {
   return () => {
     ref.off('value', handler)
   }
+}
+
+export function fetchPromo() {
+  return axios.get('https://blog.indomog.com/category/promo/feed').then(function (promo) {
+    return promo.data
+  })
 }
