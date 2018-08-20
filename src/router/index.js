@@ -14,7 +14,10 @@ export function createRouter () {
     scrollBehavior: () => ({ y: 0 }),
     routes: [
       { path: '/login', name: 'login', component: LoginPage },
-      { path: '/', name: 'home', component: Layout,
+      { path: '/',
+        name: 'home',
+        component: Layout,
+        meta: {requiresAuth: true},
         children: [
           {
             path: '/dashboard',

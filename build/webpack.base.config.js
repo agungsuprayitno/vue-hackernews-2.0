@@ -6,6 +6,12 @@ const { VueLoaderPlugin } = require('vue-loader')
 
 const isProd = process.env.NODE_ENV === "production"
 
+//  dotenv untuk process di client
+const Dotenv = require('dotenv-webpack')
+
+//  dotenv untuk process di server
+require('dotenv').config()
+
 module.exports = {
   mode: process.env.NODE_ENV,
   devtool: isProd
@@ -103,10 +109,19 @@ module.exports = {
         new VueLoaderPlugin(),
         new ExtractTextPlugin({
           filename: 'common.[chunkhash].css'
+        }),
+        new Dotenv({
+          path: './.env', // Path to .env file (this is the default)
+          safe: false // load .env.example (defaults to "false" which does not use dotenv-safe)
         })
       ]
     : [
         new VueLoaderPlugin(),
-        new FriendlyErrorsPlugin()
+        new FriendlyErrorsPlugin(),
+        new Dotenv({
+          path: './.env', // Path to .env file (this is the default)
+          safe: false // load .env.example (defaults to "false" which does not use dotenv-safe)
+        })
+        
       ]
 }

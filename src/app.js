@@ -1,4 +1,6 @@
 import Vue from 'vue'
+import VueWait from 'vue-wait'
+import lodash from 'lodash'
 import App from './App.vue'
 import { createStore } from './store'
 import { createRouter } from './router'
@@ -8,6 +10,9 @@ import * as filters from './util/filters'
 
 // mixin for handling title
 Vue.mixin(titleMixin)
+
+//  loading handler
+Vue.use(VueWait)
 
 // register global utility filters.
 Object.keys(filters).forEach(key => {
@@ -25,12 +30,19 @@ export function createApp () {
   // this registers `store.state.route`
   sync(store, router)
 
+  //  lodash
+  Vue.prototype.$lodash = lodash
+
   // create the app instance.
   // here we inject the router, store and ssr context to all child components,
   // making them available everywhere as `this.$router` and `this.$store`.
   const app = new Vue({
     router,
     store,
+    wait: new VueWait({
+      // Defaults values are following:
+      useVuex: true,              // Uses Vuex to manage wait state  
+    }),
     render: h => h(App)
   })
 
