@@ -4,7 +4,7 @@
     <SidebarForm/>
     <nav class="sidebar-nav">
       <div slot="header"></div>
-      <ul class="nav">
+      <ul class="nav">{{navItems}}
         <template v-for="(item, index) in navItems">
           <template v-if="item.title">
             <SidebarNavTitle :name="item.name" :classes="item.class" :wrapper="item.wrapper"/>
@@ -64,11 +64,36 @@ import SidebarNavLabel from './SidebarNavLabel.vue'
 export default {
   name: 'sidebar',
   props: {
-    navItems: {
-      type: Array,
-      required: true,
-      default: () => []
-    }
+    navItems: [
+      {
+        name: 'Dashboard',
+        url: '/dashboard',
+        icon: 'icon-speedometer',
+        badge: {
+          variant: 'primary',
+          text: 'NEW'
+        }
+      },
+      {
+        title: true,
+        name: 'Products',
+        wrapper: {
+          element: 'span',
+          attributes: {}
+        },
+        class: '',
+        accessName: []
+      },
+      {
+        name: 'Product',
+        url: '/product',
+        icon: 'icon-puzzle',
+        accessName: []
+      },
+      {
+        divider: true
+      }
+    ]
   },
   components: {
     SidebarFooter,

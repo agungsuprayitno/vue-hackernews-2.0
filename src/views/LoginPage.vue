@@ -6,8 +6,8 @@
           <div class="card-group mb-0">
             <div class="card p-4 d-block">
               <div class="card-block">
-                <h2 class="text-uppercase font-weight-bold">INDOMOG Admin Panel</h2>
-                <p class="text-muted">Sign In to your account</p>
+                <h2 class="text-uppercase font-weight-bold">voucher generator</h2>
+                <p class="text-muted">Please Sign In</p>
                 <div class="mh-2" style="min-height: 25px">
                   <!-- Loader -->
                   

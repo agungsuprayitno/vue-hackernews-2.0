@@ -1,6 +1,7 @@
 import axios from 'axios'
 import moment from 'moment'
 import { isEmpty } from 'lodash'
+import {readCookie, key} from '@/module/CacheModule'
 
 const token = function () {
   const token = readCookie(key)

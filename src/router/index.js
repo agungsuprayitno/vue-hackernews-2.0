@@ -23,6 +23,23 @@ export function createRouter () {
             path: '/dashboard',
             name: 'dashboard',
             component: DashboardPage
+          },
+          {
+            path: '/product-voucher',
+            name: 'product-voucher',
+            component: DashboardPage,
+            children: [
+              {
+                path: 'create',
+                name: 'create-product-voucher',
+                component: DashboardPage
+              },
+              {
+                path: 'edit',
+                name: 'edit-product-voucher',
+                component: DashboardPage
+              }
+            ]
           }
         ]
       },

@@ -4,6 +4,8 @@ const base = require('./webpack.base.config')
 const SWPrecachePlugin = require('sw-precache-webpack-plugin')
 const VueSSRClientPlugin = require('vue-server-renderer/client-plugin')
 
+const isProd = process.env.NODE_ENV === "production"
+
 const config = merge(base, {
   entry: {
     app: './src/entry-client.js'
@@ -12,6 +14,23 @@ const config = merge(base, {
     alias: {
       'create-api': './create-api-client.js'
     }
+  },
+  module: {
+    rules: [
+      {
+        test: /\.css?$/,
+        use: isProd
+          ? ExtractTextPlugin.extract({
+              use: [
+                {
+                  loader: 'css-loader',
+                  options: { minimize: true }
+                },
+              ],
+            })
+          : ['css-loader']
+      },
+    ]
   },
   optimization: {
     splitChunks: {
