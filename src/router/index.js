@@ -7,8 +7,19 @@ import Layout from '@/layout/Layout.vue'
 
 import DashboardPage from '@/views/DashboardPage.vue'
 
+import Product from '@/views/master/product'
+
+//  Middleware
+import AuthMiddleware from '@/middleware/AuthMiddleware'
+
+const withPrefix = (prefix, routes) => 
+    routes.map( (route) => {
+        route.path = prefix + route.path;
+        return route;
+    });
+
 export function createRouter () {
-  return new Router({
+  const router = new Router({
     mode: 'history',
     fallback: false,
     scrollBehavior: () => ({ y: 0 }),
@@ -24,25 +35,35 @@ export function createRouter () {
             name: 'dashboard',
             component: DashboardPage
           },
-          {
-            path: '/product-voucher',
-            name: 'product-voucher',
-            component: DashboardPage,
-            children: [
-              {
-                path: 'create',
-                name: 'create-product-voucher',
-                component: DashboardPage
-              },
-              {
-                path: 'edit',
-                name: 'edit-product-voucher',
-                component: DashboardPage
-              }
-            ]
-          }
+
+          ...withPrefix('/product',[
+            {
+              path: '/',
+              name: 'product-list',
+              component: Product.ProductListPage
+            },
+            {
+              path: '/create',
+              name: 'create-product',
+              component: Product.ProductCreatePage
+            },
+            {
+              path: '/edit',
+              name: 'edit-product',
+              component: Product.ProductEditPage
+            }
+          ])
         ]
       },
     ]
   })
+  
+  router.beforeEach((to, from, next) => {
+    AuthMiddleware(to, from, next)
+
+    next()
+  })
+
+  return router
+
 }

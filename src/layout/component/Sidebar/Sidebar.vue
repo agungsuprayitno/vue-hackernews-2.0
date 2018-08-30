@@ -4,7 +4,7 @@
     <SidebarForm/>
     <nav class="sidebar-nav">
       <div slot="header"></div>
-      <ul class="nav">{{navItems}}
+      <ul class="nav">
         <template v-for="(item, index) in navItems">
           <template v-if="item.title">
             <SidebarNavTitle :name="item.name" :classes="item.class" :wrapper="item.wrapper"/>
@@ -50,6 +50,12 @@
     <SidebarMinimizer/>
   </div>
 </template>
+
+<style lang="stylus">
+  .nav-link 
+    cursor pointer
+</style>
+
 <script>
 import SidebarFooter from './SidebarFooter.vue'
 import SidebarForm from './SidebarForm.vue'
@@ -63,38 +69,7 @@ import SidebarNavItem from './SidebarNavItem.vue'
 import SidebarNavLabel from './SidebarNavLabel.vue'
 export default {
   name: 'sidebar',
-  props: {
-    navItems: [
-      {
-        name: 'Dashboard',
-        url: '/dashboard',
-        icon: 'icon-speedometer',
-        badge: {
-          variant: 'primary',
-          text: 'NEW'
-        }
-      },
-      {
-        title: true,
-        name: 'Products',
-        wrapper: {
-          element: 'span',
-          attributes: {}
-        },
-        class: '',
-        accessName: []
-      },
-      {
-        name: 'Product',
-        url: '/product',
-        icon: 'icon-puzzle',
-        accessName: []
-      },
-      {
-        divider: true
-      }
-    ]
-  },
+  props: ["navItems"],
   components: {
     SidebarFooter,
     SidebarForm,
@@ -115,8 +90,3 @@ export default {
   }
 }
 </script>
-
-<style lang="stylus">
-  .nav-link 
-    cursor pointer
-</style>

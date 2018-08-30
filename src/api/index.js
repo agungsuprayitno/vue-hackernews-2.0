@@ -1,5 +1,9 @@
-import userApi from './module/UserApi'
+import UserApi from './module/UserApi'
+import Access from './module/AccessApi'
+
+export const AccessApi = Access
 
 export default {
-  userApi,
+  UserApi,
+  AccessApi
 }

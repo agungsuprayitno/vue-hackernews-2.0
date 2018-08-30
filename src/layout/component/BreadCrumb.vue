@@ -2,7 +2,7 @@
   <ol class="breadcrumb">
     <li class="breadcrumb-item" v-for="(item, index) in list">
       <span class="active" v-if="isLast(index)">{{ showName(item) }}</span>
-      <nuxt-link :to="item" v-else>{{ showName(item) }}</nuxt-link>
+      <b-link :to="item" v-else>{{ showName(item) }}</b-link>
     </li>
   </ol>
 </template>

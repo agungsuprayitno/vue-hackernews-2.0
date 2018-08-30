@@ -2,7 +2,7 @@
 	<div class="app">
 		<AppHeader/>
 		<div class="app-body">
-			<Sidebar />
+			<Sidebar :nav-items="nav" />
 			<main class="main">
 				<breadcrumb :list="list"/>
 				<div class="container-fluid">
@@ -16,16 +16,15 @@
 </template>
 
 <script>
-  // import nav from './_nav'
+  import {mapState} from 'vuex'
+  import nav from './_nav'
   import AppHeader from './component/AppHeader.vue'
   import AppFooter from './component/AppFooter.vue'
   import Breadcrumb from './component/Breadcrumb.vue'
   import Sidebar from './component/Sidebar/Sidebar.vue'
-  import {mapGetters} from 'vuex'
 
   export default {
-    name: 'full',
-    // middleware: ['authenticated'],
+    name: 'layout',
     components: {
       AppHeader,
       AppFooter,
@@ -33,24 +32,24 @@
       Sidebar
     },
     computed: {
-      // ...mapGetters({
-        // access: 'access/access'
-      // }),
+      ...mapState({
+        access: state => state.Access.access
+      }),
       name () {
         return this.$route.name
       },
       list () {
         return this.$route.matched
       },
-      // nav () {
-      //   return this.showNav(nav.items)
-      // }
+      nav () {
+        return this.showNav(nav.items)
+      }
     },
     methods: {
       showNav (nav) {
         let navList = []
         let __self = this
-        nav.forEach(function (nav) {
+        nav.forEach(function (nav) { 
           if (!nav.accessName || nav.accessName.some(access => __self.access.includes(access))) {
             if (nav.children) {
               nav.children = __self.showNav(nav.children)

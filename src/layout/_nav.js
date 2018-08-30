@@ -12,20 +12,10 @@ export default {
       }
     },
     {
-      title: true,
-      name: 'Products',
-      wrapper: {
-        element: 'span',
-        attributes: {}
-      },
-      class: '',
-      accessName: [access.PRODUCT_VOUCHER]
-    },
-    {
       name: 'Product',
       url: '/product',
       icon: 'icon-puzzle',
-      accessName: [access.PRODUCT.PRODUCT_VOUCHER]
+      accessName: [access.PRODUCT]
     },
     {
       divider: true
