@@ -4,13 +4,15 @@ Vue.use(Vuex)
 
 import User from './module/User'
 import Access from './module/Access'
+import Product from './module/Product'
 
 const debug = process.env.NODE_ENV !== 'production'
 
 export const store = new Vuex.Store({
   modules:{
     User,
-    Access
+    Access,
+    Product
   }
 })
 

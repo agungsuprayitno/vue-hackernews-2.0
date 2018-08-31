@@ -7,7 +7,7 @@ import Layout from '@/layout/Layout.vue'
 
 import DashboardPage from '@/views/DashboardPage.vue'
 
-import Product from '@/views/master/product'
+import Product from '@/views/product'
 
 //  Middleware
 import AuthMiddleware from '@/middleware/AuthMiddleware'
