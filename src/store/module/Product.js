@@ -1,8 +1,7 @@
 import {ProductApi} from '@/api'
 
 const state  = () => ({
-  products: [],
-  product: {}
+  product: {},
 })
 
 const getters = {
@@ -10,9 +9,9 @@ const getters = {
 }
 
 const actions = {
-  getProduct (store) {
-    ProductApi.getProductApi().then((products) => {
-      store.commit('SET_PRODUCTS', products)
+  async getProduct (store) {
+    await ProductApi.getProductApi().then((products) => {
+      store.commit('SET_PRODUCT', products)
     })
   },
 
@@ -30,9 +29,6 @@ const actions = {
 }
 
 const mutations = {
-  'SET_PRODUCTS' (state, products) {
-    state.products = products
-  },
   'SET_PRODUCT' (state, product) {
     state.product = product
   }
