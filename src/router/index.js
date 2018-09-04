@@ -48,9 +48,9 @@ export function createRouter () {
               component: Product.ProductCreatePage
             },
             {
-              path: '/edit',
+              path: '/edit/:productId',
               name: 'edit-product',
-              component: Product.ProductEditPage
+              component: Product.ProductCreatePage
             }
           ])
         ]

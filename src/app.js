@@ -7,6 +7,8 @@ import { createRouter } from './router'
 import { sync } from 'vuex-router-sync'
 import titleMixin from './util/title'
 import * as filters from './util/filters'
+import constant from './constant/Constant'
+import VeeValidate from 'vee-validate'
 
 // mixin for handling title
 Vue.mixin(titleMixin)
@@ -26,12 +28,17 @@ export function createApp () {
   const store = createStore()
   const router = createRouter()
 
+  Vue.use(VeeValidate, {fieldsBagName: 'formFields'})
+
   // sync the router with the vuex store.
   // this registers `store.state.route`
   sync(store, router)
 
   //  lodash
   Vue.prototype.$lodash = lodash
+
+  //  constant
+  Vue.prototype.$constant = constant
 
   // create the app instance.
   // here we inject the router, store and ssr context to all child components,
