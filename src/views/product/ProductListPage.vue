@@ -67,7 +67,7 @@ export default {
     async deactivateProduct(productId){
       let status = this.$constant.status.inactiveStatus
       let productInput = {
-        productId: productId,
+        id: productId,
         status: status
       }
       await this.updateProduct(productInput)
@@ -76,7 +76,7 @@ export default {
     async activateProduct(productId){
       let status = this.$constant.status.activeStatus
       let productInput = {
-        productId: productId,
+        id: productId,
         status: status
       }
       await this.updateProduct(productInput)

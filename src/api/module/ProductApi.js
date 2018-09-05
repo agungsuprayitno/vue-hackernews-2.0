@@ -11,8 +11,12 @@ export default {
     })
   },
 
-  async getProductByProductIdApi() {
-    return await '' 
+  async getProductByProductIdApi(productId) {
+    return await VoucherGeneratorAxios.get("/v1/product/" + productId).then(async (product) => {
+      return await product.data
+    }).catch((error) => {
+      throw error
+    })
   },
 
   async createProductApi(product) {
@@ -23,8 +27,8 @@ export default {
     })
   },
 
-  async updateProductApi(productId, product) {
-    return await VoucherGeneratorAxios.put("/v1/product/" + productId, product).then(async (product) => {
+  async updateProductApi(product) {
+    return await VoucherGeneratorAxios.put("/v1/product/" + product.id, product).then(async (product) => {
       return await product.data
     }).catch((error) => {
       throw error

@@ -45,12 +45,12 @@ export function createRouter () {
             {
               path: '/create',
               name: 'create-product',
-              component: Product.ProductCreatePage
+              component: Product.ProductForm
             },
             {
               path: '/edit/:productId',
               name: 'edit-product',
-              component: Product.ProductCreatePage
+              component: Product.ProductForm
             }
           ])
         ]

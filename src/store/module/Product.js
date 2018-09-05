@@ -19,8 +19,13 @@ const actions = {
     })
   },
 
-  getProductByProductId () {
-
+  async getProductByProductId (store, productId) {
+    await ProductApi.getProductByProductIdApi(productId).then((product) => {
+      store.commit('SET_PRODUCT', product)
+    }).catch(error => {
+      //  TODO: Handle Error, set to be form or toast
+      console.log(error)
+    })
   },
 
   async createProduct (store, product) {
@@ -33,7 +38,8 @@ const actions = {
   },
 
   async updateProduct (store, product) {
-    await ProductApi.updateProductApi(product.productId, product).then((product) => {
+
+    await ProductApi.updateProductApi(product).then((product) => {
       store.commit('SET_PRODUCT', product)
     }).catch(error => {
       //  TODO: Handle Error, set to be form or toast
