@@ -8,6 +8,7 @@ import Layout from '@/layout/Layout.vue'
 import DashboardPage from '@/views/DashboardPage.vue'
 
 import Product from '@/views/product'
+import Client from '@/views/client'
 
 //  Middleware
 import AuthMiddleware from '@/middleware/AuthMiddleware'
@@ -52,7 +53,25 @@ export function createRouter () {
               name: 'edit-product',
               component: Product.ProductForm
             }
+          ]),
+          ...withPrefix('/client',[
+            {
+              path: '/',
+              name: 'client-list',
+              component: Client.ClientList
+            },
+            {
+              path: '/create',
+              name: 'create-client',
+              component: Client.ClientForm
+            },
+            {
+              path: '/edit/:clientId',
+              name: 'edit-client',
+              component: Client.ClientForm
+            }
           ])
+
         ]
       },
     ]

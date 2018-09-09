@@ -1,5 +1,6 @@
 // Product Voucher
-export const PRODUCT = 'get-product'
+export const PRODUCT = 'product'
+export const CLIENT = 'client'
 
 // Voucher Inventory
 
