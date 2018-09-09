@@ -21,7 +21,7 @@ export default {
 
   async createMerchantApi(merchant) {
     return await VoucherGeneratorAxios.post("/v1/merchant", merchant).then(async (merchant) => {
-      return await Merchant.data
+      return await merchant.data
     }).catch((error) => {
       throw error
     })
