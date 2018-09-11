@@ -4,7 +4,8 @@ export default {
    // TODO: get access from backend
     let accesses = [
      "get-product",
-     "product"
+     "product",
+     "user"
     ]
     return await accesses 
   }

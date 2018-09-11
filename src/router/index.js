@@ -8,6 +8,7 @@ import Layout from '@/layout/Layout.vue'
 import DashboardPage from '@/views/DashboardPage.vue'
 
 import Product from '@/views/product'
+import User from '@/views/User'
 
 //  Middleware
 import AuthMiddleware from '@/middleware/AuthMiddleware'
@@ -51,6 +52,23 @@ export function createRouter () {
               path: '/edit/:productId',
               name: 'edit-product',
               component: Product.ProductForm
+            }
+          ]),
+          ...withPrefix('/user',[
+            {
+              path: '/',
+              name: 'user-list',
+              component: User.UserList
+            },
+            {
+              path: '/create',
+              name: 'create-user',
+              component: User.UserForm
+            },
+            {
+              path: '/edit/:userId',
+              name: 'edit-user',
+              component: User.UserForm
             }
           ])
         ]

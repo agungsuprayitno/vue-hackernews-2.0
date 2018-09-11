@@ -18,6 +18,12 @@ export default {
       accessName: [access.PRODUCT]
     },
     {
+      name: 'User',
+      url: '/user',
+      icon: 'icon-user',
+      accessName: [access.USER]
+    },
+    {
       divider: true
     }
   ]
