@@ -65,22 +65,24 @@ export default {
       await this.getProduct({productId: this.$route.params.productId, pagination: this.pagination})
       return this.productVariants.data
     },
-    async deactivateProduct(productVariantId){
+    async deactivateProductVariant(productVariantId){
       let status = this.$constant.status.inactiveStatus
       let productVariantInput = {
         id: productVariantId,
+        product_id: this.$route.params.productId,
         status: status
       }
-      await this.updateProduct({productId: this.$route.params.productId, productVariantInput: productVariantInput})
-      this.$refs.productTable.refresh()
+      await this.updateProduct(productVariantInput)
+      this.$refs.productVariantTable.refresh()
     },
-    async activateProduct(productVariantId){
+    async activateProductVariant(productVariantId){
       let status = this.$constant.status.activeStatus
       let productVariantInput = {
         id: productVariantId,
+        product_id: this.$route.params.productId,
         status: status
       }
-      await this.updateProduct({productId: this.$route.params.productId, productVariantInput: productVariantInput})
+      await this.updateProduct(productVariantInput)
       this.$refs.productVariantTable.refresh()
     }    
   }
