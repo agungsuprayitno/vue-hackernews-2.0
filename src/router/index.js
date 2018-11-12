@@ -9,6 +9,9 @@ import DashboardPage from '@/views/DashboardPage.vue'
 
 import Product from '@/views/product'
 import Client from '@/views/client'
+import ProductVariant from '@/views/product/variant'
+import Merchant from '@/views/merchant'
+import User from '@/views/User'
 
 //  Middleware
 import AuthMiddleware from '@/middleware/AuthMiddleware'
@@ -52,6 +55,55 @@ export function createRouter () {
               path: '/edit/:productId',
               name: 'edit-product',
               component: Product.ProductForm
+            },
+            {
+              path: '/:productId/variant',
+              name: 'product-variant-list',
+              component: ProductVariant.ProductVariantList
+            },
+            {
+              path: '/:productId/variant/create',
+              name: 'create-product-variant',
+              component: ProductVariant.ProductVariantForm
+            },
+            {
+              path: '/:productId/variant/edit/:productVariantId',
+              name: 'edit-product-variant',
+              component: ProductVariant.ProductVariantForm
+            }
+          ]),
+
+          ...withPrefix('/merchant',[
+            {
+              path: '/',
+              name: 'merchant-list',
+              component: Merchant.MerchantList
+            },
+            {
+              path: '/create',
+              name: 'create-merchant',
+              component: Merchant.MerchantForm
+            },
+            {
+              path: '/edit/:merchantId',
+              name: 'edit-merchant',
+              component: Merchant.MerchantForm
+          },
+          ...withPrefix('/user',[
+            {
+              path: '/',
+              name: 'user-list',
+              component: User.UserList
+            },
+            {
+              path: '/create',
+              name: 'create-user',
+              component: User.UserForm
+            },
+            {
+              path: '/edit/:userId',
+              name: 'edit-user',
+              component: User.UserForm
             }
           ]),
           ...withPrefix('/client',[
