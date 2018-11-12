@@ -16,6 +16,7 @@
 
         <template slot="actions" slot-scope="row">
           <router-link :to="{name: 'edit-product', params: {productId: row.item.id}}" class="font-weight-bold btn btn-outline-warning btn-sm">Edit</router-link> &nbsp;
+          <router-link :to="{name: 'product-variant-list', params: {productId: row.item.id}}" class="font-weight-bold btn btn-outline-primary btn-sm">Variant</router-link> &nbsp;
           <b-button :size="'sm'" :variant="'outline-danger'" class="font-weight-bold shadow" v-if="row.item.status == $constant.status.activeStatus" @click="deactivateProduct(row.item.id)">DEACTIVATE</b-button>
           <b-button :size="'sm'" :variant="'outline-success'" class="font-weight-bold shadow" @click="activateProduct(row.item.id)" v-else>ACTIVATE</b-button>
         </template>

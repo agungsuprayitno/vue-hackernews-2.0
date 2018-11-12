@@ -9,6 +9,7 @@ import Pagination from './component/Pagination'
 import User from './module/User'
 import Access from './module/Access'
 import Product from './module/Product'
+import ProductVariant from './module/ProductVariant'
 import Merchant from './module/Merchant'
 
 const debug = process.env.NODE_ENV !== 'production'
@@ -18,6 +19,7 @@ export const store = new Vuex.Store({
     User,
     Access,
     Product,
+    ProductVariant,
     Merchant,
     Pagination
   }

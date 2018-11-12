@@ -8,6 +8,7 @@ import Layout from '@/layout/Layout.vue'
 import DashboardPage from '@/views/DashboardPage.vue'
 
 import Product from '@/views/product'
+import ProductVariant from '@/views/product/variant'
 import Merchant from '@/views/merchant'
 import User from '@/views/User'
 
@@ -53,8 +54,24 @@ export function createRouter () {
               path: '/edit/:productId',
               name: 'edit-product',
               component: Product.ProductForm
+            },
+            {
+              path: '/:productId/variant',
+              name: 'product-variant-list',
+              component: ProductVariant.ProductVariantList
+            },
+            {
+              path: '/:productId/variant/create',
+              name: 'create-product-variant',
+              component: ProductVariant.ProductVariantForm
+            },
+            {
+              path: '/:productId/variant/edit/:productVariantId',
+              name: 'edit-product-variant',
+              component: ProductVariant.ProductVariantForm
             }
           ]),
+
           ...withPrefix('/merchant',[
             {
               path: '/',
@@ -88,7 +105,6 @@ export function createRouter () {
               component: User.UserForm
             }
           ])
-
         ]
       },
     ]
