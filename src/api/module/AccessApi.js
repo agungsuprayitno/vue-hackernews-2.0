@@ -5,7 +5,8 @@ export default {
     let accesses = [
      "get-product",
      "product",
-     "merchant"
+     "merchant",
+     "user"
     ]
     return await accesses 
   }

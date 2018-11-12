@@ -24,6 +24,12 @@ export default {
       accessName: [access.MERCHANT]
     },
     {
+      name: 'User',
+      url: '/user',
+      icon: 'icon-user',
+      accessName: [access.USER]
+    },
+    {
       divider: true
     }
   ]
