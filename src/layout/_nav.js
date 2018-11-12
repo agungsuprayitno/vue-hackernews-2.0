@@ -18,6 +18,18 @@ export default {
       accessName: [access.PRODUCT]
     },
     {
+      name: 'Merchant',
+      url: '/merchant',
+      icon: 'icon-puzzle',
+      accessName: [access.MERCHANT]
+    },
+    {
+      name: 'User',
+      url: '/user',
+      icon: 'icon-user',
+      accessName: [access.USER]
+    },
+    {
       divider: true
     }
   ]

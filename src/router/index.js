@@ -9,6 +9,8 @@ import DashboardPage from '@/views/DashboardPage.vue'
 
 import Product from '@/views/product'
 import ProductVariant from '@/views/product/variant'
+import Merchant from '@/views/merchant'
+import User from '@/views/User'
 
 //  Middleware
 import AuthMiddleware from '@/middleware/AuthMiddleware'
@@ -69,6 +71,40 @@ export function createRouter () {
               component: ProductVariant.ProductVariantForm
             }
           ]),
+
+          ...withPrefix('/merchant',[
+            {
+              path: '/',
+              name: 'merchant-list',
+              component: Merchant.MerchantList
+            },
+            {
+              path: '/create',
+              name: 'create-merchant',
+              component: Merchant.MerchantForm
+            },
+            {
+              path: '/edit/:merchantId',
+              name: 'edit-merchant',
+              component: Merchant.MerchantForm
+          },
+          ...withPrefix('/user',[
+            {
+              path: '/',
+              name: 'user-list',
+              component: User.UserList
+            },
+            {
+              path: '/create',
+              name: 'create-user',
+              component: User.UserForm
+            },
+            {
+              path: '/edit/:userId',
+              name: 'edit-user',
+              component: User.UserForm
+            }
+          ])
         ]
       },
     ]
