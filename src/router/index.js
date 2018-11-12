@@ -88,7 +88,9 @@ export function createRouter () {
               path: '/edit/:merchantId',
               name: 'edit-merchant',
               component: Merchant.MerchantForm
-          },
+            }
+          ]),
+
           ...withPrefix('/user',[
             {
               path: '/',
@@ -123,7 +125,6 @@ export function createRouter () {
               component: Client.ClientForm
             }
           ])
-
         ]
       },
     ]

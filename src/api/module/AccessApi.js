@@ -4,7 +4,7 @@ export default {
    // TODO: get access from backend
     let accesses = [
      "product",
-     "client"
+     "client",
      "get-product",
      "product",
      "merchant",
