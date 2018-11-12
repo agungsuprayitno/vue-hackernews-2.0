@@ -12,3 +12,13 @@
 <style lang="sass">
   @import "../public/scss/style.scss";
 </style>
+
+<style lang="stylus">
+
+.fade-enter-active, .fade-leave-active
+  transition all .2s ease
+
+.fade-enter, .fade-leave-active
+  opacity 0
+
+</style>
