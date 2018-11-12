@@ -3,6 +3,8 @@ export default {
   async getUserAccessApi() {
    // TODO: get access from backend
     let accesses = [
+     "product",
+     "client"
      "get-product",
      "product",
      "merchant",

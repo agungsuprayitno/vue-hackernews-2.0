@@ -9,6 +9,7 @@ import Pagination from './component/Pagination'
 import User from './module/User'
 import Access from './module/Access'
 import Product from './module/Product'
+import Client from './module/Client'
 import ProductVariant from './module/ProductVariant'
 import Merchant from './module/Merchant'
 
@@ -19,6 +20,7 @@ export const store = new Vuex.Store({
     User,
     Access,
     Product,
+    Client,
     ProductVariant,
     Merchant,
     Pagination

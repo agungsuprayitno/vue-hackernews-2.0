@@ -8,6 +8,7 @@ import Layout from '@/layout/Layout.vue'
 import DashboardPage from '@/views/DashboardPage.vue'
 
 import Product from '@/views/product'
+import Client from '@/views/client'
 import ProductVariant from '@/views/product/variant'
 import Merchant from '@/views/merchant'
 import User from '@/views/User'
@@ -104,7 +105,25 @@ export function createRouter () {
               name: 'edit-user',
               component: User.UserForm
             }
+          ]),
+          ...withPrefix('/client',[
+            {
+              path: '/',
+              name: 'client-list',
+              component: Client.ClientList
+            },
+            {
+              path: '/create',
+              name: 'create-client',
+              component: Client.ClientForm
+            },
+            {
+              path: '/edit/:clientId',
+              name: 'edit-client',
+              component: Client.ClientForm
+            }
           ])
+
         ]
       },
     ]

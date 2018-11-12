@@ -18,6 +18,12 @@ export default {
       accessName: [access.PRODUCT]
     },
     {
+      name: 'Client',
+      url: '/client',
+      icon: 'icon-puzzle',
+      accessName: [access.CLIENT]
+    },
+    {
       name: 'Merchant',
       url: '/merchant',
       icon: 'icon-puzzle',
