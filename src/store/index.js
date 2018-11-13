@@ -12,6 +12,7 @@ import Product from './module/Product'
 import Client from './module/Client'
 import ProductVariant from './module/ProductVariant'
 import Merchant from './module/Merchant'
+import Auth from './module/Auth'
 
 const debug = process.env.NODE_ENV !== 'production'
 
@@ -23,6 +24,7 @@ export const store = new Vuex.Store({
     Client,
     ProductVariant,
     Merchant,
+    Auth,
     Pagination
   }
 })

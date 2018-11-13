@@ -15,15 +15,15 @@
                 </div>
                 <div class="input-group mb-3">
                   <span class="input-group-addon"><i class="far fa-user"></i></span>
-                  <input type="email" class="form-control" placeholder="Username" v-model="user.email" ref="username">
+                  <input type="email" class="form-control" placeholder="Username" v-model="user.username" ref="username">
                 </div>
                 <div class="input-group mb-4">
                   <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                  <input type="password" class="form-control" placeholder="Password" v-model="user.password" @keyup.enter="signInUser(user)">
+                  <input type="password" class="form-control" placeholder="Password" v-model="user.password" @keyup.enter="signInUser()">
                 </div>
                 <div class="row justify-content-end">
                   <div class="col-6 text-right">
-                    <button type="button" class="btn btn-primary px-4 font-weight-bold" @click="signInUser(user)"><i class="fa fa-sign-in-alt"></i> Login</button>
+                    <button type="button" class="btn btn-primary px-4 font-weight-bold" @click="signInUser()"><i class="fa fa-sign-in-alt"></i> Login</button>
                   </div>
                 </div>
               </div>
@@ -35,13 +35,22 @@
   </div>
 </template>
 <script>
+import {mapActions} from 'vuex'
   export default {
     data: function () {
       return {
         user: {
-          email: '',
+          username: '',
           password: ''
         }
+      }
+    },  
+    methods: {
+      ...mapActions({
+        logInUser: 'Auth/login'
+      }),
+      signInUser() {
+        this.logInUser(this.user)
       }
     },
     mounted () {
