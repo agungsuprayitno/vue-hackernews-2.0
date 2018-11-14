@@ -15,9 +15,10 @@
         </template>
 
         <template slot="actions" slot-scope="row">
-          <router-link :to="{name: 'edit-merchant', params: {merchantId: row.item.id}}" class="font-weight-bold btn btn-outline-warning btn-sm">Edit</router-link> &nbsp;
-          <b-button :size="'sm'" :variant="'outline-danger'" class="font-weight-bold shadow" v-if="row.item.status == $constant.status.activeStatus" @click="deactivateMerchant(row.item.id)">DEACTIVATE</b-button>
-          <b-button :size="'sm'" :variant="'outline-success'" class="font-weight-bold shadow" @click="activateMerchant(row.item.id)" v-else>ACTIVATE</b-button>
+          <router-link :to="{name: 'edit-merchant', params: {merchantId: row.item.id}}" class="font-weight-bold btn btn-outline-success btn-sm">Edit</router-link> &nbsp;
+          <b-button :size="'sm'" :variant="'outline-danger'" class="font-weight-bold shadow" v-if="row.item.status == $constant.status.activeStatus" @click="toBlockMerchant(row.item.id)">Block</b-button>
+          <b-button :size="'sm'" :variant="'outline-success'" class="font-weight-bold shadow" @click="toActivateMerchant(row.item.id)" v-else>Activate</b-button>
+          &nbsp;<b-button :size="'sm'" :variant="'outline-warning'" class="font-weight-bold shadow" @click="toDeleteMerchant(row.item.id)">Delete</b-button>
         </template>
       </b-table>
     </div>
@@ -45,9 +46,9 @@ export default {
     fields (){
       return {
         name: {label: 'NAME', sortable: false},
-        email: {label: 'EMAIL', sortable: false},
-        phone_number: {label: 'PHONE NUMBER', sortable: false},
         code: {label: 'CODE', sortable: false},
+        email: {label: 'EMAIL', sortable: false},
+        phoneNumber: {label: 'PHONE NUMBER', sortable: false},
         status: {label: 'STATUS', sortable: false},
         actions: {label: 'ACTION', sortable: false}
       }        
@@ -58,6 +59,9 @@ export default {
     ...mapActions({
       getMerchant: 'Merchant/getMerchant',
       updateMerchant: 'Merchant/updateMerchant',
+      activateMerchant: 'Merchant/activateMerchant',
+      blockMerchant: 'Merchant/blockMerchant',
+      deleteMerchant: 'Merchant/deleteMerchant',
       setPagination: 'Pagination/setPagination'
     }),
     async getMerchants(ctx) {
@@ -67,24 +71,29 @@ export default {
       await this.getMerchant({pagination: this.pagination})
       return this.merchants.data
     },
-    async deactivateMerchant(merchantId){
-      let status = this.$constant.status.inactiveStatus
+    async toBlockMerchant(merchantId){
       let merchantInput = {
-        id: merchantId,
-        status: status
+        id: merchantId
       }
-      await this.updateMerchant(merchantInput)
+      await this.blockMerchant(merchantInput)
       this.$refs.merchantTable.refresh()
     },
-    async activateMerchant(merchantId){
-      let status = this.$constant.status.activeStatus
+    async toActivateMerchant(merchantId){
       let merchantInput = {
-        id: merchantId,
-        status: status
+        id: merchantId
       }
-      await this.updateMerchant(merchantInput)
+      await this.activateMerchant(merchantInput)
       this.$refs.merchantTable.refresh()
-    }    
+    },
+    async toDeleteMerchant(merchantId){
+      if(confirm('Are you sure want to delete this merchant?')){
+        let merchantInput = {
+          id: merchantId
+        }
+        await this.deleteMerchant(merchantInput)
+        this.$refs.merchantTable.refresh()
+      }
+    }
   }
 }
 </script>

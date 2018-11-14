@@ -33,5 +33,29 @@ export default {
     }).catch((error) => {
       throw error
     })
+  },
+
+  async activateMerchantApi(merchant) {
+    return await VoucherGeneratorAxios.put("/v1/merchant/activate/" + merchant.id, merchant).then(async (merchant) => {
+      return await merchant.data
+    }).catch((error) => {
+      throw error
+    })
+  },
+
+  async blockMerchantApi(merchant) {
+    return await VoucherGeneratorAxios.put("/v1/merchant/block/" + merchant.id, merchant).then(async (merchant) => {
+      return await merchant.data
+    }).catch((error) => {
+      throw error
+    })
+  },
+
+  async deleteMerchantApi(merchant) {
+    return await VoucherGeneratorAxios.delete("/v1/merchant/" + merchant.id, merchant).then(async (merchant) => {
+      return await merchant.data
+    }).catch((error) => {
+      throw error
+    })
   }
 }
