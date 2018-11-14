@@ -33,5 +33,30 @@ export default {
     }).catch((error) => {
       throw error
     })
+  },
+
+  async activateProductApi(product) {
+    return await VoucherGeneratorAxios.put("/v1/product/activate/" + product.id).then(async (product) => {
+      return await product.data
+    }).catch((error) => {
+      throw error
+    })
+  },
+
+  async blockProductApi(product) {
+    return await VoucherGeneratorAxios.put("/v1/product/block/" + product.id).then(async (product) => {
+      return await product.data
+    }).catch((error) => {
+      throw error
+    })
+  },
+
+  async deleteProductApi(product) {
+    return await VoucherGeneratorAxios.delete("/v1/product/" + product.id).then(async (product) => {
+      return await product.data
+    }).catch((error) => {
+      throw error
+    })
   }
+
 }

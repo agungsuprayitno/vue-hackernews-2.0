@@ -15,9 +15,11 @@
         </template>
 
         <template slot="actions" slot-scope="row">
-          <router-link :to="{name: 'edit-product-variant', params: {productId: $route.params.productId, productVariantId: row.item.id}}" class="font-weight-bold btn btn-outline-warning btn-sm">Edit</router-link> &nbsp;
-          <b-button :size="'sm'" :variant="'outline-danger'" class="font-weight-bold shadow" v-if="row.item.status == $constant.status.activeStatus" @click="deactivateProductVariant(row.item.id)">DEACTIVATE</b-button>
-          <b-button :size="'sm'" :variant="'outline-success'" class="font-weight-bold shadow" @click="activateProductVariant(row.item.id)" v-else>ACTIVATE</b-button>
+          <!--router-link :to="{name: 'edit-product-variant', params: {productId: $route.params.productId, productVariantId: row.item.id}}" class="font-weight-bold btn btn-outline-warning btn-sm shadow">Edit</router-link> &nbsp;-->
+          <b-button :size="'sm'" :variant="'outline-danger'" class="font-weight-bold shadow" v-if="row.item.status == $constant.status.activeStatus" @click="toBlockProductVariant(row.item.id)">Block</b-button>
+          <b-button :size="'sm'" :variant="'outline-success'" class="font-weight-bold shadow" @click="toActivateProductVariant(row.item.id)" v-else>Activate</b-button>
+          &nbsp;<b-button :size="'sm'" :variant="'outline-danger'" class="font-weight-bold shadow" @click="toDeleteProductVariant(row.item.id)">Delete</b-button>
+
         </template>
       </b-table>
     </div>
@@ -55,7 +57,9 @@ export default {
   methods: {
     ...mapActions({
       getProduct: 'ProductVariant/getProductVariant',
-      updateProduct: 'ProductVariant/updateProductVariant',
+      activateProductVariant: 'ProductVariant/activateProductVariant',
+      blockProductVariant: 'ProductVariant/blockProductVariant',
+      deleteProductVariant: 'ProductVariant/deleteProductVariant',
       setPagination: 'Pagination/setPagination'
     }),
     async getProductVariants(ctx) {
@@ -65,25 +69,33 @@ export default {
       await this.getProduct({productId: this.$route.params.productId, pagination: this.pagination})
       return this.productVariants.data
     },
-    async deactivateProductVariant(productVariantId){
+    async toBlockProductVariant(productVariantId){
       let status = this.$constant.status.inactiveStatus
       let productVariantInput = {
         id: productVariantId,
-        product_id: this.$route.params.productId,
-        status: status
+        productId: this.$route.params.productId
       }
-      await this.updateProduct(productVariantInput)
+      await this.blockProductVariant(productVariantInput)
       this.$refs.productVariantTable.refresh()
     },
-    async activateProductVariant(productVariantId){
+    async toActivateProductVariant(productVariantId){
       let status = this.$constant.status.activeStatus
       let productVariantInput = {
         id: productVariantId,
-        product_id: this.$route.params.productId,
-        status: status
+        productId: this.$route.params.productId
       }
-      await this.updateProduct(productVariantInput)
+      await this.activateProductVariant(productVariantInput)
       this.$refs.productVariantTable.refresh()
+    },
+    async toDeleteProductVariant(productVariantId){
+      if(confirm('Are you sure want to delete this product variant?')){
+        let productVariantInput = {
+          id: productVariantId,
+          productId: this.$route.params.productId
+        }
+        await this.deleteProductVariant(productVariantInput)
+        this.$refs.productVariantTable.refresh()
+      }
     }    
   }
 }

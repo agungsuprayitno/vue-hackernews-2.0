@@ -31,6 +31,8 @@ const actions = {
   async createProduct (store, product) {
     await ProductApi.createProductApi( product).then((product) => {
       store.commit('SET_PRODUCT', product)
+      store.dispatch('Product/getProductApi')
+
     }).catch(error => {
       //  TODO: Handle Error, set to be form or toast
       console.log(error)
@@ -45,7 +47,38 @@ const actions = {
       //  TODO: Handle Error, set to be form or toast
       console.log(error)
     })
+  },
+
+  async activateProduct (store, product) {
+
+    await ProductApi.activateProductApi(product).then((product) => {
+      store.commit('SET_PRODUCT', product)
+    }).catch(error => {
+      //  TODO: Handle Error, set to be form or toast
+      console.log(error)
+    })
+  },
+
+  async blockProduct (store, product) {
+
+    await ProductApi.blockProductApi(product).then((product) => {
+      store.commit('SET_PRODUCT', product)
+    }).catch(error => {
+      //  TODO: Handle Error, set to be form or toast
+      console.log(error)
+    })
+  },
+
+  async deleteProduct (store, product) {
+
+    await ProductApi.deleteProductApi(product).then((product) => {
+      store.commit('SET_PRODUCT', product)
+    }).catch(error => {
+      //  TODO: Handle Error, set to be form or toast
+      console.log(error)
+    })
   }
+
 }
 
 const mutations = {
