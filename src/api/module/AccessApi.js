@@ -8,7 +8,8 @@ export default {
      "get-product",
      "product",
      "merchant",
-     "user"
+     "user",
+     "voucher"
     ]
     return await accesses 
   }
