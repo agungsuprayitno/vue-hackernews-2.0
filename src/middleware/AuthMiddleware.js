@@ -1,16 +1,17 @@
 import {store} from '@/store'
 import {isEmpty} from 'lodash'
+import {readCookie, key} from "@/module/CacheModule";
+import moment from 'moment'
 
 export function isInvalidToken () {
   let tokenAuthState = store.state.Auth.token
-  console.log(tokenAuthState);
-  // let token = isEmpty(tokenAuthState) ? readCookie(key) : tokenAuthState
-  // return isEmpty(token) || (!isEmpty(token) && moment().diff(moment(token.expired)) > 0)
-  return isEmpty(tokenAuthState)
+  let token = isEmpty(tokenAuthState) ? readCookie(key) : tokenAuthState
+  //  TODO: cari cara yg lebih bagus lagi
+  return isEmpty(token) || (!isEmpty(token) && moment().diff(moment(token.expired)) > 0)
 }
 
 export default function (to, from, next) {
-  if (to.matched[0].meta.requiresAuth) {
+  if (to.matched.length > 0 && to.matched[0].meta.requiresAuth) {
     if (isInvalidToken()) {
       // eraseCookie(key)
       // push router to login page, if user have no token
@@ -18,6 +19,15 @@ export default function (to, from, next) {
     }
   }
 
+  if (to.matched.length > 0 && to.matched[0].meta.notRequiresAuth) {
+    if (!isInvalidToken()) {
+
+      // redirect to home page, to prevent showing login page while user is logged in
+      next({name: 'home'})
+    }
+  }
+
+//  // TODO:  pake ini untuk get role access user
   //return store.dispatch('Access/getUserAccess').then(() => {
     // if (context.store.getters['access/access'].length === 0) {
     //   // context.store.dispatch('user/signOutUser')

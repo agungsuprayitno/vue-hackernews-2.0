@@ -10,8 +10,8 @@
                 <p class="text-muted">Please Sign In</p>
                 <div class="mh-2" style="min-height: 25px">
                   <!-- Loader -->
-                  
-                  <form-error :columns="true"></form-error>
+                  <!-- TODO: set error disini klo gagal login atau session expired -->
+                  <!--<form-error :columns="true"></form-error>-->
                 </div>
                 <div class="input-group mb-3">
                   <span class="input-group-addon"><i class="far fa-user"></i></span>
@@ -50,7 +50,8 @@ import {mapActions} from 'vuex'
         logInUser: 'Auth/login'
       }),
       signInUser() {
-        this.logInUser(this.user)
+        let __self = this;
+        this.logInUser({user: __self.user, router: __self.$router})
       }
     },
     mounted () {
