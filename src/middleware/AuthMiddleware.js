@@ -11,6 +11,7 @@ export function isInvalidToken () {
 }
 
 export default function (to, from, next) {
+
   if (to.matched.length > 0 && to.matched[0].meta.requiresAuth) {
     if (isInvalidToken()) {
       // eraseCookie(key)
@@ -23,7 +24,8 @@ export default function (to, from, next) {
     if (!isInvalidToken()) {
 
       // redirect to home page, to prevent showing login page while user is logged in
-      next({name: 'home'})
+      // next({name: 'home'})
+      location.href = '/dashboard'
     }
   }
 

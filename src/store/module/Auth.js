@@ -25,7 +25,7 @@ const actions = {
       await createCookie(keyUserInfo, user.userDetails)
 
       // redirect to home
-      router.push({name: "home"})
+      router.push({name: "dashboard"})
     }).catch(error => {
       //  TODO: Handle Error, set to be form or toast
       console.log(error)
