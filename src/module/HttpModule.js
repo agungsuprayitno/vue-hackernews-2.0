@@ -22,14 +22,14 @@ export const VoucherGeneratorAxios = axios.create({
   }
 })
 
-VoucherGeneratorAxios.interceptors.response.use(function (response) {
-  return response
-}, function (error) {
-  if (error.response.status===401) {
-    window.location.href = '/'
-  }
-  throw error
-})
+// VoucherGeneratorAxios.interceptors.response.use(function (response) {
+//   return response
+// }, function (error) {
+//   if (error.response.status===401) {
+//     window.location.href = '/'
+//   }
+//   throw error
+// })
 
 export default {
   VoucherGeneratorAxios

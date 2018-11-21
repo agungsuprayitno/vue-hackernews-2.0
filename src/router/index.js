@@ -28,7 +28,11 @@ export function createRouter () {
     fallback: false,
     scrollBehavior: () => ({ y: 0 }),
     routes: [
-      { path: '/login', name: 'login', component: LoginPage },
+      { path: '/login',
+        name: 'login',
+        component: LoginPage,
+        meta: {notRequiresAuth: true}
+      },
       { path: '/',
         name: 'home',
         component: Layout,
