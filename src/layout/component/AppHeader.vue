@@ -7,11 +7,12 @@
     <button class="navbar-toggler sidebar-toggler d-md-down-none mr-auto" type="button" @click="sidebarToggle">
       <span class="navbar-toggler-icon"></span>
     </button>
-     <!--<button class="navbar-toggler aside-menu-toggler d-md-down-none" type="button" @click="asideToggle">-->
-      <!--<span class="navbar-toggler-icon"></span>-->
-    <!--</button>-->
-    <button class="navbar-toggler aside-menu-toggler d-md-down-none" type="button" >
-    <span class="fa fa-power-off text-white"></span>
+
+    <!-- TODO: change this text to icon -->
+     <router-link :to="{name: 'change-password'}" class="navbar-toggler aside-menu-toggler text-white font-sm font-weight-bold"> Change Password</router-link>
+
+    <button class="navbar-toggler aside-menu-toggler" type="button" @click="logoutUser">
+    <span class="fa fa-power-off text-white "></span>
     </button>
   </div>
 </template>
@@ -20,6 +21,9 @@ import {mapActions} from 'vuex'
 export default {
   name: 'app-header',
   methods: {
+    ...mapActions({
+      "logOutUser" : "Auth/logout"
+    }),
     sidebarToggle (e) {
       e.preventDefault()
       document.body.classList.toggle('sidebar-hidden')
@@ -37,7 +41,7 @@ export default {
       document.body.classList.toggle('aside-menu-hidden')
     },
     logoutUser: function () {
-      this.signOutUser()
+      this.logOutUser()
     }
   }
 }

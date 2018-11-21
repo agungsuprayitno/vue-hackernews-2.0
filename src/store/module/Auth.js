@@ -25,12 +25,20 @@ const actions = {
       await createCookie(keyUserInfo, user.userDetails)
 
       // redirect to home
-      router.push({name: "dashboard"})
+      location.href = "dashboard"
     }).catch(error => {
       //  TODO: Handle Error, set to be form or toast
       console.log(error)
     })
   },
+  async logout (store) {
+    //  get Token
+    await AuthApi.logoutApi().then(async (user)=> {
+      console.log(user)
+    }).catch(error => {
+      console.log(error)
+    })
+  }
 }
 
 const mutations = {

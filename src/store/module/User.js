@@ -45,6 +45,16 @@ const actions = {
       //  TODO: Handle Error, set to be form or toast
       console.log(error)
     })
+  },
+
+  async changePassword (store, user) {
+
+    await UserApi.changePasswordApi(user).then((user) => {
+      //  TODO: set notification password changed sucess
+    }).catch(error => {
+      //  TODO: Handle Error, set to be form or toast
+      console.log(error)
+    })
   }
 }
 
