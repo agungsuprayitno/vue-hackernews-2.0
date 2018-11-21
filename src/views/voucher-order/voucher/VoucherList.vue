@@ -18,25 +18,25 @@
       </b-table>
     </div>
     <b-modal ref="activateModalRef" hide-footer title="Activate Voucher">
-      <div class="d-block">
+      <div class="d-block" v-if="voucher.length>0">
         <h3>SUCCESS!</h3>
         <div>&nbsp;</div>
-        <h6>Secret Code: <strong><big>80167912115787</big></strong></h6>
-        <h6>Expired At: <strong>2019-11-16</strong></h6>
-        <h6>Serial Number: <strong>1811160002001953</strong></h6>
-        <h6>Denom: <strong>IDR 100000</strong></h6>
-        <h6>Activated At: <strong>2018-11-16T19:53:00</strong></h6>
+        <h6>Secret Code: <strong><big>{{voucher[0].SecretCode}}</big></strong></h6>
+        <h6>Expired At: <strong>{{voucher[0].ExpiredAt}}</strong></h6>
+        <h6>Serial Number: <strong>{{voucher[0].SerialNumber}}</strong></h6>
+        <h6>Denom: <strong>{{voucher[0].Denom}}</strong></h6>
+        <h6>Activated At: <strong>{{voucher[0].ActivatedAt}}</strong></h6>
         <div>&nbsp;</div>
       </div>
       <b-btn class="mt-3" variant="outline-success" block @click="hideActivateModal">Return</b-btn>
     </b-modal>    
     <b-modal ref="revokeModalRef" hide-footer title="Revoke Voucher">
-      <div class="d-block">
+      <div class="d-block" v-if="voucher.length>0">
         <h3>Revoke is successful</h3>
         <div>&nbsp;</div>
-        <h6>Serial Number: <strong>1811160002001953</strong></h6>
-        <h6>Denom: <strong>IDR 100000</strong></h6>
-        <h6>Revoked At: <strong>2018-11-16T19:53:00</strong></h6>
+        <h6>Serial Number: <strong>{{voucher[0].serialNumber}}</strong></h6>
+        <h6>Denom: <strong>{{voucher[0].denom}}</strong></h6>
+        <h6>Revoked At: <strong>{{voucher[0].revokedAt}}</strong></h6>
         <div>&nbsp;</div>
       </div>
       <b-btn class="mt-3" variant="outline-success" block @click="hideRevokeModal">Return</b-btn>
@@ -54,6 +54,7 @@ export default {
   },
   computed: {
     ...mapState({
+      voucher : state => state.Voucher.voucher,
       vouchers : state => state.Voucher.vouchers,
       pagination: state => state.Pagination.pagination
     }),
@@ -88,61 +89,62 @@ export default {
       return this.vouchers.data
     },
     async toActivateVoucher(serialNumber){
-
-      this.showActivateModal()
       this.activate(serialNumber)
-      this.$refs.voucherTable.refresh()
     },
     async toRevokeVoucher(serialNumber){
-      this.showRevokeModal()
       this.revoke(serialNumber)
-      this.$refs.voucherTable.refresh()
     },
     showActivateModal () {
       this.$refs.activateModalRef.show()
     },
     hideActivateModal () {
       this.$refs.activateModalRef.hide()
+      this.$refs.voucherTable.refresh()
     },
     showRevokeModal () {
       this.$refs.revokeModalRef.show()
     },
     hideRevokeModal () {
       this.$refs.revokeModalRef.hide()
+      this.$refs.voucherTable.refresh()
     },
     activate (serialNumber) {
-      let __self = this
-      let input = {
-        serialNumber: serialNumber
-      }
-      //  dispatch Actions Create on product
-      this.$validator.validateAll().then((result) => {
-        if (!result) {
-          window.scrollTo(0, 0)
-        } else {
-          if (result) {
-            let voucher = __self.activateVoucher(input)
-            console.log(voucher)
-          }
+      if(confirm('Are you sure want to activate this voucher?')) {
+        let __self = this
+        let input = {
+          serialNumber: serialNumber
         }
-      })
+        //  dispatch Actions Create on product
+        this.$validator.validateAll().then((result) => {
+          if (!result) {
+            window.scrollTo(0, 0)
+          } else {
+            if (result) {
+              __self.activateVoucher(input)
+              __self.showActivateModal()
+            }
+          }
+        })
+      }
     },
     revoke (serialNumber) {
-      let __self = this
-      let input = {
-        serialNumber: serialNumber
-      }
-      //  dispatch Actions Create on product
-      this.$validator.validateAll().then((result) => {
-        if (!result) {
-          window.scrollTo(0, 0)
-        } else {
-          if (result) {
-            let voucher = __self.revokeVoucher(input)
-            console.log(voucher)
-          }
+      if(confirm('Voucher that has been revoked won\'t be able being redeemed.\nAre you sure want to revoke this voucher?')) {
+        let __self = this
+        let input = {
+          serialNumber: serialNumber
         }
-      })
+        //  dispatch Actions Create on product
+        this.$validator.validateAll().then((result) => {
+          if (!result) {
+            window.scrollTo(0, 0)
+          } else {
+            if (result) {
+              __self.revokeVoucher(input)
+              __self.showRevokeModal()
+            }
+          }
+        })
+      }
     }
   }
 }

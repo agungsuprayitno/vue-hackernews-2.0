@@ -21,7 +21,6 @@ export default {
   },
 
   async activateVoucherApi(voucher) {
-    console.log(voucher)
     return await VoucherGeneratorAxios.put("/v1/rest/voucher/activate", voucher).then(async (voucher) => {
       return await voucher.data
     }).catch((error) => {

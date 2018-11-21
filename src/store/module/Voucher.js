@@ -5,11 +5,12 @@ const state  = () => ({
   vouchers: {},
   voucher: {},
   voucherOrders: {},
-  voucherOrder: {}
+  voucherOrder: {},
+  revokedVoucher: {}
 })
 
 const getters = {
-
+  
 }
 
 const actions = {
@@ -23,10 +24,8 @@ const actions = {
   },
 
   async createVoucher (store, {voucherOrder, router}) {
-    console.log(voucherOrder)
     await VoucherOrderApi.createVoucherApi(voucherOrder).then((voucherOrder) => {
       store.commit('SET_VOUCHER_ORDER', voucherOrder)
-      console.log(router)
       router.push({name: 'voucher-order-list'})
     }).catch(error => {
       //  TODO: Handle Error, set to be form or toast
@@ -44,8 +43,8 @@ const actions = {
   },
 
   async revokeVoucher (store, voucher) {
-    await VoucherApi.revokeVoucherApi(voucher).then((voucher) => {
-      store.commit('SET_VOUCHER', voucher)
+    await VoucherApi.revokeVoucherApi(voucher).then((revokedVoucher) => {
+      store.commit('SET_VOUCHER', revokedVoucher)
     }).catch(error => {
       //  TODO: Handle Error, set to be form or toast
       console.log(error)
@@ -75,6 +74,9 @@ const mutations = {
   },
   'SET_VOUCHER_ORDERS' (state, voucherOrders) {
     state.voucherOrders = voucherOrders
+  },
+  'SET_REVOKED_VOUCHER' (state, revokedVoucher) {
+    state.revokedVoucher = revokedVoucher
   }
 }
 
