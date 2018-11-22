@@ -6,27 +6,20 @@
           <div class="card-group mb-0">
             <div class="card p-4 d-block">
               <div class="card-block">
-                <h2 class="text-uppercase font-weight-bold">voucher generator</h2>
-                <p class="text-muted">Please Sign In</p>
+                <h5 class="text-uppercase font-weight-bold">Submit Your Email to Reset your Password</h5>
                 <div class="mh-2" style="min-height: 25px">
                   <!-- Loader -->
-                  <!-- TODO: set error disini klo gagal login atau session expired -->
+                  <!-- TODO: set error disini klo email not found -->
                   <!--<form-error :columns="true"></form-error>-->
                 </div>
+                <label class="row mx-0 font-weight-bold">Email</label>
                 <div class="input-group mb-3">
                   <span class="input-group-addon"><i class="far fa-user"></i></span>
-                  <input type="email" class="form-control" placeholder="Username" v-model="user.username" ref="username">
-                </div>
-                <div class="input-group mb-4">
-                  <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                  <input type="password" class="form-control" placeholder="Password" v-model="user.password" @keyup.enter="signInUser()">
+                  <input type="email" class="form-control" placeholder="Email" v-model="email" ref="email">
                 </div>
                 <div class="row justify-content-end">
-                  <div class="col-6">
-                    <button type="button" class="btn btn-primary px-4 font-weight-bold" @click="signInUser()"><i class="fa fa-sign-in-alt"></i> Login</button>
-                  </div>
                   <div class="col-6 text-right">
-                    <router-link :to="{name: 'reset-password-submit-email'}" class="btn btn-link px-0"> Reset Password?</router-link>
+                    <button type="button" class="btn btn-primary px-4 font-weight-bold" @click="submit()"><i class="fa fa-sign-in-alt"></i> Login</button>
                   </div>
                 </div>
               </div>
@@ -50,11 +43,11 @@ import {mapActions} from 'vuex'
     },  
     methods: {
       ...mapActions({
-        logInUser: 'Auth/login'
+        resetPassword: 'User/resetPassword'
       }),
-      signInUser() {
+      submit() {
         let __self = this;
-        this.logInUser({user: __self.user, router: __self.$router})
+        this.resetPassword({user: __self.user, router: __self.$router})
       }
     },
     mounted () {

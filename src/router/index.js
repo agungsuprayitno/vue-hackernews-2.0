@@ -6,6 +6,8 @@ import LoginPage from '@/views/LoginPage.vue'
 import Layout from '@/layout/Layout.vue'
 
 import DashboardPage from '@/views/DashboardPage.vue'
+import ResetPasswordPage from '@/views/ResetPasswordPage.vue'
+import ResetPasswordPageSubmitEmail from '@/views/ResetPasswordPageSubmitEmail.vue'
 
 import Product from '@/views/product'
 import Client from '@/views/client'
@@ -15,8 +17,10 @@ import User from '@/views/User'
 import VoucherOrder from '@/views/voucher-order'
 import Voucher from '@/views/voucher-order/voucher'
 
+
 //  Middleware
 import AuthMiddleware from '@/middleware/AuthMiddleware'
+import ResetPasswordMiddleware from '@/middleware/ResetPasswordMiddleware'
 
 const withPrefix = (prefix, routes) => 
     routes.map( (route) => {
@@ -33,6 +37,19 @@ export function createRouter () {
       { path: '/login',
         name: 'login',
         component: LoginPage,
+        meta: {notRequiresAuth: true}
+      },
+      { path: '/reset-password',
+        name: 'reset-password',
+        component: ResetPasswordPage,
+        //  TODO: validate link from email
+        beforeEnter: {
+          ResetPasswordMiddleware
+        }
+      },
+      { path: '/reset-password-submit-email',
+        name: 'reset-password-submit-email',
+        component: ResetPasswordPageSubmitEmail,
         meta: {notRequiresAuth: true}
       },
       { path: '/',
