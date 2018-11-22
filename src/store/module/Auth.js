@@ -30,14 +30,6 @@ const actions = {
       //  TODO: Handle Error, set to be form or toast
       console.log(error)
     })
-  },
-  async logout (store) {
-    //  get Token
-    await AuthApi.logoutApi().then(async (user)=> {
-      console.log(user)
-    }).catch(error => {
-      console.log(error)
-    })
   }
 }
 

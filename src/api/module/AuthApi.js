@@ -13,12 +13,4 @@ export default {
       throw error
     })
   },
-
-  async logoutApi() {
-    return await VoucherGeneratorAxios.post("/logout").then(async (user) => {
-      return user
-    }).catch((error) => {
-      throw error
-    })
-  }
 }
