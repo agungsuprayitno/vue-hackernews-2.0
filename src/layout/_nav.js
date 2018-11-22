@@ -36,6 +36,16 @@ export default {
       accessName: [access.USER]
     },
     {
+      name: 'Voucher',
+      url: '/voucher-order',
+      icon: 'icon-puzzle',
+      accessName: [access.VOUCHER],
+      badge: {
+        variant: 'primary',
+        text: 'NEW'
+      }
+    },
+    {
       divider: true
     }
   ]

@@ -12,6 +12,8 @@ import Client from '@/views/client'
 import ProductVariant from '@/views/product/variant'
 import Merchant from '@/views/merchant'
 import User from '@/views/User'
+import VoucherOrder from '@/views/voucher-order'
+import Voucher from '@/views/voucher-order/voucher'
 
 //  Middleware
 import AuthMiddleware from '@/middleware/AuthMiddleware'
@@ -127,6 +129,23 @@ export function createRouter () {
               path: '/edit/:clientId',
               name: 'edit-client',
               component: Client.ClientForm
+            }
+          ]),
+          ...withPrefix('/voucher-order',[
+            {
+              path: '/',
+              name: 'voucher-order-list',
+              component: VoucherOrder.VoucherOrderList
+            },
+            {
+              path: '/create',
+              name: 'create-voucher-order',
+              component: VoucherOrder.VoucherOrderForm
+            },
+            {
+              path: '/order/:voucherOrderId',
+              name: 'voucher-list',
+              component: Voucher.VoucherList
             }
           ])
         ]
