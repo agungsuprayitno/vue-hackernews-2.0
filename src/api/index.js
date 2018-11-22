@@ -26,6 +26,6 @@ export default {
   ProductVariantApi,
   MerchantApi,
   VoucherOrderApi,
-  VoucherApi
+  VoucherApi,
   AuthApi
 }
