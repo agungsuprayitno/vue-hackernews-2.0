@@ -48,11 +48,11 @@ export default {
     }),
     productInput() {
       if(!this.$lodash.isEmpty(this.$route.params.productId)) {
-        return this.product
+        return this.product.data
       }
       return {
         name: '',
-        status: this.$constant.status.inactiveStatus
+        status: this.$constant.status.activeStatus
       }
     }
   },
@@ -94,6 +94,7 @@ export default {
                 __self.updateProduct(input)
             }else {
                 __self.createProduct(input)
+
             }
           }
         }

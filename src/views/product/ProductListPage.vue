@@ -15,10 +15,11 @@
         </template>
 
         <template slot="actions" slot-scope="row">
-          <router-link :to="{name: 'edit-product', params: {productId: row.item.id}}" class="font-weight-bold btn btn-outline-warning btn-sm">Edit</router-link> &nbsp;
-          <router-link :to="{name: 'product-variant-list', params: {productId: row.item.id}}" class="font-weight-bold btn btn-outline-primary btn-sm">Variant</router-link> &nbsp;
-          <b-button :size="'sm'" :variant="'outline-danger'" class="font-weight-bold shadow" v-if="row.item.status == $constant.status.activeStatus" @click="deactivateProduct(row.item.id)">DEACTIVATE</b-button>
-          <b-button :size="'sm'" :variant="'outline-success'" class="font-weight-bold shadow" @click="activateProduct(row.item.id)" v-else>ACTIVATE</b-button>
+          <!--router-link :to="{name: 'edit-product', params: {productId: row.item.id}}" class="font-weight-bold btn btn-outline-warning btn-sm shadow">Edit</router-link> &nbsp;-->
+          <router-link :to="{name: 'product-variant-list', params: {productId: row.item.id}}" class="font-weight-bold btn btn-outline-primary btn-sm shadow">Variant</router-link> &nbsp;
+          <b-button :size="'sm'" :variant="'outline-danger'" class="font-weight-bold shadow" v-if="row.item.status == $constant.status.activeStatus" @click="toDeactivateProduct(row.item.id)">Block</b-button>
+          <b-button :size="'sm'" :variant="'outline-success'" class="font-weight-bold shadow" @click="toActivateProduct(row.item.id)" v-else>Activate</b-button>
+          &nbsp;<b-button :size="'sm'" :variant="'outline-danger'" class="font-weight-bold shadow" @click="toDeleteProduct(row.item.id)">Delete</b-button>
         </template>
       </b-table>
     </div>
@@ -55,7 +56,9 @@ export default {
   methods: {
     ...mapActions({
       getProduct: 'Product/getProduct',
-      updateProduct: 'Product/updateProduct',
+      activateProduct: 'Product/activateProduct',
+      blockProduct: 'Product/blockProduct',
+      deleteProduct: 'Product/deleteProduct',
       setPagination: 'Pagination/setPagination'
     }),
     async getProducts(ctx) {
@@ -65,24 +68,33 @@ export default {
       await this.getProduct({pagination: this.pagination})
       return this.products.data
     },
-    async deactivateProduct(productId){
+    async toDeactivateProduct(productId){
       let status = this.$constant.status.inactiveStatus
       let productInput = {
         id: productId,
         status: status
       }
-      await this.updateProduct(productInput)
+      await this.blockProduct(productInput)
       this.$refs.productTable.refresh()
     },
-    async activateProduct(productId){
+    async toActivateProduct(productId){
       let status = this.$constant.status.activeStatus
       let productInput = {
         id: productId,
         status: status
       }
-      await this.updateProduct(productInput)
+      await this.activateProduct(productInput)
       this.$refs.productTable.refresh()
-    }    
+    },
+    async toDeleteProduct(productId){
+      if(confirm('Are you sure want to delete this product?')){
+        let productInput = {
+          id: productId
+        }
+        await this.deleteProduct(productInput)
+        this.$refs.productTable.refresh()
+      }
+    }
   }
 }
 </script>

@@ -44,6 +44,33 @@ const actions = {
       //  TODO: Handle Error, set to be form or toast
       console.log(error)
     })
+  },
+
+  async activateProductVariant (store, productVariant) {
+    await ProductVariantApi.activateProductVariantApi(productVariant).then((productVariant) => {
+      store.commit('SET_PRODUCT_VARIANT', productVariant)
+    }).catch(error => {
+      //  TODO: Handle Error, set to be form or toast
+      console.log(error)
+    })
+  },
+
+  async blockProductVariant (store, productVariant) {
+    await ProductVariantApi.blockProductVariantApi(productVariant).then((productVariant) => {
+      store.commit('SET_PRODUCT_VARIANT', productVariant)
+    }).catch(error => {
+      //  TODO: Handle Error, set to be form or toast
+      console.log(error)
+    })
+  },
+  
+  async deleteProductVariant (store, productVariant) {
+    await ProductVariantApi.deleteProductVariantApi(productVariant).then((productVariant) => {
+      store.commit('SET_PRODUCT_VARIANT', productVariant)
+    }).catch(error => {
+      //  TODO: Handle Error, set to be form or toast
+      console.log(error)
+    })
   }
 }
 

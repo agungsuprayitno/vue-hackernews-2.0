@@ -58,7 +58,7 @@ export default {
     },
     productVariantInput() {
        //  check if page on edit mode
-      if(this.isRouteVariantIdExist) return this.productVariant
+      if(this.isRouteVariantIdExist) return this.productVariant.data
       
       let productVariantInput = {
         skuCode: '',
@@ -91,10 +91,10 @@ export default {
     submit () {
       let __self = this
       let input = {
-        sku_code: __self.productVariantInput.skuCode,
+        skuCode: __self.productVariantInput.skuCode,
         denom: __self.productVariantInput.denom,
         status: __self.productVariantInput.status,
-        product_id: __self.$route.params.productId
+        productId: __self.$route.params.productId
       }
 
         //  dispatch Actions Create on product
