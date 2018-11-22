@@ -8,12 +8,12 @@
           </div>
 
           <b-form-group label="SKU Code" :label-cols="3" :horizontal="true">
-            <b-form-input v-model="productVariantInput.skuCode" :disabled="isRouteVariantIdExist" v-validate="'required|regex:^[A-Za-z][A-Za-z0-9 \-+%]*$'" data-vv-as="SKU Code" name="sku_code" ref="sku_code" type="text"></b-form-input>
+            <b-form-input v-model="productVariantInput.skuCode" :disabled="isRouteVariantIdExist" v-validate="'required'" data-vv-as="SKU Code" name="sku_code" ref="sku_code" type="text"></b-form-input>
             <span v-show="errors.has('sku_code')" class="text-danger is-danger">{{ errors.first('sku_code') }}</span>
           </b-form-group>
           
           <b-form-group label="Denom" :label-cols="3" :horizontal="true">
-            <b-form-input v-model="productVariantInput.denom" v-validate="'required|regex:^[A-Za-z][A-Za-z0-9 \-+%]*$'" data-vv-as="Denom" name="denom" type="text"></b-form-input>
+            <b-form-input v-model="productVariantInput.denom" v-validate="'required'" data-vv-as="Denom" name="denom" type="text"></b-form-input>
             <span v-show="errors.has('denom')" class="text-danger is-danger">{{ errors.first('denom') }}</span>
           </b-form-group>
 
@@ -105,9 +105,9 @@ export default {
           if (result) {
             if(__self.isRouteVariantIdExist){
                 input.id = __self.$route.params.productVariantId
-                __self.updateProductVariant(input)
+                __self.updateProductVariant({productVariant: input, router: __self.$router})
             }else {
-                __self.createProductVariant(input)
+                __self.createProductVariant({productVariant: input, router: __self.$router})
             }
           }
         }

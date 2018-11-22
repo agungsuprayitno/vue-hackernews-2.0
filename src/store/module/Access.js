@@ -1,4 +1,5 @@
 import {AccessApi} from '@/api'
+import {readCookie, keyUserInfo} from "@/module/CacheModule";
 
 const state  = () => ({
   access: []
@@ -9,9 +10,13 @@ const getters = {
 }
 
 const actions = {
- async getUserAccess(store) {
-    let accesses = await AccessApi.getUserAccessApi()
-    store.commit('SET_ACCESS', accesses)
+  async getUserAccess(store) {
+    let userId = 0
+    if(keyUserInfo) {
+      userId = readCookie(keyUserInfo).userId
+    }
+    let accesses = await AccessApi.getUserAccessApi(userId)
+    store.commit('SET_ACCESS', accesses.data)
   }
 }
 

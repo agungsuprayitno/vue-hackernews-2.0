@@ -28,18 +28,20 @@ const actions = {
     })
   },
 
-  async createProductVariant (store, productVariant) {
+  async createProductVariant (store, {productVariant, router}) {
     await ProductVariantApi.createProductVariantApi(productVariant).then((productVariant) => {
       store.commit('SET_PRODUCT_VARIANT', productVariant)
+      router.push({name: 'product-variant-list'})
     }).catch(error => {
       //  TODO: Handle Error, set to be form or toast
       console.log(error)
     })
   },
 
-  async updateProductVariant (store, productVariant) {
+  async updateProductVariant (store, {productVariant, router}) {
     await ProductVariantApi.updateProductVariantApi(productVariant).then((productVariant) => {
       store.commit('SET_PRODUCT_VARIANT', productVariant)
+      router.push({name: 'product-variant-list'})
     }).catch(error => {
       //  TODO: Handle Error, set to be form or toast
       console.log(error)
