@@ -55,6 +55,15 @@ const actions = {
       //  TODO: Handle Error, set to be form or toast
       console.log(error)
     })
+  },
+  async sendLinkForgotPassword (store, email) {
+
+    await UserApi.sendLinkForgotPasswordApi(email).then((user) => {
+      //  TODO: set notification send link to email
+    }).catch(error => {
+      //  TODO: Handle Error, set to be form or toast
+      console.log(error)
+    })
   }
 }
 

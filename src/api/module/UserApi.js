@@ -42,5 +42,14 @@ export default {
       console.log(error)
       throw error
     })
+  },
+
+  async sendLinkForgotPasswordApi(email) {
+    return await VoucherGeneratorAxios.post("/v1/auth/forgot-password-email", email).then(async (user) => {
+      return await user.data
+    }).catch((error) => {
+      console.log(error)
+      throw error
+    })
   }
 }

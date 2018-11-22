@@ -19,7 +19,7 @@
                 </div>
                 <div class="row justify-content-end">
                   <div class="col-6 text-right">
-                    <button type="button" class="btn btn-primary px-4 font-weight-bold" @click="submit()"><i class="fa fa-sign-in-alt"></i> Login</button>
+                    <button type="button" class="btn btn-primary px-4 font-weight-bold" @click="submit()"><i class="fa fa-sign-in-alt"></i> Send Email</button>
                   </div>
                 </div>
               </div>
@@ -35,23 +35,20 @@ import {mapActions} from 'vuex'
   export default {
     data: function () {
       return {
-        user: {
-          username: '',
-          password: ''
-        }
+        email: ''
       }
     },  
     methods: {
       ...mapActions({
-        resetPassword: 'User/resetPassword'
+        sendLinkForgotPassword: 'User/sendLinkForgotPassword'
       }),
       submit() {
         let __self = this;
-        this.resetPassword({user: __self.user, router: __self.$router})
+        __self.sendLinkForgotPassword(__self.email)
       }
     },
     mounted () {
-      this.$refs.username.focus()
+      this.$refs.email.focus()
     }
   }
 </script>
