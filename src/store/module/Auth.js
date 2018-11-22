@@ -25,12 +25,12 @@ const actions = {
       await createCookie(keyUserInfo, user.userDetails)
 
       // redirect to home
-      router.push({name: "dashboard"})
+      location.href = "dashboard"
     }).catch(error => {
       //  TODO: Handle Error, set to be form or toast
       console.log(error)
     })
-  },
+  }
 }
 
 const mutations = {

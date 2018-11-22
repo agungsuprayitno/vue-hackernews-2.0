@@ -40,6 +40,12 @@ export default {
       url: '/voucher-order',
       icon: 'icon-puzzle',
       accessName: [access.VOUCHER],
+    },
+    {
+      name: 'Voucher',
+      url: '/voucher-order',
+      icon: 'icon-puzzle',
+      accessName: [access.VOUCHER],
       badge: {
         variant: 'primary',
         text: 'NEW'

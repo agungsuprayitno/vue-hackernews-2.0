@@ -36,6 +36,7 @@ export function createRouter () {
         meta: {notRequiresAuth: true}
       },
       { path: '/',
+        redirect: '/dashboard',
         name: 'home',
         component: Layout,
         meta: {requiresAuth: true},
@@ -112,6 +113,11 @@ export function createRouter () {
               path: '/edit/:userId',
               name: 'edit-user',
               component: User.UserForm
+            },
+            {
+              path: '/change-password',
+              name: 'change-password',
+              component: User.UserChangePasswordForm
             }
           ]),
           ...withPrefix('/client',[
