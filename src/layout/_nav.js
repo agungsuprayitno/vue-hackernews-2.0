@@ -15,31 +15,31 @@ export default {
       name: 'Product',
       url: '/product',
       icon: 'icon-puzzle',
-      // accessName: [access.PRODUCT]
+      accessName: [access.PRODUCT]
     },
     {
       name: 'Client',
       url: '/client',
       icon: 'icon-puzzle',
-      // accessName: [access.CLIENT]
+      accessName: [access.CLIENT]
     },
     {
       name: 'Merchant',
       url: '/merchant',
       icon: 'icon-puzzle',
-      // accessName: [access.MERCHANT]
+      accessName: [access.MERCHANT]
     },
     {
       name: 'User',
       url: '/user',
       icon: 'icon-user',
-      // accessName: [access.USER]
+      accessName: [access.USER]
     },
     {
       name: 'Voucher',
       url: '/voucher-order',
       icon: 'icon-puzzle',
-      // accessName: [access.VOUCHER],
+      accessName: [access.VOUCHER],
     },
     {
       name: 'Voucher',
