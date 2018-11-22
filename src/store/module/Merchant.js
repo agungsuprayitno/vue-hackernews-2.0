@@ -28,8 +28,31 @@ const actions = {
     })
   },
 
-  async createMerchant (store, merchant) {
+  async createMerchant (store, {merchant, router}) {
     await MerchantApi.createMerchantApi( merchant).then((merchant) => {
+      store.commit('SET_MERCHANT', merchant)
+      router.push({name: 'merchant-list'})
+    }).catch(error => {
+      //  TODO: Handle Error, set to be form or toast
+      console.log(error)
+    })
+  },
+
+  async updateMerchant (store, {merchant, router}) {
+
+    await MerchantApi.updateMerchantApi(merchant).then((merchant) => {
+      store.commit('SET_MERCHANT', merchant)
+      router.push({name: 'merchant-list'})
+
+    }).catch(error => {
+      //  TODO: Handle Error, set to be form or toast
+      console.log(error)
+    })
+  },
+
+  async activateMerchant (store, merchant) {
+
+    await MerchantApi.activateMerchantApi(merchant).then((merchant) => {
       store.commit('SET_MERCHANT', merchant)
     }).catch(error => {
       //  TODO: Handle Error, set to be form or toast
@@ -37,9 +60,19 @@ const actions = {
     })
   },
 
-  async updateMerchant (store, merchant) {
+  async blockMerchant (store, merchant) {
 
-    await MerchantApi.updateMerchantApi(merchant).then((merchant) => {
+    await MerchantApi.blockMerchantApi(merchant).then((merchant) => {
+      store.commit('SET_MERCHANT', merchant)
+    }).catch(error => {
+      //  TODO: Handle Error, set to be form or toast
+      console.log(error)
+    })
+  },
+
+  async deleteMerchant (store, merchant) {
+
+    await MerchantApi.deleteMerchantApi(merchant).then((merchant) => {
       store.commit('SET_MERCHANT', merchant)
     }).catch(error => {
       //  TODO: Handle Error, set to be form or toast
