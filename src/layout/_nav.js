@@ -15,25 +15,25 @@ export default {
       name: 'Product',
       url: '/product',
       icon: 'icon-puzzle',
-      accessName: [access.PRODUCT]
+      accessName: [access.GET_PRODUCT]
     },
     {
       name: 'Client',
       url: '/client',
       icon: 'icon-puzzle',
-      accessName: [access.CLIENT]
+      accessName: [access.GET_CLIENT]
     },
     {
       name: 'Merchant',
       url: '/merchant',
       icon: 'icon-puzzle',
-      accessName: [access.MERCHANT]
+      accessName: [access.GET_MERCHANT]
     },
     {
       name: 'User',
       url: '/user',
       icon: 'icon-user',
-      accessName: [access.USER]
+      accessName: [access.GET_USER]
     },
     {
       name: 'Voucher',

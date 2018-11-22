@@ -3,13 +3,27 @@ export default {
   async getUserAccessApi() {
    // TODO: get access from backend
     let accesses = [
-     "product",
-     "client",
+     "get-merchant",
+     "create-merchant",
+     "update-merchant",
+     "activate-merchant",
+     "block-merchant",
+     "get-user",
+     "create-user",
+     "update-user",
+     "activate-user",
+     "block-user",
      "get-product",
-     "product",
-     "merchant",
-     "user",
-     "voucher"
+     "get-voucher-order",
+     "create-voucher-order",
+     "get-voucher",
+     "activate-voucher",
+     "revoke-voucher",
+     "get-client",
+     "create-client",
+     "update-client",
+     "activate-client",
+     "block-client"
     ]
     return await accesses 
   }
