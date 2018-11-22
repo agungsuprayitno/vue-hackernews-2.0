@@ -18,25 +18,25 @@
       </b-table>
     </div>
     <b-modal ref="activateModalRef" hide-footer title="Activate Voucher">
-      <div class="d-block" v-if="voucher.length>0">
+      <div class="d-block" v-if="voucher">
         <h3>SUCCESS!</h3>
         <div>&nbsp;</div>
-        <h6>Secret Code: <strong><big>{{voucher[0].SecretCode}}</big></strong></h6>
-        <h6>Expired At: <strong>{{voucher[0].ExpiredAt}}</strong></h6>
-        <h6>Serial Number: <strong>{{voucher[0].SerialNumber}}</strong></h6>
-        <h6>Denom: <strong>{{voucher[0].Denom}}</strong></h6>
-        <h6>Activated At: <strong>{{voucher[0].ActivatedAt}}</strong></h6>
+        <h6>Secret Code: <strong><big>{{voucher.SecretCode}}</big></strong></h6>
+        <h6>Expired At: <strong>{{voucher.ExpiredAt}}</strong></h6>
+        <h6>Serial Number: <strong>{{voucher.SerialNumber}}</strong></h6>
+        <h6>Denom: <strong>{{voucher.Denom}}</strong></h6>
+        <h6>Activated At: <strong>{{voucher.ActivatedAt}}</strong></h6>
         <div>&nbsp;</div>
       </div>
       <b-btn class="mt-3" variant="outline-success" block @click="hideActivateModal">Return</b-btn>
     </b-modal>    
     <b-modal ref="revokeModalRef" hide-footer title="Revoke Voucher">
-      <div class="d-block" v-if="voucher.length>0">
+      <div class="d-block" v-if="voucher">
         <h3>Revoke is successful</h3>
         <div>&nbsp;</div>
-        <h6>Serial Number: <strong>{{voucher[0].serialNumber}}</strong></h6>
-        <h6>Denom: <strong>{{voucher[0].denom}}</strong></h6>
-        <h6>Revoked At: <strong>{{voucher[0].revokedAt}}</strong></h6>
+        <h6>Serial Number: <strong>{{voucher.serialNumber}}</strong></h6>
+        <h6>Denom: <strong>{{voucher.denom}}</strong></h6>
+        <h6>Revoked At: <strong>{{voucher.revokedAt}}</strong></h6>
         <div>&nbsp;</div>
       </div>
       <b-btn class="mt-3" variant="outline-success" block @click="hideRevokeModal">Return</b-btn>
