@@ -3,10 +3,7 @@ import {VoucherOrderApi} from '@/api'
 
 const state  = () => ({
   vouchers: {},
-  voucher: {},
-  voucherOrders: {},
-  voucherOrder: {},
-  revokedVoucher: {}
+  voucher: {}
 })
 
 const getters = {
@@ -25,7 +22,7 @@ const actions = {
 
   async createVoucher (store, {voucherOrder, router}) {
     await VoucherOrderApi.createVoucherApi(voucherOrder).then((voucherOrder) => {
-      store.commit('SET_VOUCHER_ORDER', voucherOrder)
+      // store.commit('SET_VOUCHER_ORDER', voucherOrder)
       router.push({name: 'voucher-order-list'})
     }).catch(error => {
       //  TODO: Handle Error, set to be form or toast
@@ -49,16 +46,6 @@ const actions = {
       //  TODO: Handle Error, set to be form or toast
       console.log(error)
     })
-  },
-
-  async updateMerchant (store, merchant) {
-
-    await VoucherOrderApi.updateMerchantApi(voucherOrder).then((voucherOrder) => {
-      store.commit('SET_VOUCHER_ORDER', voucherOrder)
-    }).catch(error => {
-      //  TODO: Handle Error, set to be form or toast
-      console.log(error)
-    })
   }
 }
 
@@ -68,15 +55,6 @@ const mutations = {
   },
   'SET_VOUCHERS' (state, vouchers) {
     state.vouchers = vouchers
-  },
-  'SET_VOUCHER_ORDER' (state, voucherOrder) {
-    state.voucherOrder = voucherOrder
-  },
-  'SET_VOUCHER_ORDERS' (state, voucherOrders) {
-    state.voucherOrders = voucherOrders
-  },
-  'SET_REVOKED_VOUCHER' (state, revokedVoucher) {
-    state.revokedVoucher = revokedVoucher
   }
 }
 
