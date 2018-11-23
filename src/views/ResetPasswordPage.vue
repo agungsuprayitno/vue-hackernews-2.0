@@ -53,7 +53,7 @@ import {mapActions} from 'vuex'
       }
     },
     mounted () {
-      this.$refs.username.focus()
+      this.$refs.password.focus()
     }
   }
 </script>

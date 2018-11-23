@@ -3,6 +3,7 @@ import {UserApi} from '@/api'
 const state  = () => ({
   users: {},
   user: {},
+  isValidCode: true
 })
 
 const getters = {
@@ -56,12 +57,20 @@ const actions = {
       console.log(error)
     })
   },
-  async sendLinkForgotPassword (store, email) {
+  async sendLinkForgotPassword (store, user) {
 
-    await UserApi.sendLinkForgotPasswordApi(email).then((user) => {
+    await UserApi.sendLinkForgotPasswordApi(user).then((user) => {
       //  TODO: set notification send link to email
     }).catch(error => {
       //  TODO: Handle Error, set to be form or toast
+      console.log(error)
+    })
+  },
+
+  async validatePasswordResetCode(store, code) {
+    await UserApi.validatePasswordResetCodeApi(code).then((validCode) => {
+      store.commit('SET_IS_VALID_CODE', validCode)
+    }).catch(error => {
       console.log(error)
     })
   }
@@ -73,7 +82,10 @@ const mutations = {
   },
   'SET_USERS' (state, users) {
     state.users = users
-  }
+  },
+  'SET_IS_VALID_CODE' (state, validCode) {
+    state.isValidCode = validCode
+  },
 }
 
 export default {

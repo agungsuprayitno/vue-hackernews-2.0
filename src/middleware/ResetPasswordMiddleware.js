@@ -1,5 +1,24 @@
 import {isEmpty} from 'lodash'
+import {store} from '@/store'
 
 export default function (to, from, next) {
-  // TODO: check params link dari email
+
+  //  prevent access page without valid code
+  if(!isEmpty(to.query) && !isEmpty(to.query.code)) {
+
+    let code = to.query.code
+    // TODO: check params link dari email
+
+    store.dispatch("User/validatePasswordResetCode", code).then(() => {
+      if(store.state.User.isValidCode === true){
+        next()
+      } else {
+        next({name: 'login'})
+      }
+    })
+
+  }
+
+  //  redirect to login page, in case
+
 }

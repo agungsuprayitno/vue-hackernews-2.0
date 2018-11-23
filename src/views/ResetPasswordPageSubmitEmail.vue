@@ -15,7 +15,7 @@
                 <label class="row mx-0 font-weight-bold">Email</label>
                 <div class="input-group mb-3">
                   <span class="input-group-addon"><i class="far fa-user"></i></span>
-                  <input type="email" class="form-control" placeholder="Email" v-model="email" ref="email">
+                  <input type="email" class="form-control" placeholder="Email" v-model="user.email" ref="email">
                 </div>
                 <div class="row justify-content-end">
                   <div class="col-6 text-right">
@@ -35,7 +35,9 @@ import {mapActions} from 'vuex'
   export default {
     data: function () {
       return {
-        email: ''
+        user: {
+          email: ''
+        }
       }
     },  
     methods: {
@@ -44,7 +46,7 @@ import {mapActions} from 'vuex'
       }),
       submit() {
         let __self = this;
-        __self.sendLinkForgotPassword(__self.email)
+        __self.sendLinkForgotPassword(__self.user)
       }
     },
     mounted () {

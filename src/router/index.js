@@ -42,9 +42,10 @@ export function createRouter () {
       { path: '/reset-password',
         name: 'reset-password',
         component: ResetPasswordPage,
+        meta: {notRequiresAuth: true},
         //  TODO: validate link from email
-        beforeEnter: {
-          ResetPasswordMiddleware
+        beforeEnter: (to, from, next) => {
+          ResetPasswordMiddleware(to, from, next)
         }
       },
       { path: '/reset-password-submit-email',
