@@ -181,9 +181,9 @@ export default {
           if (result) {
             if(__self.isMerchantExist){
                 input.id = __self.$route.params.merchantId
-                __self.updateMerchant({merchant: input, router:__self.router})
+                __self.updateMerchant({merchant: input, router:__self.$router})
             }else {
-                __self.createMerchant({merchant: input, router:__self.router})
+                __self.createMerchant({merchant: input, router:__self.$router})
             }
           }
         }
