@@ -63,7 +63,6 @@ export default {
   },
 
   async resetPasswordApi(user) {
-    console.log(JSON.stringify(user))
     return await VoucherGeneratorAxios.put("/v1/auth/reset-password", user).then(async (user) => {
       return await user.data
     }).catch((error) => {
