@@ -105,9 +105,9 @@ export default {
           if (result) {
             if(__self.isRouteVariantIdExist){
                 input.id = __self.$route.params.productVariantId
-                __self.updateProductVariant(input)
+                __self.updateProductVariant({productVariant: input, router: __self.$router})
             }else {
-                __self.createProductVariant(input)
+                __self.createProductVariant({productVariant: input, router: __self.$router})
             }
           }
         }
