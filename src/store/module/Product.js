@@ -28,21 +28,25 @@ const actions = {
     })
   },
 
-  async createProduct (store, product) {
-    await ProductApi.createProductApi( product).then((product) => {
+  async createProduct (store, {product, router}) {
+    await ProductApi.createProductApi(product).then((product) => {
       store.commit('SET_PRODUCT', product)
-      store.dispatch('Product/getProductApi')
 
+      //  redirect to list of product
+      router.push({name: "product-list"})
     }).catch(error => {
       //  TODO: Handle Error, set to be form or toast
       console.log(error)
     })
   },
 
-  async updateProduct (store, product) {
+  async updateProduct (store, {product, router}) {
 
     await ProductApi.updateProductApi(product).then((product) => {
       store.commit('SET_PRODUCT', product)
+
+      //  redirect to list of product
+      router.push({name: "product-list"})
     }).catch(error => {
       //  TODO: Handle Error, set to be form or toast
       console.log(error)
