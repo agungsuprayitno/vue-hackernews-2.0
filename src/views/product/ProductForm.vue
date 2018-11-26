@@ -91,9 +91,9 @@ export default {
           if (result) {
             if(!this.$lodash.isEmpty(this.$route.params.productId)){
                 input.id = __self.$route.params.productId
-                __self.updateProduct(input)
+                __self.updateProduct({product: input, router: __self.$router})
             }else {
-                __self.createProduct(input)
+                __self.createProduct({product: input, router: __self.$router})
 
             }
           }
