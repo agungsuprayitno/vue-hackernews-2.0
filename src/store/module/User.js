@@ -73,7 +73,17 @@ const actions = {
     }).catch(error => {
       console.log(error)
     })
-  }
+  },
+
+  async resetPassword (store, {user, router}) {
+
+    await UserApi.resetPasswordApi(user).then((user) => {
+      //  TODO: set notification password changed sucess
+    }).catch(error => {
+      //  TODO: Handle Error, set to be form or toast
+      console.log(error)
+    })
+  },
 }
 
 const mutations = {
