@@ -11,6 +11,16 @@ export default {
     })
   },
 
+  async getProductVariantListApi(productId) {
+    return await VoucherGeneratorAxios.get("/v1/rest/product/" + productId + "/variant/all").then(async (productVariantList) => {
+      let productVariants = []
+      productVariantList.data.forEach(data => productVariants.push({id: data.id , title: data.skuCode}))
+      return await productVariants
+    }).catch((error) => {
+      throw error
+    })
+  },
+
   async getProductVariantByProductVariantIdApi(productId, productVariantId) {
     return await VoucherGeneratorAxios.get("/v1/rest/product/" + productId + "/variant/" + productVariantId).then(async (productVariant) => {
       return await productVariant.data

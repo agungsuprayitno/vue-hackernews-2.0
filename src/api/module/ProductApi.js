@@ -11,6 +11,16 @@ export default {
     })
   },
 
+  async getAllProductListApi() {
+    return await VoucherGeneratorAxios.get("/v1/rest/product/all").then(async (productList) => {
+      let products = []
+      productList.data.forEach(data => products.push({id: data.id , title: data.name}))
+      return await products
+    }).catch((error) => {
+      throw error
+    })
+  },
+  
   async getProductByProductIdApi(productId) {
     return await VoucherGeneratorAxios.get("/v1/rest/product/" + productId).then(async (product) => {
       return await product.data

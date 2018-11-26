@@ -3,6 +3,7 @@ import {ProductApi} from '@/api'
 const state  = () => ({
   products: {},
   product: {},
+  productList: {}
 })
 
 const getters = {
@@ -13,6 +14,15 @@ const actions = {
   async getProduct (store, {pagination}) {
     await ProductApi.getProductApi(pagination).then((products) => {
       store.commit('SET_PRODUCTS', products)
+    }).catch(error => {
+      //  TODO: Handle Error, set to be form or toast
+      console.log(error)
+    })
+  },
+
+  async getAllProductList (store) {
+    await ProductApi.getAllProductListApi().then((productList) => {
+      store.commit('SET_PRODUCT_LIST', productList)
     }).catch(error => {
       //  TODO: Handle Error, set to be form or toast
       console.log(error)
@@ -87,6 +97,9 @@ const mutations = {
   },
   'SET_PRODUCTS' (state, products) {
     state.products = products
+  },
+  'SET_PRODUCT_LIST' (state, productList) {
+    state.productList = productList
   }
 }
 
