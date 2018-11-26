@@ -13,7 +13,7 @@ export default function (to, from, next) {
       if(store.state.User.isValidCode === true){
         next()
       } else {
-        next({name: 'login'})
+        next({name: 'invalid-reset-password-code'})
       }
     })
 

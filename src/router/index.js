@@ -8,6 +8,7 @@ import Layout from '@/layout/Layout.vue'
 import DashboardPage from '@/views/DashboardPage.vue'
 import ResetPasswordPage from '@/views/ResetPasswordPage.vue'
 import ResetPasswordPageSubmitEmail from '@/views/ResetPasswordPageSubmitEmail.vue'
+import InvalidResetPasswordCodePage from '@/views/InvalidResetPasswordCodePage.vue'
 
 import Product from '@/views/product'
 import Client from '@/views/client'
@@ -51,6 +52,11 @@ export function createRouter () {
       { path: '/reset-password-submit-email',
         name: 'reset-password-submit-email',
         component: ResetPasswordPageSubmitEmail,
+        meta: {notRequiresAuth: true}
+      },
+      { path: '/invalid-reset-password-code',
+        name: 'invalid-reset-password-code',
+        component: InvalidResetPasswordCodePage,
         meta: {notRequiresAuth: true}
       },
       { path: '/',
