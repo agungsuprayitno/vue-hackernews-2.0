@@ -4,15 +4,25 @@ export default {
  
   async getProductVariantApi(productId, pagination) {
     let queryParams = setPagination(pagination)
-    return await VoucherGeneratorAxios.get("/v1/product/" + productId + "/variant/" + queryParams).then(async (productVariants) => {
+    return await VoucherGeneratorAxios.get("/v1/rest/product/" + productId + "/variant/" + queryParams).then(async (productVariants) => {
       return await productVariants.data
     }).catch((error) => {
       throw error
     })
   },
 
+  async getProductVariantListApi(productId) {
+    return await VoucherGeneratorAxios.get("/v1/rest/product/" + productId + "/variant/all").then(async (productVariantList) => {
+      let productVariants = []
+      productVariantList.data.forEach(data => productVariants.push({id: data.id , title: data.skuCode}))
+      return await productVariants
+    }).catch((error) => {
+      throw error
+    })
+  },
+
   async getProductVariantByProductVariantIdApi(productId, productVariantId) {
-    return await VoucherGeneratorAxios.get("/v1/product/" + productId + "/variant/" + productVariantId).then(async (productVariant) => {
+    return await VoucherGeneratorAxios.get("/v1/rest/product/" + productId + "/variant/" + productVariantId).then(async (productVariant) => {
       return await productVariant.data
     }).catch((error) => {
       throw error
@@ -20,7 +30,7 @@ export default {
   },
 
   async createProductVariantApi(productVariant) {
-    return await VoucherGeneratorAxios.post("/v1/product/" + parseInt(productVariant.productId) + "/variant/", productVariant).then(async (productVariant) => {
+    return await VoucherGeneratorAxios.post("/v1/rest/product/" + parseInt(productVariant.productId) + "/variant/", productVariant).then(async (productVariant) => {
       return await productVariant.data
     }).catch((error) => {
       throw error
@@ -28,7 +38,7 @@ export default {
   },
 
   async updateProductVariantApi(productVariant) {
-    return await VoucherGeneratorAxios.put("/v1/product/" + parseInt(productVariant.productId) + "/variant/" + productVariant.id, productVariant).then(async (productVariant) => {
+    return await VoucherGeneratorAxios.put("/v1/rest/product/" + parseInt(productVariant.productId) + "/variant/" + productVariant.id, productVariant).then(async (productVariant) => {
       return await productVariant.data
     }).catch((error) => {
       throw error
@@ -36,7 +46,7 @@ export default {
   },
 
   async activateProductVariantApi(productVariant) {
-    return await VoucherGeneratorAxios.put("/v1/product/" + parseInt(productVariant.productId) + "/variant/activate/" + productVariant.id).then(async (productVariant) => {
+    return await VoucherGeneratorAxios.put("/v1/rest/product/" + parseInt(productVariant.productId) + "/variant/activate/" + productVariant.id).then(async (productVariant) => {
       return await productVariant.data
     }).catch((error) => {
       throw error
@@ -44,7 +54,7 @@ export default {
   },
 
   async blockProductVariantApi(productVariant) {
-    return await VoucherGeneratorAxios.put("/v1/product/" + parseInt(productVariant.productId) + "/variant/block/" + productVariant.id).then(async (productVariant) => {
+    return await VoucherGeneratorAxios.put("/v1/rest/product/" + parseInt(productVariant.productId) + "/variant/block/" + productVariant.id).then(async (productVariant) => {
       return await productVariant.data
     }).catch((error) => {
       throw error
@@ -52,7 +62,7 @@ export default {
   },
 
   async deleteProductVariantApi(productVariant) {
-    return await VoucherGeneratorAxios.delete("/v1/product/" + parseInt(productVariant.productId) + "/variant/" + productVariant.id, productVariant).then(async (productVariant) => {
+    return await VoucherGeneratorAxios.delete("/v1/rest/product/" + parseInt(productVariant.productId) + "/variant/" + productVariant.id, productVariant).then(async (productVariant) => {
       return await productVariant.data
     }).catch((error) => {
       throw error

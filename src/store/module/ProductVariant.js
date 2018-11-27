@@ -3,6 +3,7 @@ import {ProductVariantApi} from '@/api'
 const state  = () => ({
   productVariants: {},
   productVariant: {},
+  productVariantList: {}
 })
 
 const getters = {
@@ -19,6 +20,15 @@ const actions = {
     })
   },
 
+  async getProductVariantList (store, productId) {
+    await ProductVariantApi.getProductVariantListApi(productId).then((productVariantList) => {
+      store.commit('SET_PRODUCT_VARIANT_LIST', productVariantList)
+    }).catch(error => {
+      //  TODO: Handle Error, set to be form or toast
+      console.log(error)
+    })
+  },
+
   async getProductVariantByProductVariantId (store, {productId, productVariantId}) {
     await ProductVariantApi.getProductVariantByProductVariantIdApi(productId, productVariantId).then((productVariant) => {
       store.commit('SET_PRODUCT_VARIANT', productVariant)
@@ -28,18 +38,20 @@ const actions = {
     })
   },
 
-  async createProductVariant (store, productVariant) {
+  async createProductVariant (store, {productVariant, router}) {
     await ProductVariantApi.createProductVariantApi(productVariant).then((productVariant) => {
       store.commit('SET_PRODUCT_VARIANT', productVariant)
+      router.push({name: 'product-variant-list'})
     }).catch(error => {
       //  TODO: Handle Error, set to be form or toast
       console.log(error)
     })
   },
 
-  async updateProductVariant (store, productVariant) {
+  async updateProductVariant (store, {productVariant, router}) {
     await ProductVariantApi.updateProductVariantApi(productVariant).then((productVariant) => {
       store.commit('SET_PRODUCT_VARIANT', productVariant)
+      router.push({name: 'product-variant-list'})
     }).catch(error => {
       //  TODO: Handle Error, set to be form or toast
       console.log(error)
@@ -80,6 +92,9 @@ const mutations = {
   },
   'SET_PRODUCT_VARIANTS' (state, productVariants) {
     state.productVariants = productVariants
+  },
+  'SET_PRODUCT_VARIANT_LIST' (state, productVariantList) {
+    state.productVariantList = productVariantList
   }
 }
 

@@ -29,13 +29,13 @@ export default function (to, from, next) {
     }
   }
 
-//  // TODO:  pake ini untuk get role access user
-  //return store.dispatch('Access/getUserAccess').then(() => {
+ // TODO:  pake ini untuk get role access user
+  return store.dispatch('Access/getUserAccess').then(() => {
     // if (context.store.getters['access/access'].length === 0) {
     //   // context.store.dispatch('user/signOutUser')
     //   context.store.dispatch('user/setToken', null)
     //   return context.redirect('/')
     // }
-  //})
+  })
 
 }

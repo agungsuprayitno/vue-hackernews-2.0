@@ -1,16 +1,10 @@
 import {VoucherGeneratorAxios} from '@/module/HttpModule';
 export default {
   async getUserAccessApi() {
-   // TODO: get access from backend
-    let accesses = [
-     "product",
-     "client",
-     "get-product",
-     "product",
-     "merchant",
-     "user",
-     "voucher"
-    ]
-    return await accesses 
+    return await VoucherGeneratorAxios.get("/v1/rest/user/access").then(async (accesses) => {
+      return await accesses.data
+    }).catch((error) => {
+      throw error
+    })
   }
 }
