@@ -42,5 +42,32 @@ export default {
       console.log(error)
       throw error
     })
-  }
+  },
+
+  async sendLinkForgotPasswordApi(user) {
+    return await VoucherGeneratorAxios.post("/v1/auth/forgot-password-email", user).then(async (user) => {
+      return await user.data
+    }).catch((error) => {
+      console.log(error)
+      throw error
+    })
+  },
+
+  async validatePasswordResetCodeApi(code) {
+    return await VoucherGeneratorAxios.get("/v1/auth/" + code).then(async (isValidCode) => {
+      return await isValidCode.data
+    }).catch((error) => {
+      console.log(error)
+      throw error
+    })
+  },
+
+  async resetPasswordApi(user) {
+    return await VoucherGeneratorAxios.put("/v1/auth/reset-password", user).then(async (user) => {
+      return await user.data
+    }).catch((error) => {
+      console.log(error)
+      throw error
+    })
+  },
 }

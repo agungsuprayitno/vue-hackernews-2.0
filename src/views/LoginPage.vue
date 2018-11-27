@@ -22,8 +22,11 @@
                   <input type="password" class="form-control" placeholder="Password" v-model="user.password" @keyup.enter="signInUser()">
                 </div>
                 <div class="row justify-content-end">
-                  <div class="col-6 text-right">
+                  <div class="col-6">
                     <button type="button" class="btn btn-primary px-4 font-weight-bold" @click="signInUser()"><i class="fa fa-sign-in-alt"></i> Login</button>
+                  </div>
+                  <div class="col-6 text-right">
+                    <router-link :to="{name: 'reset-password-submit-email'}" class="btn btn-link px-0"> Reset Password?</router-link>
                   </div>
                 </div>
               </div>
