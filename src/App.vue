@@ -11,6 +11,10 @@
 
 <style lang="sass">
   @import "../public/scss/style.scss";
+  @import "../public/font-awesome/scss/fontawesome.scss";
+  @import "../public/font-awesome/scss/brands.scss";
+  @import "../public/font-awesome/scss/regular.scss";
+  @import "../public/font-awesome/scss/solid.scss";
 </style>
 
 <style lang="stylus">

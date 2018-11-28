@@ -14,7 +14,7 @@
                   <!--<form-error :columns="true"></form-error>-->
                 </div>
                 <div class="input-group mb-3">
-                  <span class="input-group-addon"><i class="far fa-user"></i></span>
+                  <span class="input-group-addon"><i class="fa fa-user"></i></span>
                   <input type="email" class="form-control" placeholder="Username" v-model="user.username" ref="username">
                 </div>
                 <div class="input-group mb-4">
