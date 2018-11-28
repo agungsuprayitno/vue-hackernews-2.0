@@ -1,5 +1,5 @@
 import {AuthApi} from '@/api'
-import {createCookie, key, keyUserInfo} from "@/module/CacheModule";
+import {createCookie, eraseCookie, key, keyUserInfo} from "@/module/CacheModule";
 
 const state  = () => ({
   token: {},
@@ -25,11 +25,18 @@ const actions = {
       await createCookie(keyUserInfo, user.userDetails)
 
       // redirect to home
-      location.href = "dashboard"
+      location.href = "/dashboard"
     }).catch(error => {
       //  TODO: Handle Error, set to be form or toast
       console.log(error)
     })
+  },
+
+  async logout () {
+      await eraseCookie(key)
+      await eraseCookie(keyUserInfo)
+
+    location.href = "/login"
   }
 }
 
