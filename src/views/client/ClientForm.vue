@@ -12,18 +12,18 @@
           </b-form-group>
 
           <b-form-group label="Client Email" :label-cols="3" :horizontal="true">
-            <b-form-input v-model="clientInput.email" v-validate="'required|regex:^[A-Za-z][A-Za-z0-9 \-+%]*$'" data-vv-as="Client Email" name="client_email" type="text"></b-form-input>
+            <b-form-input v-model="clientInput.email" v-validate="'required|email'" data-vv-as="Client Email" name="client_email" type="text"></b-form-input>
             <span v-show="errors.has('client_email')" class="text-danger is-danger">{{ errors.first('client_email') }}</span>
           </b-form-group>
 
           <b-form-group label="Client Phone Number" :label-cols="3" :horizontal="true">
-            <b-form-input v-model="clientInput.phoneNumber" v-validate="'required|regex:^[A-Za-z][A-Za-z0-9 \-+%]*$'" data-vv-as="Client Phone Number" name="phone_number" type="text"></b-form-input>
+            <b-form-input v-model="clientInput.phoneNumber" v-validate="'required'" data-vv-as="Client Phone Number" name="phone_number" type="text"></b-form-input>
             <span v-show="errors.has('phone_number')" class="text-danger is-danger">{{ errors.first('phone_number') }}</span>
           </b-form-group>
 
-          <b-form-group label="Client Code" :label-cols="3" :horizontal="true">
-            <b-form-input v-model="clientInput.code" v-validate="'required|regex:^[A-Za-z][A-Za-z0-9 \-+%]*$'" data-vv-as="Client Code" name="code" type="text"></b-form-input>
-            <span v-show="errors.has('code')" class="text-danger is-danger">{{ errors.first('code') }}</span>
+          <b-form-group label="Client Address" :label-cols="3" :horizontal="true">
+            <b-form-textarea v-model="address" v-validate="'required'" data-vv-as="Address" name="address" ></b-form-textarea>
+            <span v-show="errors.has('address')" class="text-danger is-danger">{{ errors.first('address') }}</span>
           </b-form-group>
 
           <!-- Only show component when the page is edit mode -->
@@ -53,7 +53,8 @@ export default {
         { value: this.$constant.status.activeStatus, text: this.$constant.status.activeStatus },
         { value: this.$constant.status.inactiveStatus, text: this.$constant.status.inactiveStatus }
       ],
-      resetValues: {}
+      resetValues: {},
+      address:''
     }
   },
 
@@ -69,8 +70,6 @@ export default {
         name: '',
         email: '',
         phoneNumber: '',
-        code: '',
-        status: this.$constant.status.inactiveStatus
       }
     }
   },
@@ -99,9 +98,12 @@ export default {
       let input = {
         name: __self.clientInput.name,
         email: __self.clientInput.email,
-        phone_number: __self.clientInput.phoneNumber,
-        code: __self.clientInput.code,
-        status: __self.clientInput.status
+        phoneNumber: __self.clientInput.phoneNumber,
+        reference: [
+          {
+            referenceName: "address", referenceValue: __self.address
+          }
+        ]
       }
 
         //  dispatch Actions Create on client
