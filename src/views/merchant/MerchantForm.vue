@@ -93,17 +93,20 @@ export default {
     },
     merchantInput() {
       if(this.isMerchantExist) {
-        let reference = this.merchant.data.reference;
-        for(var i=0; i<reference.length; i++) {
-          if(reference[i].referenceName==='ip_address') {
-            if(i===0){
-              this.merchant.data.ipAddress = reference[i].referenceValue; 
+        if(this.merchant.data){
+
+          let reference = this.merchant.data.reference;
+          for(var i=0; i<reference.length; i++) {
+            if(reference[i].referenceName==='ip_address') {
+              if(i===0){
+                this.merchant.data.ipAddress = reference[i].referenceValue; 
+              } else {
+                this.merchant.data.ipAddress += '\n' + reference[i].referenceValue; 
+              }
             } else {
-              this.merchant.data.ipAddress += '\n' + reference[i].referenceValue; 
+              this.merchant.data.referenceName = reference[i].referenceName;
+              this.merchant.data.referenceValue = reference[i].referenceValue;
             }
-          } else {
-            this.merchant.data.referenceName = reference[i].referenceName;
-            this.merchant.data.referenceValue = reference[i].referenceValue;
           }
         }
         return this.merchant.data
