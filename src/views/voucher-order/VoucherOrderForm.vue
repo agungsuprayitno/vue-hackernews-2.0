@@ -12,6 +12,12 @@
             <span v-show="errors.has('remark')" class="text-danger is-danger">{{ errors.first('remark') }}</span>
           </b-form-group>
 
+          <b-form-group label="Active status" :label-cols="3" :horizontal="true">
+            <b-form-select size="md" :options="activeStatus" value-field="id" text-field="title" v-model="voucherInput.active" v-validate="'required'" data-vv-as="Active status" name="active" value="Please select" class="mb3" >
+            </b-form-select>
+            
+          </b-form-group>
+
           <b-form-group label="" :label-cols="3" :horizontal="true">
             <div class="row">
               <div class="col-md-4">
@@ -23,8 +29,8 @@
               </div>
               <div class="col-md-4">
                   <label>Product Variant</label>
-                <b-form-select size="md" :options="productVariantList" value-field="id" text-field="title" v-model="voucherInput.productVariant" v-validate="'required'" data-vv-as="Product variant" name="product_variant" value="Please select" class="mb3">
-                </b-form-select>
+                  <b-form-select size="md" :options="productVariantList" value-field="id" text-field="title" v-model="voucherInput.productVariant" v-validate="'required'" data-vv-as="Product variant" name="product_variant" value="Please select" class="mb3">
+                  </b-form-select>
                 <!--b-form-input v-model="voucherInput.productVariant" data-vv-as="Product Variant" name="product_variant" type="text"></b-form-input-->
               </div>
               <div class="col-md-4">
@@ -54,10 +60,14 @@ export default {
         { id: this.$constant.status.activeStatus, title: this.$constant.status.activeStatus },
         { id: this.$constant.status.inactiveStatus, title: this.$constant.status.inactiveStatus }
       ],
+      activeStatus: [
+        { id: 'NO', title: 'No' },
+        { id: 'YES', title: 'Yes' }
+      ],
       resetValues: {},
       voucherInput: {
         remark: '',
-        quantity: '15',
+        quantity: '100',
         active: 'NO'
       }
     }
@@ -108,7 +118,7 @@ export default {
           let input = {
             remark: __self.voucherInput.remark,
             voucherOrderItem: voucherOrderItemArr,
-            active: 'NO'
+            active: __self.voucherInput.active
           }
 
             //  dispatch Actions Create on Voucher
@@ -128,7 +138,7 @@ export default {
           })
         }
       }
-    },
+  },
     reset() {
       //  reset text input
       this.voucherInput = {...this.resetValues.voucher}
