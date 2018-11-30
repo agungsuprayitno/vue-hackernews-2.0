@@ -12,10 +12,9 @@
             <span v-show="errors.has('remark')" class="text-danger is-danger">{{ errors.first('remark') }}</span>
           </b-form-group>
 
-          <b-form-group label="Active status" :label-cols="3" :horizontal="true">
+          <b-form-group label="Active status" :label-cols="3" :horizontal="true" description="If active status set to 'Yes', the voucher will be generated with the secret code">
             <b-form-select size="md" :options="activeStatus" value-field="id" text-field="title" v-model="voucherInput.active" v-validate="'required'" data-vv-as="Active status" name="active" value="Please select" class="mb3">
             </b-form-select>
-            <div class="col-12 my-2">If active status set to "Yes", the voucher will be generated with the secret code</div>
           </b-form-group>
 
           <b-form-group label="" :label-cols="3" :horizontal="true">
