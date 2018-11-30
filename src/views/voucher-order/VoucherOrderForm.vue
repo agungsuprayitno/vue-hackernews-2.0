@@ -19,16 +19,15 @@
 
           <b-form-group label="" :label-cols="3" :horizontal="true">
             <div class="row" v-for="(voucherOrderItem, index) in voucherOrderItemArr" :key="index">
-
               <div class="col-md-4">
                 <label>Product</label>
-                <b-form-select size="md" :options="productList" value-field="id" text-field="title" v-model="voucherOrderItem.product" v-validate="'required'" data-vv-as="Product" name="product" value="Please select" class="mb3" v-on:input="productOnChange(voucherOrderItem.product)">
+                <b-form-select size="md" :options="productList" value-field="id" text-field="title" v-model="voucherOrderItem.product" v-validate="'required'" data-vv-as="Product" name="product" value="Please select" class="mb3" v-on:input="productOnChange(voucherOrderItem.product, index)">
                 </b-form-select>
                 <span v-show="errors.has('product')" class="text-danger is-danger">{{ errors.first('product') }}</span>
               </div>
               <div class="col-md-4">
                   <label>Product Variant</label>
-                <b-form-select size="md" :options="productVariantList" value-field="id" text-field="title" v-model="voucherOrderItem.productVariant" v-validate="'required'" data-vv-as="Product variant" name="product_variant" value="Please select" class="mb3">
+                <b-form-select size="md" :options="voucherOrderItem.productVariantList" value-field="id" text-field="title" v-model="voucherOrderItem.productVariant" v-validate="'required'" data-vv-as="Product variant" name="product_variant" value="Please select" class="mb3">
                 </b-form-select>
                 <span v-show="errors.has('product_variant')" class="text-danger is-danger">{{ errors.first('product_variant') }}</span>
               </div>
@@ -73,6 +72,7 @@ export default {
       ],
       voucherOrderItemArr: [],
       blockRemoval: true,
+      productVariant:[]
     }
   },
 
@@ -109,8 +109,14 @@ export default {
       createVoucher: 'generating voucher',
       getVoucherOrderById: 'getting voucher order',
     }),
-    productOnChange(productId) {
-      this.getProductVariantListByProductId(productId)
+    async productOnChange(productId, index) {
+      let __self = this
+
+      // get Product Variant List
+      await __self.getProductVariantListByProductId(productId)
+
+      //  set options for product variant
+      __self.voucherOrderItemArr[index].productVariantList = __self.productVariantList
     },
     addVoucherOrderItemArr () {
       let checkEmptyVoucherOrderItemArr = this.voucherOrderItemArr.filter(voucherOrderItem => voucherOrderItem.number === null)
@@ -118,8 +124,9 @@ export default {
       if (checkEmptyVoucherOrderItemArr.length >= 1 && this.voucherOrderItemArr.length > 0) return
 
       this.voucherOrderItemArr.push({
-        product: this.productList,
-        productVariant: this.productVariantList,
+        product: '',
+        productVariant: '',
+        productVariantList: [],
         quantity: 15
       })
     },
