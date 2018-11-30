@@ -19,9 +19,18 @@ const actions = {
     })
   },
 
-  async createVoucher (store, voucherOrder) {
-    await VoucherOrderApi.createVoucherApi(voucherOrder).then((voucherOrder) => {
+  async createVoucher (store, voucherOrderId) {
+    await VoucherOrderApi.createVoucherApi(voucherOrderId).then((voucherOrder) => {
       store.commit('SET_VOUCHER_ORDER', voucherOrder)
+    }).catch(error => {
+      //  TODO: Handle Error, set to be form or toast
+      console.log(error)
+    })
+  },
+
+  async downloadVoucher (store, voucherOrder) {
+    await VoucherOrderApi.downloadApi(voucherOrder).then((voucherOrder) => {
+      // Todo: handle with data from file if wanna process it
     }).catch(error => {
       //  TODO: Handle Error, set to be form or toast
       console.log(error)

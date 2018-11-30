@@ -18,7 +18,8 @@
           <router-link :to="{name: 'voucher-list', params: {voucherOrderId: row.item.id}}" class="font-weight-bold btn btn-outline-primary btn-sm">List of voucher</router-link> &nbsp;
           <!--b-button :size="'sm'" :variant="'outline-danger'" class="font-weight-bold shadow" v-if="row.item.status == $constant.status.activeStatus" @click="deactivateUser(row.item.id)">DEACTIVATE</b-button>
           <b-button :size="'sm'" :variant="'outline-success'" class="font-weight-bold shadow" @click="activateUser(row.item.id)" v-else>ACTIVATE</b-button-->
-          <span v-if="row.item.voucherUrl"><a :href=row.item.voucherUrl :class="classList">Download</a></span>
+
+          <span v-if="row.item.fileName"><button class="btn btn-link" @click="downloadFile(orderId, row.item.fileName)"> <i class="fa fa-download"></i> Download</button></span>
         </template>
       </b-table>
     </div>
@@ -30,7 +31,8 @@ import {mapState, mapActions} from 'vuex'
 export default {
   data () {
     return {
-      currentPage: 1
+      currentPage: 1,
+      orderId: 34
     }
   },
   computed: {
@@ -57,8 +59,16 @@ export default {
   methods: {
     ...mapActions({
       getVoucherOrder: 'VoucherOrder/getVoucherOrder',
+      download: 'VoucherOrder/downloadVoucher',
       setPagination: 'Pagination/setPagination'
     }),
+    downloadFile(voucherOrderId, fileName) {
+      let voucherOrder = {
+        voucherOrderId: voucherOrderId,
+        fileNameL: fileName
+      }
+      this.download(voucherOrder)
+    },
     async getVoucherOrders(ctx) {
       // //  set pagination
       this.setPagination({currentPage: ctx.currentPage, size: 10})
