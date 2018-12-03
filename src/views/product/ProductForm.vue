@@ -7,7 +7,7 @@
             <strong>Product Form</strong>
           </div>
           <b-form-group label="Product Name" :label-cols="3" :horizontal="true">
-            <b-form-input v-model="productInput.name" v-validate="'required|regex:^[A-Za-z][A-Za-z0-9 \-+%]*$'" data-vv-as="Product Name" name="product_name" ref="product_name" type="text"></b-form-input>
+            <b-form-input v-model="productInput.name" v-validate="'required'" data-vv-as="Product Name" name="product_name" ref="product_name" type="text"></b-form-input>
             <span v-show="errors.has('product_name')" class="text-danger is-danger">{{ errors.first('product_name') }}</span>
           </b-form-group>
           
