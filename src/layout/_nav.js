@@ -7,8 +7,7 @@ export default {
       url: '/dashboard',
       icon: 'icon-speedometer',
       badge: {
-        variant: 'primary',
-        text: 'NEW'
+        variant: 'primary'
       }
     },
     {
@@ -36,13 +35,12 @@ export default {
       accessName: [access.GET_USER]
     },
     {
-      name: 'Voucher',
+      name: 'Voucher Order',
       url: '/voucher-order',
       icon: 'icon-puzzle',
       accessName: [access.GET_VOUCHER_ORDER],
       badge: {
-        variant: 'primary',
-        text: 'NEW'
+        variant: 'primary'
       }
     },
     {
