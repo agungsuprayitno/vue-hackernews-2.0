@@ -18,8 +18,7 @@
           <router-link :to="{name: 'voucher-list', params: {voucherOrderId: row.item.id}}" class="font-weight-bold btn btn-outline-primary btn-sm">List of voucher</router-link> &nbsp;
           <!--b-button :size="'sm'" :variant="'outline-danger'" class="font-weight-bold shadow" v-if="row.item.status == $constant.status.activeStatus" @click="deactivateUser(row.item.id)">DEACTIVATE</b-button>
           <b-button :size="'sm'" :variant="'outline-success'" class="font-weight-bold shadow" @click="activateUser(row.item.id)" v-else>ACTIVATE</b-button-->
-
-          <span v-if="row.item.fileName"><button class="btn btn-link" @click="downloadFile(orderId, row.item.fileName)"> <i class="fa fa-download"></i> Download</button></span>
+          <span v-if="row.item.fileName"><button class="btn btn-link" @click="downloadFile(row.item.id, row.item.fileName)"> <i class="fa fa-download"></i> Download</button></span>
         </template>
       </b-table>
     </div>
@@ -32,7 +31,6 @@ export default {
   data () {
     return {
       currentPage: 1,
-      orderId: 34
     }
   },
   computed: {
@@ -65,7 +63,7 @@ export default {
     downloadFile(voucherOrderId, fileName) {
       let voucherOrder = {
         voucherOrderId: voucherOrderId,
-        fileNameL: fileName
+        fileName: fileName
       }
       this.download(voucherOrder)
     },

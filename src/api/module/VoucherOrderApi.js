@@ -20,10 +20,8 @@ export default {
     })
   },
   async downloadApi(voucherOrder) {
-    console.log(voucherOrder.voucherOrderId, voucherOrder.fileName)
-    return await VoucherGeneratorAxios.get("/v1/rest/download/" + voucherOrder.voucherOrderId, {responseType: 'arraybuffer'}).then(async (voucherOrder) => {
-      console.log(voucherOrder)
-      createDownloadPopUp(voucherOrder.data, voucherOrder.headers, voucherOrder.fileName +".xlsx")
+    return await VoucherGeneratorAxios.get("/v1/rest/download/" + voucherOrder.voucherOrderId, {responseType: 'arraybuffer'}).then(async (voucherOrderFile) => {
+      createDownloadPopUp(voucherOrderFile.data, voucherOrderFile.headers, voucherOrder.fileName)
 
       return await voucherOrder.data
     }).catch((error) => {
