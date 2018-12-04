@@ -15,9 +15,10 @@
         </template>
 
         <template slot="actions" slot-scope="row">
-          <router-link :to="{name: 'edit-client', params: {clientId: row.item.id}}" class="font-weight-bold btn btn-outline-warning btn-sm">Edit</router-link> &nbsp;
-          <b-button :size="'sm'" :variant="'outline-danger'" class="font-weight-bold shadow" v-if="row.item.status == $constant.status.activeStatus" @click="deactivateClient(row.item.id)">DEACTIVATE</b-button>
-          <b-button :size="'sm'" :variant="'outline-success'" class="font-weight-bold shadow" @click="activateClient(row.item.id)" v-else>ACTIVATE</b-button>
+          <router-link :to="{name: 'edit-client', params: {clientId: row.item.id}}" class="font-weight-bold shadow btn btn-outline-warning btn-sm">Edit</router-link> &nbsp;
+          <b-button :size="'sm'" :variant="'outline-danger'" class="font-weight-bold shadow" v-if="row.item.status == $constant.status.activeStatus" @click="toBlockClient(row.item.id)">Block</b-button>
+          <b-button :size="'sm'" :variant="'outline-success'" class="font-weight-bold shadow" @click="toActivateClient(row.item.id)" v-else>Activate</b-button>
+          &nbsp;<b-button :size="'sm'" :variant="'outline-warning'" class="font-weight-bold shadow" @click="toDeleteClient(row.item.id)">Delete</b-button>
         </template>
       </b-table>
     </div>
@@ -58,6 +59,9 @@ export default {
     ...mapActions({
       getClient: 'Client/getClient',
       updateClient: 'Client/updateClient',
+      activateClient: 'Client/activateClient',
+      blockClient: 'Client/blockClient',
+      deleteClient: 'Client/deleteClient',
       setPagination: 'Pagination/setPagination'
     }),
     async getClients(ctx) {
@@ -67,23 +71,32 @@ export default {
       await this.getClient({pagination: this.pagination})
       return this.clients.data
     },
-    async deactivateClient(clientId){
+    async toBlockClient(clientId){
       let status = this.$constant.status.inactiveStatus
       let clientInput = {
         id: clientId,
         status: status
       }
-      await this.updateClient(clientInput)
+      await this.blockClient(clientInput)
       this.$refs.clientTable.refresh()
     },
-    async activateClient(clientId){
+    async toActivateClient(clientId){
       let status = this.$constant.status.activeStatus
       let clientInput = {
         id: clientId,
         status: status
       }
-      await this.updateClient(clientInput)
+      await this.activateClient(clientInput)
       this.$refs.clientTable.refresh()
+    },
+    async toDeleteClient(clientId){
+      if(confirm('Are you sure want to delete this client?')){
+        let clientInput = {
+          id: clientId
+        }
+        await this.deleteClient(clientInput)
+        this.$refs.clientTable.refresh()
+      }
     }    
   }
 }

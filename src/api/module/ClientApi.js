@@ -33,5 +33,29 @@ export default {
     }).catch((error) => {
       throw error
     })
+  },
+
+  async activateClientApi(client) {
+    return await VoucherGeneratorAxios.put("/v1/rest/client/activate/" + client.id, client).then(async (client) => {
+      return await client.data
+    }).catch((error) => {
+      throw error
+    })
+  },
+
+  async blockClientApi(client) {
+    return await VoucherGeneratorAxios.put("/v1/rest/client/block/" + client.id, client).then(async (client) => {
+      return await client.data
+    }).catch((error) => {
+      throw error
+    })
+  },
+
+  async deleteClientApi(client) {
+    return await VoucherGeneratorAxios.delete("/v1/rest/client/" + client.id, client).then(async (client) => {
+      return await client.data
+    }).catch((error) => {
+      throw error
+    })
   }
 }

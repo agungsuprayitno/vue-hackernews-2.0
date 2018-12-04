@@ -22,7 +22,7 @@
           </b-form-group>
 
           <b-form-group label="Client Address" :label-cols="3" :horizontal="true">
-            <b-form-textarea v-model="address" v-validate="'required'" data-vv-as="Address" name="address" ></b-form-textarea>
+            <b-form-textarea v-model="clientInput.referenceValue" v-validate="'required'" data-vv-as="Address" name="address" ></b-form-textarea>
             <span v-show="errors.has('address')" class="text-danger is-danger">{{ errors.first('address') }}</span>
           </b-form-group>
 
@@ -63,8 +63,24 @@ export default {
       client: state => state.Client.client
     }),
     clientInput() {
-      if(!this.$lodash.isEmpty(this.$route.params.clientId)) {
-        return this.client
+      
+      if(!this.$lodash.isEmpty(this.$route.params)) {
+        if(this.client.data){
+          let reference = this.client.data.reference;
+          for(var i=0; i<reference.length; i++) {
+            if(reference[i].referenceName==='ip_address') {
+              if(i===0){
+                this.client.data.ipAddress = reference[i].referenceValue; 
+              } else {
+                this.client.data.ipAddress += '\n' + reference[i].referenceValue; 
+              }
+            } else {
+              this.client.data.referenceName = reference[i].referenceName;
+              this.client.data.referenceValue = reference[i].referenceValue;
+            }
+          }
+        }
+        return this.client.data
       }
       return {
         name: '',
@@ -101,7 +117,7 @@ export default {
         phoneNumber: __self.clientInput.phoneNumber,
         reference: [
           {
-            referenceName: "address", referenceValue: __self.address
+            referenceName: "address", referenceValue: __self.clientInput.referenceValue
           }
         ]
       }
@@ -112,11 +128,11 @@ export default {
           window.scrollTo(0, 0)
         } else {
           if (result) {
-            if(!this.$lodash.isEmpty(this.$route.params.clientId)){
+            if(!this.$lodash.isEmpty(this.$route.params)){
                 input.id = __self.$route.params.clientId
-                __self.updateClient(input)
+                __self.updateClient({client: input, router: __self.$router})
             }else {
-                __self.createClient(input)
+                __self.createClient({client: input, router: __self.$router})
             }
           }
         }
