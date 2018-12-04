@@ -1,4 +1,5 @@
 import {VoucherGeneratorAxios} from '@/module/HttpModule';
+import {createDownloadPopUp} from '@/util/download'
 import {setPagination} from '@/util/pagination'
 export default {
 
@@ -18,4 +19,13 @@ export default {
       throw error
     })
   },
+  async downloadApi(voucherOrder) {
+    return await VoucherGeneratorAxios.get("/v1/rest/download/" + voucherOrder.voucherOrderId, {responseType: 'arraybuffer'}).then(async (voucherOrderFile) => {
+      createDownloadPopUp(voucherOrderFile.data, voucherOrderFile.headers, voucherOrder.fileName)
+
+      return await voucherOrder.data
+    }).catch((error) => {
+      throw error
+    })
+  }
 }
