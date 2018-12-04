@@ -15,8 +15,7 @@ const actions = {
     await ProductApi.getProductApi(pagination).then((products) => {
       store.commit('SET_PRODUCTS', products)
     }).catch(error => {
-      //  TODO: Handle Error, set to be form or toast
-      console.log(error)
+      store.dispatch("Notification/setNotification", error, {root: true})
     })
   },
 
@@ -24,8 +23,7 @@ const actions = {
     await ProductApi.getAllProductListApi().then((productList) => {
       store.commit('SET_PRODUCT_LIST', productList)
     }).catch(error => {
-      //  TODO: Handle Error, set to be form or toast
-      console.log(error)
+      store.dispatch("Notification/setNotification", error, {root: true})
     })
   },
 
@@ -33,8 +31,7 @@ const actions = {
     await ProductApi.getProductByProductIdApi(productId).then((product) => {
       store.commit('SET_PRODUCT', product)
     }).catch(error => {
-      //  TODO: Handle Error, set to be form or toast
-      console.log(error)
+      store.dispatch("Notification/setNotification", error, {root: true})
     })
   },
 
@@ -45,8 +42,7 @@ const actions = {
       //  redirect to list of product
       router.push({name: "product-list"})
     }).catch(error => {
-      //  TODO: Handle Error, set to be form or toast
-      console.log(error)
+      store.dispatch("Notification/setNotification", error, {root: true})
     })
   },
 
@@ -58,8 +54,7 @@ const actions = {
       //  redirect to list of product
       router.push({name: "product-list"})
     }).catch(error => {
-      //  TODO: Handle Error, set to be form or toast
-      console.log(error)
+      store.dispatch("Notification/setNotification", error, {root: true})
     })
   },
 
@@ -68,8 +63,7 @@ const actions = {
     await ProductApi.activateProductApi(product).then((product) => {
       store.commit('SET_PRODUCT', product)
     }).catch(error => {
-      //  TODO: Handle Error, set to be form or toast
-      console.log(error)
+      store.dispatch("Notification/setNotification", error, {root: true})
     })
   },
 
@@ -78,8 +72,7 @@ const actions = {
     await ProductApi.blockProductApi(product).then((product) => {
       store.commit('SET_PRODUCT', product)
     }).catch(error => {
-      //  TODO: Handle Error, set to be form or toast
-      console.log(error)
+      store.dispatch("Notification/setNotification", error, {root: true})
     })
   },
 
@@ -88,8 +81,7 @@ const actions = {
     await ProductApi.deleteProductApi(product).then((product) => {
       store.commit('SET_PRODUCT', product)
     }).catch(error => {
-      //  TODO: Handle Error, set to be form or toast
-      alert(error.message)
+      store.dispatch("Notification/setNotification", error, {root: true})
     })
   }
 

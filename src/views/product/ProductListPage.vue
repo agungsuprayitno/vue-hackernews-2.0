@@ -4,6 +4,7 @@
       <router-link :to="{name: 'create-product'}" class="btn btn-primary"> Create Product</router-link>
     </div>
     <div class="col-12 my-4 px-0">
+      <notification v-if="!$lodash.isEmpty(notification)"></notification>
       <!-- Pagination on Top -->
       <b-pagination :total-rows="paginationData.totalRows" v-model="currentPage" :per-page="paginationData.size" align="right" last-text="Last" first-text="First"></b-pagination>
       
@@ -29,6 +30,7 @@
 
 <script>
 import {mapState, mapActions} from 'vuex'
+import Notification from '@/components/Notification.vue'
 export default {
   data () {
     return {
@@ -38,7 +40,8 @@ export default {
   computed: {
     ...mapState({
       products : state => state.Product.products,
-      pagination: state => state.Pagination.pagination
+      pagination: state => state.Pagination.pagination,
+      notification: state => state.Notification.notification
     }),
     paginationData () {
       if (this.$lodash.isEmpty(this.products)) return this.pagination
@@ -52,7 +55,9 @@ export default {
       }        
     }
   },
-
+  components: {
+    Notification
+  },
   methods: {
     ...mapActions({
       getProduct: 'Product/getProduct',
