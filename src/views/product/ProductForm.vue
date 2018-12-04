@@ -6,6 +6,7 @@
           <div slot="header">
             <strong>Product Form</strong>
           </div>
+          <notification v-if="!$lodash.isEmpty(notification)"></notification>
           <b-form-group label="Product Name" :label-cols="3" :horizontal="true">
             <b-form-input v-model="productInput.name" v-validate="'required'" data-vv-as="Product Name" name="product_name" ref="product_name" type="text"></b-form-input>
             <span v-show="errors.has('product_name')" class="text-danger is-danger">{{ errors.first('product_name') }}</span>
@@ -31,6 +32,7 @@
 <script>
 
 import {mapState, mapActions} from 'vuex'
+import Notification from '@/components/Notification.vue'
 export default {
   data () {
     return {
@@ -44,7 +46,8 @@ export default {
 
   computed: {
     ...mapState({
-      product: state => state.Product.product
+      product: state => state.Product.product,
+      notification: state => state.Notification.notification
     }),
     productInput() {
       if(!this.$lodash.isEmpty(this.$route.params.productId)) {
@@ -55,6 +58,10 @@ export default {
         status: this.$constant.status.activeStatus
       }
     }
+  },
+
+  components: {
+    Notification
   },
 
   asyncData ({store, route}) {

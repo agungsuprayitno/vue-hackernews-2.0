@@ -7,7 +7,7 @@ export default {
     return await VoucherGeneratorAxios.get("/v1/rest/product" + queryParams).then(async (products) => {
       return await products.data
     }).catch((error) => {
-      throw error
+      throw error.response.data
     })
   },
 
@@ -17,7 +17,7 @@ export default {
       productList.data.forEach(data => products.push({id: data.id , title: data.name}))
       return await products
     }).catch((error) => {
-      throw error
+      throw error.response.data
     })
   },
   
@@ -25,7 +25,7 @@ export default {
     return await VoucherGeneratorAxios.get("/v1/rest/product/" + productId).then(async (product) => {
       return await product.data
     }).catch((error) => {
-      throw error
+      throw error.response.data
     })
   },
 
@@ -33,7 +33,7 @@ export default {
     return await VoucherGeneratorAxios.post("/v1/rest/product", product).then(async (product) => {
       return await product.data
     }).catch((error) => {
-      throw error
+      throw error.response.data
     })
   },
 
@@ -41,7 +41,7 @@ export default {
     return await VoucherGeneratorAxios.put("/v1/rest/product/" + product.id, product).then(async (product) => {
       return await product.data
     }).catch((error) => {
-      throw error
+      throw error.response.data
     })
   },
 
@@ -49,7 +49,7 @@ export default {
     return await VoucherGeneratorAxios.put("/v1/rest/product/activate/" + product.id).then(async (product) => {
       return await product.data
     }).catch((error) => {
-      throw error
+      throw error.response.data
     })
   },
 
@@ -57,7 +57,7 @@ export default {
     return await VoucherGeneratorAxios.put("/v1/rest/product/block/" + product.id).then(async (product) => {
       return await product.data
     }).catch((error) => {
-      throw error
+      throw error.response.data
     })
   },
 
@@ -65,7 +65,7 @@ export default {
     return await VoucherGeneratorAxios.delete("/v1/rest/product/" + product.id).then(async (product) => {
       return await product.data
     }).catch((error) => {
-      throw error
+      throw error.response.data
     })
   }
 
