@@ -4,6 +4,7 @@ Vue.use(Vuex)
 
 //  Component Store
 import Pagination from './component/Pagination'
+import Notification from './component/Notification'
 
 //  Module Store
 import User from './module/User'
@@ -29,7 +30,8 @@ export const store = new Vuex.Store({
     VoucherOrder,
     Voucher,
     Auth,
-    Pagination
+    Pagination,
+    Notification
   }
 })
 
