@@ -64,7 +64,7 @@ const serve = (path, cache) => express.static(resolve(path), {
 })
 
 app.use(compression({ threshold: 0 }))
-app.use(favicon('./public/img/logo-symbol.png'))
+app.use(favicon('./public/img/favicon.png'))
 app.use('/dist', serve('./dist', true))
 app.use('/public', serve('./public', true))
 app.use('/service-worker.js', serve('./dist/service-worker.js'))
@@ -97,7 +97,7 @@ function render (req, res) {
   }
 
   const context = {
-    title: 'Admin Vue', // default title
+    title: 'Voucher Generator', // default title
     url: req.url
   }
   renderer.renderToString(context, (err, html) => {
