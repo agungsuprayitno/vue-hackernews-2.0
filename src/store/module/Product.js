@@ -89,7 +89,7 @@ const actions = {
       store.commit('SET_PRODUCT', product)
     }).catch(error => {
       //  TODO: Handle Error, set to be form or toast
-      console.log(error)
+      alert(error.message)
     })
   }
 
