@@ -14,9 +14,7 @@ const actions = {
     await ClientApi.getClientApi(pagination).then((clients) => {
       store.commit('SET_CLIENTS', clients)
     }).catch(error => {
-      //  TODO: Handle Error, set to be form or toast
-      // console.log(error)
-      alert(error)
+      store.dispatch("Notification/setNotification", error, {root: true})
     })
   },
 
@@ -24,9 +22,7 @@ const actions = {
     await ClientApi.getClientByClientIdApi(clientId).then((client) => {
       store.commit('SET_CLIENT', client)
     }).catch(error => {
-      //  TODO: Handle Error, set to be form or toast
-      // console.log(error)
-      alert(error)
+      store.dispatch("Notification/setNotification", error, {root: true})
     })
   },
 
@@ -37,9 +33,7 @@ const actions = {
       //  redirect to list of product
       router.push({name: "client-list"})
     }).catch(error => {
-      //  TODO: Handle Error, set to be form or toast
-      // console.log(error)
-      alert(error)
+      store.dispatch("Notification/setNotification", error, {root: true})
     })
   },
 
@@ -51,9 +45,7 @@ const actions = {
       //  redirect to list of product
       router.push({name: "client-list"})
     }).catch(error => {
-      //  TODO: Handle Error, set to be form or toast
-      // console.log(error)
-      alert(error)
+      store.dispatch("Notification/setNotification", error, {root: true})
     })
   },
 
@@ -62,9 +54,7 @@ const actions = {
     await ClientApi.activateClientApi(client).then((client) => {
       store.commit('SET_CLIENT', client)
     }).catch(error => {
-      //  TODO: Handle Error, set to be form or toast
-      // console.log(error)
-      alert(error)
+      store.dispatch("Notification/setNotification", error, {root: true})
     })
   },
 
@@ -73,9 +63,7 @@ const actions = {
     await ClientApi.blockClientApi(client).then((client) => {
       store.commit('SET_CLIENT', client)
     }).catch(error => {
-      //  TODO: Handle Error, set to be form or toast
-      // console.log(error)
-      alert(error)
+      store.dispatch("Notification/setNotification", error, {root: true})
     })
   },
 
@@ -84,9 +72,7 @@ const actions = {
     await ClientApi.deleteClientApi(client).then((client) => {
       store.commit('SET_CLIENT', client)
     }).catch(error => {
-      //  TODO: Handle Error, set to be form or toast
-      // console.log(error)
-      alert(error)
+      store.dispatch("Notification/setNotification", error, {root: true})
     })
   }
   
