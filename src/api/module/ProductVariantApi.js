@@ -7,7 +7,7 @@ export default {
     return await VoucherGeneratorAxios.get("/v1/rest/product/" + productId + "/variant/" + queryParams).then(async (productVariants) => {
       return await productVariants.data
     }).catch((error) => {
-      throw error
+      throw error.response.data
     })
   },
 
@@ -17,7 +17,7 @@ export default {
       productVariantList.data.forEach(data => productVariants.push({id: data.id , title: data.skuCode}))
       return await productVariants
     }).catch((error) => {
-      throw error
+      throw error.response.data
     })
   },
 
@@ -25,7 +25,7 @@ export default {
     return await VoucherGeneratorAxios.get("/v1/rest/product/" + productId + "/variant/" + productVariantId).then(async (productVariant) => {
       return await productVariant.data
     }).catch((error) => {
-      throw error
+      throw error.response.data
     })
   },
 
@@ -33,7 +33,7 @@ export default {
     return await VoucherGeneratorAxios.post("/v1/rest/product/" + parseInt(productVariant.productId) + "/variant/", productVariant).then(async (productVariant) => {
       return await productVariant.data
     }).catch((error) => {
-      throw error
+      throw error.response.data
     })
   },
 
@@ -41,7 +41,7 @@ export default {
     return await VoucherGeneratorAxios.put("/v1/rest/product/" + parseInt(productVariant.productId) + "/variant/" + productVariant.id, productVariant).then(async (productVariant) => {
       return await productVariant.data
     }).catch((error) => {
-      throw error
+      throw error.response.data
     })
   },
 
@@ -49,7 +49,7 @@ export default {
     return await VoucherGeneratorAxios.put("/v1/rest/product/" + parseInt(productVariant.productId) + "/variant/activate/" + productVariant.id).then(async (productVariant) => {
       return await productVariant.data
     }).catch((error) => {
-      throw error
+      throw error.response.data
     })
   },
 
@@ -57,7 +57,7 @@ export default {
     return await VoucherGeneratorAxios.put("/v1/rest/product/" + parseInt(productVariant.productId) + "/variant/block/" + productVariant.id).then(async (productVariant) => {
       return await productVariant.data
     }).catch((error) => {
-      throw error
+      throw error.response.data
     })
   },
 
@@ -65,7 +65,7 @@ export default {
     return await VoucherGeneratorAxios.delete("/v1/rest/product/" + parseInt(productVariant.productId) + "/variant/" + productVariant.id, productVariant).then(async (productVariant) => {
       return await productVariant.data
     }).catch((error) => {
-      throw error
+      throw error.response.data
     })
   }
 }

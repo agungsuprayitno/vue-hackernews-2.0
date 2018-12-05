@@ -15,8 +15,7 @@ const actions = {
     await ProductVariantApi.getProductVariantApi(productId, pagination).then((productVariants) => {
       store.commit('SET_PRODUCT_VARIANTS', productVariants)
     }).catch(error => {
-      //  TODO: Handle Error, set to be form or toast
-      console.log(error)
+      store.dispatch("Notification/setNotification", error, {root: true})
     })
   },
 
@@ -24,8 +23,7 @@ const actions = {
     await ProductVariantApi.getProductVariantListApi(productId).then((productVariantList) => {
       store.commit('SET_PRODUCT_VARIANT_LIST', productVariantList)
     }).catch(error => {
-      //  TODO: Handle Error, set to be form or toast
-      console.log(error)
+      store.dispatch("Notification/setNotification", error, {root: true})
     })
   },
 
@@ -33,8 +31,7 @@ const actions = {
     await ProductVariantApi.getProductVariantByProductVariantIdApi(productId, productVariantId).then((productVariant) => {
       store.commit('SET_PRODUCT_VARIANT', productVariant)
     }).catch(error => {
-      //  TODO: Handle Error, set to be form or toast
-      console.log(error)
+      store.dispatch("Notification/setNotification", error, {root: true})
     })
   },
 
@@ -43,8 +40,7 @@ const actions = {
       store.commit('SET_PRODUCT_VARIANT', productVariant)
       router.push({name: 'product-variant-list'})
     }).catch(error => {
-      //  TODO: Handle Error, set to be form or toast
-      console.log(error)
+      store.dispatch("Notification/setNotification", error, {root: true})
     })
   },
 
@@ -53,8 +49,7 @@ const actions = {
       store.commit('SET_PRODUCT_VARIANT', productVariant)
       router.push({name: 'product-variant-list'})
     }).catch(error => {
-      //  TODO: Handle Error, set to be form or toast
-      console.log(error)
+      store.dispatch("Notification/setNotification", error, {root: true})
     })
   },
 
@@ -62,8 +57,7 @@ const actions = {
     await ProductVariantApi.activateProductVariantApi(productVariant).then((productVariant) => {
       store.commit('SET_PRODUCT_VARIANT', productVariant)
     }).catch(error => {
-      //  TODO: Handle Error, set to be form or toast
-      console.log(error)
+      store.dispatch("Notification/setNotification", error, {root: true})
     })
   },
 
@@ -71,8 +65,7 @@ const actions = {
     await ProductVariantApi.blockProductVariantApi(productVariant).then((productVariant) => {
       store.commit('SET_PRODUCT_VARIANT', productVariant)
     }).catch(error => {
-      //  TODO: Handle Error, set to be form or toast
-      console.log(error)
+      store.dispatch("Notification/setNotification", error, {root: true})
     })
   },
   
@@ -80,8 +73,7 @@ const actions = {
     await ProductVariantApi.deleteProductVariantApi(productVariant).then((productVariant) => {
       store.commit('SET_PRODUCT_VARIANT', productVariant)
     }).catch(error => {
-      //  TODO: Handle Error, set to be form or toast
-      console.log(error)
+      store.dispatch("Notification/setNotification", error, {root: true})
     })
   }
 }
