@@ -46,10 +46,11 @@ const actions = {
     })
   },
 
-  async changePassword (store, user) {
+  async changePassword (store, {user, router}) {
 
     await UserApi.changePasswordApi(user).then((user) => {
       //  TODO: set notification password changed sucess
+      router.push({name: "dashboard"})
     }).catch(error => {
       store.dispatch("Notification/setNotification", error, {root: true})
     })
