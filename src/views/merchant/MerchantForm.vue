@@ -6,6 +6,9 @@
           <div slot="header">
             <strong>Merchant Data</strong>
           </div>
+          
+          <notification v-if="!$lodash.isEmpty(notification)"></notification>
+
           <b-form-group label="Code" :label-cols="3" :horizontal="true">
             <b-form-input v-model="merchantInput.code" v-validate="'required'" data-vv-as="Merchant's code" name="merchant_code" ref="merchant_code" type="text" disabled></b-form-input>
             <span v-show="errors.has('merchant_code')" class="text-danger is-danger">{{ errors.first('merchant_code') }}</span>
@@ -55,6 +58,7 @@
           <!-- Only show component when the page is edit mode -->
           <!--b-col md="12" class="px-0" v-if="!$lodash.isEmpty($route.params.merchantId)">
             <b-form-group label="Status" :label-cols="3" :horizontal="true">
+
               <b-form-select v-model="merchantInput.status" :options="options" class="mb-3" name="merchant_status" />
               <span v-show="errors.has('merchant_status')" class="text-danger is-danger">{{ errors.first('merchant_status') }}</span>
             </b-form-group>
@@ -72,6 +76,7 @@
 <script>
 
 import {mapState, mapActions} from 'vuex'
+import Notification from '@/components/Notification.vue'
 export default {
   data () {
     return {
@@ -85,11 +90,12 @@ export default {
 
   computed: {
     ...mapState({
-      merchant: state => state.Merchant.merchant
+      merchant: state => state.Merchant.merchant,
+      notification: state => state.Notification.notification
     }),
     isMerchantExist() {
       //  check if page on edit mode
-      return !this.$lodash.isEmpty(this.$route.params)
+      return !this.$lodash.isEmpty(this.$route.params.merchantId)
     },
     merchantInput() {
       if(this.isMerchantExist) {
@@ -116,6 +122,10 @@ export default {
         apiKey: '<AUTO>'
       }
     }
+  },
+
+  components: {
+    Notification
   },
 
   asyncData ({store, route}) {

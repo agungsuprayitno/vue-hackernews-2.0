@@ -7,7 +7,7 @@ export default {
     return await VoucherGeneratorAxios.get("/v1/rest/merchant" + queryParams).then(async (merchants) => {
       return await merchants.data
     }).catch((error) => {
-      throw error
+      throw error.response.data
     })
   },
 
@@ -15,7 +15,7 @@ export default {
     return await VoucherGeneratorAxios.get("/v1/rest/merchant/" + merchantId).then(async (merchant) => {
       return await merchant.data
     }).catch((error) => {
-      throw error
+      throw error.response.data
     })
   },
 
@@ -23,7 +23,7 @@ export default {
     return await VoucherGeneratorAxios.post("/v1/rest/merchant", merchant).then(async (merchant) => {
       return await merchant.data
     }).catch((error) => {
-      throw error
+      throw error.response.data
     })
   },
 
@@ -31,7 +31,7 @@ export default {
     return await VoucherGeneratorAxios.put("/v1/rest/merchant/" + merchant.id, merchant).then(async (merchant) => {
       return await merchant.data
     }).catch((error) => {
-      throw error
+      throw error.response.data
     })
   },
 
@@ -39,7 +39,7 @@ export default {
     return await VoucherGeneratorAxios.put("/v1/rest/merchant/activate/" + merchant.id, merchant).then(async (merchant) => {
       return await merchant.data
     }).catch((error) => {
-      throw error
+      throw error.response.data
     })
   },
 
@@ -47,7 +47,7 @@ export default {
     return await VoucherGeneratorAxios.put("/v1/rest/merchant/block/" + merchant.id, merchant).then(async (merchant) => {
       return await merchant.data
     }).catch((error) => {
-      throw error
+      throw error.response.data
     })
   },
 
@@ -55,7 +55,7 @@ export default {
     return await VoucherGeneratorAxios.delete("/v1/rest/merchant/" + merchant.id, merchant).then(async (merchant) => {
       return await merchant.data
     }).catch((error) => {
-      throw error
+      throw error.response.data
     })
   }
 }
