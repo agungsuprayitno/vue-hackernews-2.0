@@ -27,8 +27,7 @@ const actions = {
       // redirect to home
       location.href = "/dashboard"
     }).catch(error => {
-      //  TODO: Handle Error, set to be form or toast
-      console.log(error)
+      store.dispatch("Notification/setNotification", error, {root: true})
     })
   },
 

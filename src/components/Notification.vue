@@ -6,7 +6,7 @@
              :variant="notificationType"
              @dismissed="dismissCountDown=0"
              @dismiss-count-down="countDownChanged">
-      {{notification.message}}
+      {{notificationMessage}}
     </b-alert>
   </b-row>
 </template>
@@ -15,6 +15,7 @@
   import {mapState, mapActions} from 'vuex'
   export default {
     name: "Notification",
+    props:['message'],
     data () {
       return {
         dismissCountDown: 0
@@ -24,7 +25,10 @@
       ...mapState({
         notification : state => state.Notification.notification,
         notificationType: state => state.Notification.notificationType
-      })
+      }),
+      notificationMessage() {
+        return(this.message === undefined) ? this.notification.message: this.message
+      }
     },
 
     methods: {
