@@ -6,7 +6,7 @@
           <div slot="header">
             <strong>Product Variant Form</strong>
           </div>
-
+          <notification v-if="!$lodash.isEmpty(notification)"></notification>
           <b-form-group label="SKU Code" :label-cols="3" :horizontal="true">
             <b-form-input v-model="productVariantInput.skuCode" :disabled="isRouteVariantIdExist" v-validate="'required'" data-vv-as="SKU Code" name="sku_code" ref="sku_code" type="text"></b-form-input>
             <span v-show="errors.has('sku_code')" class="text-danger is-danger">{{ errors.first('sku_code') }}</span>
@@ -37,6 +37,7 @@
 <script>
 
 import {mapState, mapActions} from 'vuex'
+import Notification from '@/components/Notification.vue'
 export default {
   data () {
     return {
@@ -50,7 +51,8 @@ export default {
 
   computed: {
     ...mapState({
-      productVariant: state => state.ProductVariant.productVariant
+      productVariant: state => state.ProductVariant.productVariant,
+      notification: state => state.Notification.notification
     }),
     isRouteVariantIdExist() {
       //  check if page on edit mode
@@ -67,6 +69,10 @@ export default {
       }
       return productVariantInput
     }
+  },
+
+  components: {
+    Notification
   },
 
   asyncData ({store, route}) {
