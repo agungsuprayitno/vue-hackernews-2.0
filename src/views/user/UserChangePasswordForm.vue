@@ -7,6 +7,8 @@
             <strong>Change Password</strong>
           </div>
 
+          <notification v-if="!$lodash.isEmpty(notification)"></notification>
+
           <b-form-group label="Old Password" :label-cols="3" :horizontal="true">
             <b-form-input v-model="userInput.oldPassword" v-validate="'required'" data-vv-as="Old Password" name="old_password" type="password" ref="oldPassword"></b-form-input>
             <span v-show="errors.has('old_password')" class="text-danger is-danger">{{ errors.first('old_password') }}</span>
@@ -18,9 +20,7 @@
           </b-form-group>
 
           <b-form-group label="Confirm Password" :label-cols="3" :horizontal="true">
-
             <b-form-input v-model="userInput.password" v-validate="'required'" data-vv-as="Password" name="password" ref="password" type="password"></b-form-input>
-
             <span v-show="errors.has('password')" class="text-danger is-danger">{{ errors.first('password') }}</span>
           </b-form-group>
 
@@ -43,11 +43,11 @@
 </template>
 <script>
 
-import {mapActions} from 'vuex'
+import {mapActions, mapState} from 'vuex'
+import Notification from '@/components/Notification.vue'
 export default {
   data () {
     return {
-
       resetValues: {}
     }
   },
@@ -59,7 +59,14 @@ export default {
         password: '',
         confirmPassword: ''
       }
-    }
+    },
+    ...mapState({
+      notification: state => state.Notification.notification
+    })
+  },
+
+  components:{
+    Notification
   },
 
   methods: {
@@ -74,10 +81,10 @@ export default {
         password: __self.userInput.password
       }
 
-        //  dispatch Actions Create on user
+      //  dispatch Actions Create on user
       this.$validator.validateAll().then((result) => {
         if (result) {
-            __self.changePassword(input)
+            __self.changePassword({user: input, router: __self.$router})
         } else {
           if (process.env.VUE_ENV !== 'server') {
             window.scrollTo(0, 0)

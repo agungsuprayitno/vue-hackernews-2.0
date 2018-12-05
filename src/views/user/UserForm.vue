@@ -6,12 +6,11 @@
           <div slot="header">
             <strong>User Form</strong>
           </div>
-
+          <notification v-if="!$lodash.isEmpty(notification)"></notification>
           <b-form-group label="Username" :label-cols="3" :horizontal="true">
-            <b-form-input v-model="userInput.username" v-validate="'required|regex:^[A-Za-z]*$'" data-vv-as="Username" name="username" ref="username" type="text"></b-form-input>
+            <b-form-input v-model="userInput.username" v-validate="'required|email'" data-vv-as="Username" name="username" ref="username" type="text"></b-form-input>
             <span v-show="errors.has('username')" class="text-danger is-danger">{{ errors.first('username') }}</span>
           </b-form-group>
-
 
           <b-form-group label="Password" :label-cols="3" :horizontal="true">
             <b-form-input v-model="userInput.confirmPassword" v-validate="'required|confirmed:password'" data-vv-as="Confirm Password" name="confirm_password" type="password"></b-form-input>
@@ -46,6 +45,7 @@
 
 import {mapState, mapActions} from 'vuex'
 import { mapWaitingActions } from 'vue-wait'
+import Notification from '@/components/Notification.vue'
 export default {
   data () {
     return {
@@ -59,7 +59,8 @@ export default {
 
   computed: {
     ...mapState({
-      user: state => state.User.user
+      user: state => state.User.user,
+      notification: state => state.Notification.notification
     }),
     userInput () {
       if(!this.$lodash.isEmpty(this.$route.params.userId)) {
@@ -72,6 +73,10 @@ export default {
         status: this.$constant.status.inactiveStatus
       }
     }
+  },
+
+  components: {
+    Notification
   },
 
   asyncData ({store, route}) {
@@ -112,9 +117,9 @@ export default {
         if (result) {
           if(!this.$lodash.isEmpty(this.$route.params.userId)){
               input.id = __self.$route.params.userId
-              __self.updateUser(input)
+              __self.updateUser({user: input, router: __self.$router})
           }else {
-              __self.createUser(input)
+              __self.createUser({user: input, router: __self.$router})
           }
         } else {
           if (process.env.VUE_ENV !== 'server') {

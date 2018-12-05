@@ -15,8 +15,7 @@ const actions = {
     await UserApi.getUserApi(pagination).then((users) => {
       store.commit('SET_USERS', users)
     }).catch(error => {
-      //  TODO: Handle Error, set to be form or toast
-      console.log(error)
+      store.dispatch("Notification/setNotification", error, {root: true})
     })
   },
 
@@ -24,27 +23,26 @@ const actions = {
     await UserApi.getUserByUserIdApi(userId).then((user) => {
       store.commit('SET_USER', user)
     }).catch(error => {
-      //  TODO: Handle Error, set to be form or toast
-      console.log(error)
+      store.dispatch("Notification/setNotification", error, {root: true})
     })
   },
 
-  async createUser (store, user) {
+  async createUser (store, {user, router}) {
     await UserApi.createUserApi( user).then((user) => {
       store.commit('SET_USER', user)
+      router.push({name: 'user-list'})
     }).catch(error => {
-      //  TODO: Handle Error, set to be form or toast
-      console.log(error)
+      store.dispatch("Notification/setNotification", error, {root: true})
     })
   },
 
-  async updateUser (store, user) {
+  async updateUser (store, {user, router}) {
 
     await UserApi.updateUserApi(user).then((user) => {
       store.commit('SET_USER', user)
+      router.push({name: 'user-list'})
     }).catch(error => {
-      //  TODO: Handle Error, set to be form or toast
-      console.log(error)
+      store.dispatch("Notification/setNotification", error, {root: true})
     })
   },
 
@@ -53,8 +51,7 @@ const actions = {
     await UserApi.changePasswordApi(user).then((user) => {
       //  TODO: set notification password changed sucess
     }).catch(error => {
-      //  TODO: Handle Error, set to be form or toast
-      console.log(error)
+      store.dispatch("Notification/setNotification", error, {root: true})
     })
   },
   async sendLinkForgotPassword (store, user) {
@@ -62,8 +59,7 @@ const actions = {
     await UserApi.sendLinkForgotPasswordApi(user).then((user) => {
       //  TODO: set notification send link to email
     }).catch(error => {
-      //  TODO: Handle Error, set to be form or toast
-      console.log(error)
+      store.dispatch("Notification/setNotification", error, {root: true})
     })
   },
 
@@ -71,7 +67,7 @@ const actions = {
     await UserApi.validatePasswordResetCodeApi(code).then((validCode) => {
       store.commit('SET_IS_VALID_CODE', validCode)
     }).catch(error => {
-      console.log(error)
+      store.dispatch("Notification/setNotification", error, {root: true})
     })
   },
 
@@ -80,8 +76,7 @@ const actions = {
     await UserApi.resetPasswordApi(user).then((user) => {
       //  TODO: set notification password changed sucess
     }).catch(error => {
-      //  TODO: Handle Error, set to be form or toast
-      console.log(error)
+      store.dispatch("Notification/setNotification", error, {root: true})
     })
   },
 }
