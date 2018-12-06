@@ -4,6 +4,7 @@
       <router-link :to="{name: 'create-user'}" class="btn btn-primary"> Create User</router-link>
     </div>
     <div class="col-12 my-4 px-0">
+      <notification v-if="!$lodash.isEmpty(notification)"></notification>
       <!-- Pagination on Top -->
       <b-pagination :total-rows="paginationData.totalRows" v-model="currentPage" :per-page="paginationData.size" align="right" last-text="Last" first-text="First"></b-pagination>
       
@@ -27,6 +28,7 @@
 
 <script>
 import {mapState, mapActions} from 'vuex'
+import Notification from '@/components/Notification.vue'
 export default {
   data () {
     return {
@@ -36,7 +38,8 @@ export default {
   computed: {
     ...mapState({
       users : state => state.User.users,
-      pagination: state => state.Pagination.pagination
+      pagination: state => state.Pagination.pagination,
+      notification: state => state.Notification.notification
     }),
     paginationData () {
       if (this.$lodash.isEmpty(this.users)) return this.pagination
@@ -50,6 +53,10 @@ export default {
         actions: {label: 'ACTION', sortable: false}
       }        
     }
+  },
+
+  components: {
+    Notification
   },
 
   methods: {
