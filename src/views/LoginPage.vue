@@ -11,7 +11,8 @@
                 </b-row>
                 <div class="mh-2" style="min-height: 25px">
                   <!-- Loader -->
-
+                  <form-loader v-if="isLoggingIn"></form-loader>
+                  <!-- Error Alert -->
                   <notification v-if="!$lodash.isEmpty(notification)" :message="'Invalid Username or Password'"></notification>
                 </div>
                 <div class="input-group mb-3">
@@ -40,39 +41,50 @@
   </div>
 </template>
 <script>
-import {mapActions, mapState} from 'vuex'
+import {mapState} from 'vuex'
+import {mapWaitingActions} from 'vue-wait'
 import Notification from '@/components/Notification.vue'
+import FormLoader from '@/components/loader/FormLoader.vue'
   export default {
     data: function () {
       return {
         user: {
           username: '',
           password: ''
-        }
+        },
+        signInLoader: 'logging-in-user'
       }
     },
 
     computed:{
       ...mapState({
-        notification: state => state.Notification.notification
-      })
+        notification: state => state.Notification.notification,
+        waitingFor: state => state.wait.waitingFor,
+      }),
+
+      isLoggingIn () {
+        let __self = this
+        return __self.waitingFor.find(wait => {
+          return wait === __self.signInLoader
+        })
+      }
     },
     methods: {
-      ...mapActions({
-        logInUser: 'Auth/login'
+      ...mapWaitingActions('Auth', {
+        login: 'logging-in-user'
       }),
       signInUser() {
         let __self = this;
         __self.$validator.validateAll().then((result) => {
           if (result) {
-            __self.logInUser({user: __self.user, router: __self.$router})
+            __self.login({user: __self.user, router: __self.$router})
           }
         })
-
       }
     },
     components: {
-      Notification
+      Notification,
+      FormLoader
     },
     mounted () {
       this.$refs.username.focus()
