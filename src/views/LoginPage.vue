@@ -11,7 +11,7 @@
                 </b-row>
                 <div class="mh-2" style="min-height: 25px">
                   <!-- Loader -->
-                  <form-loader v-if="isLoggingIn" class="form-control"></form-loader>
+                  <form-loader v-if="isLoggingIn"></form-loader>
                   <!-- Error Alert -->
                   <notification v-if="!$lodash.isEmpty(notification)" :message="'Invalid Username or Password'"></notification>
                 </div>
