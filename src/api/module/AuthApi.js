@@ -7,10 +7,10 @@ export default {
         let user = {userDetails: userDetails.data, token: token.data}
         return await user
       }).catch((error) => {
-        throw error
+        throw error.response.data
       })
     }).catch((error) => {
-      throw error
+      throw error.response.data
     })
   },
 }

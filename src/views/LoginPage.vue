@@ -4,22 +4,24 @@
       <div class="row justify-content-center">
         <div class="col-md-6">
           <div class="card-group mb-0">
-            <div class="card p-4 d-block">
+            <div class="card d-block">
               <div class="card-block">
-                <h2 class="text-uppercase font-weight-bold">voucher generator</h2>
-                <p class="text-muted">Please Sign In</p>
+                <b-row class="mx-0">
+                  <img src="/public/img/logo.png" class="img img-fluid">
+                </b-row>
                 <div class="mh-2" style="min-height: 25px">
                   <!-- Loader -->
-                  <!-- TODO: set error disini klo gagal login atau session expired -->
-                  <!--<form-error :columns="true"></form-error>-->
+
+                  <notification v-if="!$lodash.isEmpty(notification)" :message="'Invalid Username or Password'"></notification>
                 </div>
                 <div class="input-group mb-3">
                   <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                  <input type="email" class="form-control" placeholder="Username" v-model="user.username" ref="username">
+                  <input type="text" class="form-control" placeholder="Username/Email" v-model="user.username" name="username" ref="username" v-validate="'required'" data-vv-as="Username/Email">
                 </div>
+
                 <div class="input-group mb-4">
                   <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                  <input type="password" class="form-control" placeholder="Password" v-model="user.password" @keyup.enter="signInUser()">
+                  <input type="password" class="form-control" placeholder="Password" v-model="user.password" name="password" v-validate="'required'" data-vv-as="Password" @keyup.enter="signInUser()">
                 </div>
                 <div class="row justify-content-end">
                   <div class="col-6">
@@ -38,7 +40,8 @@
   </div>
 </template>
 <script>
-import {mapActions} from 'vuex'
+import {mapActions, mapState} from 'vuex'
+import Notification from '@/components/Notification.vue'
   export default {
     data: function () {
       return {
@@ -47,15 +50,29 @@ import {mapActions} from 'vuex'
           password: ''
         }
       }
-    },  
+    },
+
+    computed:{
+      ...mapState({
+        notification: state => state.Notification.notification
+      })
+    },
     methods: {
       ...mapActions({
         logInUser: 'Auth/login'
       }),
       signInUser() {
         let __self = this;
-        this.logInUser({user: __self.user, router: __self.$router})
+        __self.$validator.validateAll().then((result) => {
+          if (result) {
+            __self.logInUser({user: __self.user, router: __self.$router})
+          }
+        })
+
       }
+    },
+    components: {
+      Notification
     },
     mounted () {
       this.$refs.username.focus()
