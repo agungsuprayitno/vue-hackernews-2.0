@@ -14,8 +14,7 @@ const actions = {
     await MerchantApi.getMerchantApi(pagination).then((merchants) => {
       store.commit('SET_MERCHANTS', merchants)
     }).catch(error => {
-      //  TODO: Handle Error, set to be form or toast
-      console.log(error)
+      store.dispatch("Notification/setNotification", error, {root: true})
     })
   },
 
@@ -23,8 +22,7 @@ const actions = {
     await MerchantApi.getMerchantByMerchantIdApi(merchantId).then((merchant) => {
       store.commit('SET_MERCHANT', merchant)
     }).catch(error => {
-      //  TODO: Handle Error, set to be form or toast
-      console.log(error)
+      store.dispatch("Notification/setNotification", error, {root: true})
     })
   },
 
@@ -33,8 +31,7 @@ const actions = {
       store.commit('SET_MERCHANT', merchant)
       router.push({name: 'merchant-list'})
     }).catch(error => {
-      //  TODO: Handle Error, set to be form or toast
-      console.log(error)
+      store.dispatch("Notification/setNotification", error, {root: true})
     })
   },
 
@@ -45,8 +42,7 @@ const actions = {
       router.push({name: 'merchant-list'})
 
     }).catch(error => {
-      //  TODO: Handle Error, set to be form or toast
-      console.log(error)
+      store.dispatch("Notification/setNotification", error, {root: true})
     })
   },
 
@@ -55,8 +51,7 @@ const actions = {
     await MerchantApi.activateMerchantApi(merchant).then((merchant) => {
       store.commit('SET_MERCHANT', merchant)
     }).catch(error => {
-      //  TODO: Handle Error, set to be form or toast
-      console.log(error)
+      store.dispatch("Notification/setNotification", error, {root: true})
     })
   },
 
@@ -65,8 +60,7 @@ const actions = {
     await MerchantApi.blockMerchantApi(merchant).then((merchant) => {
       store.commit('SET_MERCHANT', merchant)
     }).catch(error => {
-      //  TODO: Handle Error, set to be form or toast
-      console.log(error)
+      store.dispatch("Notification/setNotification", error, {root: true})
     })
   },
 
@@ -75,8 +69,7 @@ const actions = {
     await MerchantApi.deleteMerchantApi(merchant).then((merchant) => {
       store.commit('SET_MERCHANT', merchant)
     }).catch(error => {
-      //  TODO: Handle Error, set to be form or toast
-      console.log(error)
+      store.dispatch("Notification/setNotification", error, {root: true})
     })
   }
 }
