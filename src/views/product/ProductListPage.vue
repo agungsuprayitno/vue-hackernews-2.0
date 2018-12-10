@@ -6,13 +6,12 @@
     <div class="col-12 my-4 px-0">
 
       <notification v-if="!$lodash.isEmpty(notification)"></notification>
-      {{waitAny}}
       <!-- Pagination on Top -->
       <b-pagination :total-rows="paginationData.totalRows" v-model="currentPage" :per-page="paginationData.size" align="right" last-text="Last" first-text="First"></b-pagination>
-      
-      <!-- Table View --><content-loader></content-loader>
+
+      <content-loader v-if="waitAny"></content-loader>
+      <!-- Table View -->
       <b-table ref="productTable" outlined responsive hover head-variant="light" :current-page="currentPage" :fields="fields" :items="getProducts">
-          <content-loader></content-loader>
 
         <template slot="status" slot-scope="row">
           <label class="font-weight-bold text-success small" v-if="row.value == $constant.status.activeStatus">{{row.value}}</label>
@@ -34,7 +33,7 @@
 
 <script>
 import {mapState, mapActions, mapGetters} from 'vuex'
-import {mapWaitingActions, mapW} from 'vue-wait'
+import {mapWaitingActions} from 'vue-wait'
 import Notification from '@/components/Notification.vue'
 import ContentLoader from '@/components/loader/ContentLoader.vue'
 export default {
@@ -70,14 +69,13 @@ export default {
   },
   methods: {
     ...mapActions({
-      getProduct: 'Product/getProduct',
-      activateProduct: 'Product/activateProduct',
-      blockProduct: 'Product/blockProduct',
-      deleteProduct: 'Product/deleteProduct',
       setPagination: 'Pagination/setPagination'
     }),
-    ...mapWaitingActions({
-
+    ...mapWaitingActions('Product', {
+      getProduct: 'getting-product',
+      activateProduct: 'activating-product',
+      blockProduct: 'blocking-product',
+      deleteProduct: 'deleting-product',
     }),
     async getProducts(ctx) {
       // //  set pagination
