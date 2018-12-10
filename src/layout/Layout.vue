@@ -20,7 +20,7 @@
   import nav from './_nav'
   import AppHeader from './component/AppHeader.vue'
   import AppFooter from './component/AppFooter.vue'
-  import Breadcrumb from './component/Breadcrumb.vue'
+  import Breadcrumb from './component/BreadCrumb.vue'
   import Sidebar from './component/Sidebar/Sidebar.vue'
 
   export default {
