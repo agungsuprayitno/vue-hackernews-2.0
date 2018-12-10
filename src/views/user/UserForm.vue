@@ -7,6 +7,11 @@
             <strong>User Form</strong>
           </div>
           <notification v-if="!$lodash.isEmpty(notification)"></notification>
+
+          <b-row class="mx-0">
+            <content-loader v-if="waitAny"></content-loader>
+          </b-row>
+
           <b-form-group label="Username" :label-cols="3" :horizontal="true">
             <b-form-input v-model="userInput.username" v-validate="'required|email'" data-vv-as="Username" name="username" ref="username" type="text"></b-form-input>
             <span v-show="errors.has('username')" class="text-danger is-danger">{{ errors.first('username') }}</span>
@@ -42,10 +47,10 @@
   </div>
 </template>
 <script>
-
-import {mapState, mapActions} from 'vuex'
-import { mapWaitingActions } from 'vue-wait'
+import {mapState, mapGetters} from 'vuex'
 import Notification from '@/components/Notification.vue'
+import ContentLoader from '@/components/loader/ContentLoader.vue'
+import {mapWaitingActions} from 'vue-wait'
 export default {
   data () {
     return {
@@ -72,11 +77,15 @@ export default {
         confirmPassword: '',
         status: this.$constant.status.inactiveStatus
       }
-    }
+    },
+    ...mapGetters({
+      waitAny: 'wait/any'
+    }),
   },
 
   components: {
-    Notification
+    Notification,
+    ContentLoader
   },
 
   asyncData ({store, route}) {
@@ -93,17 +102,12 @@ export default {
   },
 
   methods: {
-    ...mapActions({
-      createUser: 'User/createUser',
-      updateUser: 'User/updateUser',
-      getUserById: 'User/getUserByUserId'
+    ...mapWaitingActions('User', {
+      getUserById: 'getting-user-by-id',
+      createUser: 'creating-user',
+      updateUser: 'updating-user'
     }),
 
-    ...mapWaitingActions('User', {
-      createUser: 'creating user',
-      updateUser: 'updating user',
-      getUserById: 'getting user',
-    }),
     submit () {
       let __self = this
       let input = {
