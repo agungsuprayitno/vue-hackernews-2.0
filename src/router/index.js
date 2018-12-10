@@ -14,7 +14,7 @@ import Product from '@/views/product'
 import Client from '@/views/client'
 import ProductVariant from '@/views/product/variant'
 import Merchant from '@/views/merchant'
-import User from '@/views/User'
+import User from '@/views/user'
 import VoucherOrder from '@/views/voucher-order'
 import Voucher from '@/views/voucher-order/voucher'
 
