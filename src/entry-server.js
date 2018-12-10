@@ -1,5 +1,11 @@
 import { createApp } from './app'
 
+//  dotenv untuk process di client
+const Dotenv = require('dotenv-webpack')
+
+//  dotenv untuk process di server
+require('dotenv').config()
+
 const isDev = process.env.NODE_ENV !== 'production'
 
 // This exported function will be called by `bundleRenderer`.

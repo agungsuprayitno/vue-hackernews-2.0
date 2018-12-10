@@ -6,6 +6,12 @@ import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
+//  dotenv untuk process di client
+const Dotenv = require('dotenv-webpack')
+
+//  dotenv untuk process di server
+require('dotenv').config()
+
   //  bootstrap vue
   Vue.use(BootstrapVue)
 
