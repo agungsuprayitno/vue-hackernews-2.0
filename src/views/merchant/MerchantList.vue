@@ -7,7 +7,9 @@
       <notification v-if="!$lodash.isEmpty(notification)"></notification>
       <!-- Pagination on Top -->
       <b-pagination :total-rows="paginationData.totalRows" v-model="currentPage" :per-page="paginationData.size" align="right" last-text="Last" first-text="First"></b-pagination>
-      
+
+      <content-loader v-if="waitAny"></content-loader>
+
       <!-- Table View -->
       <b-table ref="merchantTable" outlined responsive hover head-variant="light" :current-page="currentPage" :fields="fields" :items="getMerchants">
         <template slot="status" slot-scope="row">
@@ -28,8 +30,10 @@
 </template>
 
 <script>
-import {mapState, mapActions} from 'vuex'
+import {mapState, mapActions, mapGetters} from 'vuex'
+import {mapWaitingActions} from 'vue-wait'
 import Notification from '@/components/Notification.vue'
+import ContentLoader from '@/components/loader/ContentLoader.vue'
 export default {
   data () {
     return {
@@ -55,21 +59,27 @@ export default {
         status: {label: 'STATUS', sortable: false},
         actions: {label: 'ACTION', sortable: false}
       }        
-    }
+    },
+    ...mapGetters({
+      waitAny: 'wait/any'
+    })
   },
 
   components: {
-    Notification
+    Notification,
+    ContentLoader
   },
 
   methods: {
     ...mapActions({
-      getMerchant: 'Merchant/getMerchant',
-      updateMerchant: 'Merchant/updateMerchant',
-      activateMerchant: 'Merchant/activateMerchant',
-      blockMerchant: 'Merchant/blockMerchant',
-      deleteMerchant: 'Merchant/deleteMerchant',
       setPagination: 'Pagination/setPagination'
+    }),
+    ...mapWaitingActions('Merchant', {
+      getMerchant: 'getting-merchant',
+      updateMerchant: 'updating-merchant',
+      activateMerchant: 'activating-merchant',
+      blockMerchant: 'blocking-merchant',
+      deleteMerchant: 'deleting-merchant',
     }),
     async getMerchants(ctx) {
       // //  set pagination
