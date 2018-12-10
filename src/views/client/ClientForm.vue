@@ -7,6 +7,11 @@
             <strong>Client Form</strong>
           </div>
           <notification v-if="!$lodash.isEmpty(notification)"></notification>
+
+          <b-row class="mx-0">
+            <content-loader v-if="waitAny"></content-loader>
+          </b-row>
+
           <b-form-group label="Client Name" :label-cols="3" :horizontal="true">
             <b-form-input v-model="clientInput.name" v-validate="'required|regex:^[A-Za-z][A-Za-z0-9 \-+%]*$'" data-vv-as="Client Name" name="client_name" ref="client_name" type="text"></b-form-input>
             <span v-show="errors.has('client_name')" class="text-danger is-danger">{{ errors.first('client_name') }}</span>
@@ -45,9 +50,10 @@
   </div>
 </template>
 <script>
-
-import {mapState, mapActions} from 'vuex'
+import {mapState, mapActions, mapGetters} from 'vuex'
 import Notification from '@/components/Notification.vue'
+import ContentLoader from '@/components/loader/ContentLoader.vue'
+
 export default {
   data () {
     return {
@@ -90,7 +96,10 @@ export default {
         email: '',
         phoneNumber: '',
       }
-    }
+    },
+    ...mapGetters({
+      waitAny: 'wait/any'
+    }),
   },
 
   asyncData ({store, route}) {
@@ -106,7 +115,8 @@ export default {
     }
   },
   components: {
-    Notification
+    Notification,
+    ContentLoader
   },
   methods: {
     ...mapActions({
