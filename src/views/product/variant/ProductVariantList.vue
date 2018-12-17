@@ -56,7 +56,7 @@ export default {
         denom: {label: 'DENOM', sortable: false},
         status: {label: 'STATUS', sortable: false},
         actions: {label: 'ACTION', sortable: false}
-      }        
+      }
     },
     ...mapGetters({
       waitAny: 'wait/any'
@@ -113,7 +113,7 @@ export default {
         await this.deleteProductVariant(productVariantInput)
         this.$refs.productVariantTable.refresh()
       }
-    }    
+    }
   }
 }
 </script>
