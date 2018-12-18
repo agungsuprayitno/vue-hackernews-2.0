@@ -123,6 +123,7 @@ export default {
       }
     }
   },
+
   components: {
     Notification,
     ContentLoader
