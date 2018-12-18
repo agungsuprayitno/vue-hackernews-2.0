@@ -9,6 +9,10 @@
           
           <notification v-if="!$lodash.isEmpty(notification)"></notification>
 
+          <b-row class="mx-0">
+            <content-loader v-if="waitAny"></content-loader>
+          </b-row>
+
           <b-form-group label="Code" :label-cols="3" :horizontal="true">
             <b-form-input v-model="merchantInput.code" v-validate="'required'" data-vv-as="Merchant's code" name="merchant_code" ref="merchant_code" type="text" disabled></b-form-input>
             <span v-show="errors.has('merchant_code')" class="text-danger is-danger">{{ errors.first('merchant_code') }}</span>
@@ -75,8 +79,9 @@
 </template>
 <script>
 
-import {mapState, mapActions} from 'vuex'
+import {mapState, mapActions, mapGetters} from 'vuex'
 import Notification from '@/components/Notification.vue'
+import ContentLoader from '@/components/loader/ContentLoader.vue'
 export default {
   data () {
     return {
@@ -121,11 +126,16 @@ export default {
         code: '<AUTO>',
         apiKey: '<AUTO>'
       }
-    }
+    },
+
+    ...mapGetters({
+      waitAny: 'wait/any'
+    }),
   },
 
   components: {
-    Notification
+    Notification,
+    ContentLoader
   },
 
   asyncData ({store, route}) {
