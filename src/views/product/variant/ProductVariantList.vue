@@ -74,7 +74,7 @@ export default {
     }),
 
     ...mapWaitingActions('ProductVariant', {
-      getProduct: 'getting-product-variant',
+      getProductVariant: 'getting-product-variant',
       activateProductVariant: 'activating-product-variant',
       blockProductVariant: 'blocking-product-variant',
       deleteProductVariant: 'deleting-product-variant'
@@ -83,7 +83,7 @@ export default {
       // //  set pagination
       this.setPagination({currentPage: ctx.currentPage, size: 10})
        //  set pagination as object, in the future we can parse Sort and Filter too
-      await this.getProduct({productId: this.$route.params.productId, pagination: this.pagination})
+      await this.getProductVariant({productId: this.$route.params.productId, pagination: this.pagination})
       return this.productVariants.data
     },
     async toBlockProductVariant(productVariantId){
