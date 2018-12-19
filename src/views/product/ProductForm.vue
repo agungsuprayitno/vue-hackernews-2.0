@@ -11,14 +11,14 @@
             <content-loader v-if="waitAny"></content-loader>
           </b-row>
           <b-form-group label="Product Name" :label-cols="3" :horizontal="true">
-            <b-form-input v-model="productInput.name" v-validate="'required'" data-vv-as="Product Name" name="product_name" ref="product_name" type="text"></b-form-input>
+            <b-form-input v-model="productData.name" v-validate="'required'" data-vv-as="Product Name" name="product_name" ref="product_name" type="text"></b-form-input>
             <span v-show="errors.has('product_name')" class="text-danger is-danger">{{ errors.first('product_name') }}</span>
           </b-form-group>
-          
+
           <!-- Only show component when the page is edit mode -->
           <b-col md="12" class="px-0" v-if="!$lodash.isEmpty($route.params.productId)">
             <b-form-group label="Status" :label-cols="3" :horizontal="true">
-              <b-form-select v-model="productInput.status" :options="options" class="mb-3" name="product_status" />
+              <b-form-select v-model="productData.status" :options="options" class="mb-3" name="product_status" />
               <span v-show="errors.has('product_status')" class="text-danger is-danger">{{ errors.first('product_status') }}</span>
             </b-form-group>
           </b-col>
@@ -44,7 +44,11 @@ export default {
         { value: this.$constant.status.activeStatus, text: this.$constant.status.activeStatus },
         { value: this.$constant.status.inactiveStatus, text: this.$constant.status.inactiveStatus }
       ],
-      resetValues: {}
+      resetValues: {},
+      productData: {
+        name: '',
+        status: this.$constant.status.activeStatus
+      }
     }
   },
 
@@ -56,14 +60,9 @@ export default {
     ...mapGetters({
       waitAny: 'wait/any'
     }),
-    productInput() {
-      if(!this.$lodash.isEmpty(this.$route.params.productId)) {
-        return this.product.data
-      }
-      return {
-        name: '',
-        status: this.$constant.status.activeStatus
-      }
+    isRouteProductIdExist() {
+      //  check if page on edit mode
+      return !this.$lodash.isEmpty(this.$route.params) && this.$route.params.productId !== undefined
     }
   },
 
@@ -72,18 +71,19 @@ export default {
     ContentLoader
   },
 
-  asyncData ({store, route}) {
-    //  calling get product on edit mode
-    if(route.params.productId !== undefined) {
-      store.dispatch('Product/getProductByProductId', route.params.productId)
-    }
-  },
-
-  mounted () {
-    this.resetValues = {
-      product: JSON.parse(JSON.stringify(this.product))
-    }
-  },
+  //  TODO: enable this when Product can be update
+  // async created () {
+  //   if(this.isRouteProductIdExist) {
+  //     //  calling get Product on edit mode
+  //     await this.$store.dispatch('Product/getProductByProductId', this.$route.params.productId)
+  //     if(this.product.data !== undefined) {
+  //       this.productData = this.product.data
+  //       this.resetValues = {
+  //         user: JSON.parse(JSON.stringify(this.product.data))
+  //       }
+  //     }
+  //   }
+  // },
 
   methods: {
     ...mapActions({
@@ -94,8 +94,8 @@ export default {
     submit () {
       let __self = this
       let input = {
-        name: __self.productInput.name,
-        status: __self.productInput.status
+        name: __self.productData.name,
+        status: __self.productData.status
       }
 
         //  dispatch Actions Create on product
@@ -104,7 +104,7 @@ export default {
           window.scrollTo(0, 0)
         } else {
           if (result) {
-            if(!this.$lodash.isEmpty(this.$route.params.productId)){
+            if(this.isRouteProductIdExist){
                 input.id = __self.$route.params.productId
                 __self.updateProduct({product: input, router: __self.$router})
             }else {
@@ -117,7 +117,7 @@ export default {
     },
     reset () {
       //  reset text input
-      this.productInput = {...this.resetValues.product}
+      this.productData = {...this.resetValues.product}
 
       window.scrollTo(0, 0)
       this.$refs.product_name.focus()
