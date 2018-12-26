@@ -30,14 +30,14 @@ const actions = {
     })
   },
 
-  async activateVoucher (store, voucher) {
-    await VoucherApi.activateVoucherApi(voucher).then((voucher) => {
-      store.commit('SET_VOUCHER', voucher)
-    }).catch(error => {
-      //  TODO: Handle Error, set to be form or toast
-      console.log(error)
-    })
-  },
+  // async activateVoucher (store, voucher) {
+  //   await VoucherApi.activateVoucherApi(voucher).then((voucher) => {
+  //     store.commit('SET_VOUCHER', voucher)
+  //   }).catch(error => {
+  //     //  TODO: Handle Error, set to be form or toast
+  //     console.log(error)
+  //   })
+  // },
 
   async revokeVoucher (store, voucher) {
     await VoucherApi.revokeVoucherApi(voucher).then((revokedVoucher) => {
