@@ -3,7 +3,7 @@
     <div class="col-12 my-4 px-0">
       <!-- Pagination on Top -->
       <b-pagination :total-rows="paginationData.totalRows" v-model="currentPage" :per-page="paginationData.size" align="right" last-text="Last" first-text="First"></b-pagination>
-      
+
       <!-- Table View -->
       <b-table ref="voucherTable" outlined responsive hover head-variant="light" :current-page="currentPage" :fields="fields" :items="getVouchers">
         <template slot="status" slot-scope="row">
@@ -12,7 +12,7 @@
         </template>
 
         <template slot="actions" slot-scope="row">
-          <b-button :size="'sm'" :variant="'outline-success'" class="font-weight-bold shadow" v-if="row.item.status == $constant.status.inactiveStatus" @click="toActivateVoucher(row.item.serialNumber)">Activate</b-button>
+          <!--<b-button :size="'sm'" :variant="'outline-success'" class="font-weight-bold shadow" v-if="row.item.status == $constant.status.inactiveStatus" @click="toActivateVoucher(row.item.serialNumber)">Activate</b-button>-->
           <b-button :size="'sm'" :variant="'outline-danger'" class="font-weight-bold shadow" v-if="row.item.status == $constant.status.activeStatus" @click="toRevokeVoucher(row.item.serialNumber)">Revoke</b-button>
         </template>
       </b-table>
@@ -29,7 +29,7 @@
         <div>&nbsp;</div>
       </div>
       <b-btn class="mt-3" variant="outline-success" block @click="hideActivateModal">Return</b-btn>
-    </b-modal>    
+    </b-modal>
     <b-modal ref="revokeModalRef" hide-footer title="Revoke Voucher">
       <div class="d-block" v-if="voucher">
         <h3>Revoke is successful</h3>
@@ -40,7 +40,7 @@
         <div>&nbsp;</div>
       </div>
       <b-btn class="mt-3" variant="outline-success" block @click="hideRevokeModal">Return</b-btn>
-    </b-modal>    
+    </b-modal>
   </div>
 </template>
 
@@ -70,14 +70,14 @@ export default {
         createdAt: {label: 'CREATED AT', sortable: false},
         status: {label: 'STATUS', sortable: false},
         actions: {label: 'ACTION', sortable: false}
-      }        
+      }
     }
   },
 
   methods: {
     ...mapActions({
       getVoucher: 'Voucher/getVoucher',
-      activateVoucher: 'Voucher/activateVoucher',
+      // activateVoucher: 'Voucher/activateVoucher',
       revokeVoucher: 'Voucher/revokeVoucher',
       setPagination: 'Pagination/setPagination'
     }),
@@ -88,9 +88,9 @@ export default {
       await this.getVoucher({voucherOrderId: this.$route.params.voucherOrderId, pagination: this.pagination})
       return this.vouchers.data
     },
-    async toActivateVoucher(serialNumber){
-      this.activate(serialNumber)
-    },
+    // async toActivateVoucher(serialNumber){
+    //   this.activate(serialNumber)
+    // },
     async toRevokeVoucher(serialNumber){
       this.revoke(serialNumber)
     },

@@ -20,13 +20,13 @@ export default {
     })
   },
 
-  async activateVoucherApi(voucher) {
-    return await VoucherGeneratorAxios.put("/v1/rest/voucher/activate", voucher).then(async (voucher) => {
-      return await voucher.data[0]
-    }).catch((error) => {
-      throw error
-    })
-  },
+  // async activateVoucherApi(voucher) {
+  //   return await VoucherGeneratorAxios.put("/v1/rest/voucher/activate", voucher).then(async (voucher) => {
+  //     return await voucher.data[0]
+  //   }).catch((error) => {
+  //     throw error
+  //   })
+  // },
 
   async revokeVoucherApi(voucher) {
     return await VoucherGeneratorAxios.put("/v1/rest/voucher/revoke", voucher).then(async (voucher) => {
