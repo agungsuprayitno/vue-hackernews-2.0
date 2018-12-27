@@ -29,12 +29,6 @@ export default {
       accessName: [access.GET_MERCHANT]
     },
     {
-      name: 'User',
-      url: '/user',
-      icon: 'icon-user',
-      accessName: [access.GET_USER]
-    },
-    {
       name: 'Voucher Order',
       url: '/voucher-order',
       icon: 'icon-puzzle',
