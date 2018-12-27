@@ -17,6 +17,15 @@
             </b-form-select>
           </b-form-group>
 
+          <b-form-group label="Expired At" :label-cols="3" :horizontal="true" v-if="voucherInput.active === 'YES'" description="Format 'dd-mm-yyyy'.">
+            <b-row>
+              <b-col md="6">
+                <b-form-input v-model="voucherInput.expiredAt" v-validate="'required'" data-vv-as="Expired" name="expired_at" type="text"></b-form-input>
+              </b-col>
+            </b-row>
+
+          </b-form-group>
+
           <b-form-group label="" :label-cols="3" :horizontal="true">
             <div class="row" v-for="(voucherOrderItem, index) in voucherOrderItemArr" :key="index">
               <div class="col-md-4">
@@ -64,7 +73,8 @@ export default {
       resetValues: {},
       voucherInput: {
         remark: '',
-        active: ''
+        active: '',
+        expiredAt: ''
       },
       activeStatus: [
         { id: 'NO', title: 'No' },
@@ -157,7 +167,8 @@ export default {
           let input = {
             remark: __self.voucherInput.remark,
             voucherOrderItem: voucherOrderItem,
-            active: __self.voucherInput.active
+            active: __self.voucherInput.active,
+            expiredAt: __self.voucherInput.expiredAt
           }
           //  dispatch Actions Create on Voucher
           this.$validator.validateAll().then((result) => {
