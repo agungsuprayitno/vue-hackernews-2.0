@@ -18,6 +18,9 @@ export default function (to, from, next) {
       // push router to login page, if user have no token
       next({name: 'login'})
     }
+
+    // TODO:  pake ini untuk get role access user
+    return store.dispatch('Access/getUserAccess')
   }
 
   if (to.matched.length > 0 && to.matched[0].meta.notRequiresAuth) {
@@ -28,14 +31,5 @@ export default function (to, from, next) {
       location.href = '/dashboard'
     }
   }
-
- // TODO:  pake ini untuk get role access user
-  return store.dispatch('Access/getUserAccess').then(() => {
-    // if (context.store.getters['access/access'].length === 0) {
-    //   // context.store.dispatch('user/signOutUser')
-    //   context.store.dispatch('user/setToken', null)
-    //   return context.redirect('/')
-    // }
-  })
 
 }
