@@ -57,5 +57,13 @@ export default {
     }).catch((error) => {
       throw error.response.data
     })
+  },
+
+  async resetApiKeyApi(merchant) {
+    return await VoucherGeneratorAxios.put("/v1/rest/merchant/reset-api-key/" + merchant.id, merchant).then(async (merchant) => {
+      return await merchant.data
+    }).catch((error) => {
+      throw error.response.data
+    })
   }
 }

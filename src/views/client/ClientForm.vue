@@ -12,19 +12,35 @@
             <content-loader v-if="waitAny"></content-loader>
           </b-row>
 
-          <b-form-group label="Client Name" :label-cols="3" :horizontal="true">
+          <b-form-group label="Code" :label-cols="3" :horizontal="true">
+            <b-form-input v-model="clientData.code" data-vv-as="Client Code" name="client_code" type="text" :disabled="isRouteClientExist"></b-form-input>
+            <span v-show="errors.has('client_code')" class="text-danger is-danger">{{ errors.first('client_code') }}</span>
+          </b-form-group>
+
+          <b-form-group label="Name" :label-cols="3" :horizontal="true">
             <b-form-input v-model="clientData.name" v-validate="'required|regex:^[A-Za-z][A-Za-z0-9 \-+%]*$'" data-vv-as="Client Name" name="client_name" ref="client_name" type="text"></b-form-input>
             <span v-show="errors.has('client_name')" class="text-danger is-danger">{{ errors.first('client_name') }}</span>
           </b-form-group>
 
-          <b-form-group label="Client Email" :label-cols="3" :horizontal="true">
+          <b-form-group label="Email" :label-cols="3" :horizontal="true">
             <b-form-input v-model="clientData.email" v-validate="'required|email'" data-vv-as="Client Email" name="client_email" type="text" :disabled="isRouteClientExist"></b-form-input>
             <span v-show="errors.has('client_email')" class="text-danger is-danger">{{ errors.first('client_email') }}</span>
           </b-form-group>
 
-          <b-form-group label="Client Phone Number" :label-cols="3" :horizontal="true">
+          <b-form-group label="Phone Number" :label-cols="3" :horizontal="true">
             <b-form-input v-model="clientData.phoneNumber" v-validate="'required'" data-vv-as="Client Phone Number" name="phone_number" type="text" maxlength="16" :disabled="isRouteClientExist" @input="phoneCheck()"></b-form-input>
             <span v-show="errors.has('phone_number')" class="text-danger is-danger">{{ errors.first('phone_number') }}</span>
+          </b-form-group>
+
+          <b-form-group label="API Key" :label-cols="3" :horizontal="true">
+            <div class="row">
+              <div class="col-md-10">
+                <b-form-input v-model="clientData.apiKey" data-vv-as="Client API Key" name="client_api_key" type="text" :disabled="isRouteClientExist"></b-form-input>
+              </div>
+              <div class="col-md-2">
+                <b-button :size="'sm'" :variant="'outline-danger'" class="font-weight-bold shadow" @click="toResetApiKey(clientData.id)">Reset</b-button>
+              </div>
+            </div>
           </b-form-group>
 
           <!--&lt;!&ndash; Only show component when the page is edit mode &ndash;&gt;-->
@@ -132,7 +148,8 @@ export default {
     ...mapActions({
       createClient: 'Client/createClient',
       updateClient: 'Client/updateClient',
-      getClientById: 'Client/getClientByClientId'
+      getClientById: 'Client/getClientByClientId',
+      resetApiKey: 'Client/resetApiKey'
     }),
     phoneCheck() {
       let __self = this
@@ -150,6 +167,16 @@ export default {
         }
         //__self.user.phone = result;
         __self.clientData.phoneNumber = result;
+      }
+    },
+    async toResetApiKey(clientId){
+      if(confirm('Are you sure want to reset this client\'s API Key?')) {
+          let clientInput = {
+          id: clientId
+        }
+        await this.resetApiKey(clientInput)
+        alert('API Key has been reset.')
+        this.clientData.apiKey = this.client.data.apiKey;
       }
     },
     submit () {

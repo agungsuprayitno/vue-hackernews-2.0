@@ -34,7 +34,15 @@
           </b-form-group>
 
           <b-form-group label="API Key" :label-cols="3" :horizontal="true">
-            <b-form-input v-model="merchantData.apiKey" v-validate="'required'" data-vv-as="Merchant's API key" name="merchant_api_key" ref="merchant_api_key" type="text" disabled></b-form-input>
+              <div class="row">
+                <div class="col-md-10">
+                  <b-form-input v-model="merchantData.apiKey" v-validate="'required'" data-vv-as="Merchant's API key" name="merchant_api_key" ref="merchant_api_key" type="text" disabled></b-form-input>
+                </div>
+                <div class="col-md-2">
+                  <b-button :size="'sm'" :variant="'outline-danger'" class="font-weight-bold shadow" @click="toResetApiKey(merchantData.id)">Reset</b-button>
+                </div>
+              </div>
+            </b-container-fluid>
           </b-form-group>
 
           <!--&lt;!&ndash; Only show component when the page is edit mode &ndash;&gt;-->
@@ -141,6 +149,7 @@ export default {
     ...mapActions({
       createMerchant: 'Merchant/createMerchant',
       updateMerchant: 'Merchant/updateMerchant',
+      resetApiKey: 'Merchant/resetApiKey',
       getMerchantById: 'Merchant/getMerchantByMerchantId'
     }),
     phoneCheck() {
@@ -159,6 +168,16 @@ export default {
         }
         //__self.user.phone = result;
         __self.merchantData.phoneNumber = result;
+      }
+    },
+    async toResetApiKey(merchantId){
+      if(confirm('Are you sure want to reset this merchant\'s API Key?')) {
+          let merchantInput = {
+          id: merchantId
+        }
+        await this.resetApiKey(merchantInput)
+        alert('API Key has been reset.')
+        this.merchantData.apiKey = this.merchant.data.apiKey;
       }
     },
     submit () {
