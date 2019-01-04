@@ -53,9 +53,9 @@ export default {
     fields (){
       return {
         name: {label: 'NAME', sortable: false},
-        email: {label: 'EMAIL', sortable: false},
-        phone_number: {label: 'PHONE NUMBER', sortable: false},
         code: {label: 'CODE', sortable: false},
+        email: {label: 'EMAIL', sortable: false},
+        phoneNumber: {label: 'PHONE NUMBER', sortable: false},
         status: {label: 'STATUS', sortable: false},
         actions: {label: 'ACTION', sortable: false}
       }        

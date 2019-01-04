@@ -74,6 +74,15 @@ const actions = {
     }).catch(error => {
       store.dispatch("Notification/setNotification", error, {root: true})
     })
+  },
+
+  async resetApiKey (store, client) {
+
+    await ClientApi.resetApiKeyApi(client).then((client) => {
+      store.commit('SET_CLIENT', client)
+    }).catch(error => {
+      store.dispatch("Notification/setNotification", error, {root: true})
+    })
   }
   
 }

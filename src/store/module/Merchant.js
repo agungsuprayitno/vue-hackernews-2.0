@@ -71,6 +71,15 @@ const actions = {
     }).catch(error => {
       store.dispatch("Notification/setNotification", error, {root: true})
     })
+  },
+
+  async resetApiKey (store, merchant) {
+
+    await MerchantApi.resetApiKeyApi(merchant).then((merchant) => {
+      store.commit('SET_MERCHANT', merchant)
+    }).catch(error => {
+      store.dispatch("Notification/setNotification", error, {root: true})
+    })
   }
 }
 
