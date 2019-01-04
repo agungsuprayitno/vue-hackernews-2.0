@@ -65,9 +65,11 @@ export default {
     fields (){
       return {
         serialNumber: {label: 'SERIAL NUMBER', sortable: false},
+        productVariant: {label: 'PRODUCT VARIANT', sortable: false},
         denom: {label: 'DENOM', sortable: false},
-        expiredAt: {label: 'EXPIRED AT', sortable: false},
         createdAt: {label: 'CREATED AT', sortable: false},
+        expiredAt: {label: 'EXPIRED AT', sortable: false},
+        redeemedAt: {label: 'REDEEMED AT', sortable: false},
         status: {label: 'STATUS', sortable: false},
         actions: {label: 'ACTION', sortable: false}
       }
