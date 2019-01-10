@@ -13,7 +13,7 @@
           </b-row>
 
           <b-form-group label="Code" :label-cols="3" :horizontal="true">
-            <b-form-input v-model="clientData.code" data-vv-as="Client Code" name="client_code" type="text" :disabled="isRouteClientExist"></b-form-input>
+            <b-form-input v-model="clientData.code" data-vv-as="Client Code" name="client_code" type="text" readOnly></b-form-input>
             <span v-show="errors.has('client_code')" class="text-danger is-danger">{{ errors.first('client_code') }}</span>
           </b-form-group>
 
@@ -34,10 +34,13 @@
 
           <b-form-group label="API Key" :label-cols="3" :horizontal="true">
             <div class="row">
-              <div class="col-md-10">
-                <b-form-input v-model="clientData.apiKey" data-vv-as="Client API Key" name="client_api_key" type="text" :disabled="isRouteClientExist"></b-form-input>
+              <div class="col-md-10" v-if="isRouteClientExist">
+                <b-form-input v-model="clientData.apiKey" data-vv-as="Client API Key" name="client_api_key" type="text" readOnly></b-form-input>
               </div>
-              <div class="col-md-2">
+              <div class="col-md-12" v-else>
+                <b-form-input v-model="clientData.apiKey" data-vv-as="Client API Key" name="client_api_key" type="text" readOnly></b-form-input>
+              </div>
+              <div class="col-md-2" v-if="isRouteClientExist">
                 <b-button :size="'sm'" :variant="'outline-danger'" class="font-weight-bold shadow" @click="toResetApiKey(clientData.id)">Reset</b-button>
               </div>
             </div>
@@ -90,6 +93,8 @@ export default {
       ],
       resetValues: {},
       clientData: {
+        code: '<AUTO>',
+        apiKey: '<AUTO>',
         name: '',
         email: '',
         phoneNumber: ''
