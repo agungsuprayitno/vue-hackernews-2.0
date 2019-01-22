@@ -16,6 +16,7 @@ import Merchant from './module/Merchant'
 import VoucherOrder from './module/VoucherOrder'
 import Voucher from './module/Voucher'
 import Auth from './module/Auth'
+import ProductMerchant from './module/ProductMerchant'
 
 const debug = process.env.NODE_ENV !== 'production'
 
@@ -30,6 +31,7 @@ export const store = new Vuex.Store({
     VoucherOrder,
     Voucher,
     Auth,
+    ProductMerchant,
     Pagination,
     Notification
   }
