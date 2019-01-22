@@ -14,6 +14,7 @@ import Product from '@/views/product'
 import Client from '@/views/client'
 import ProductVariant from '@/views/product/variant'
 import ProductMerchant from '@/views/product/merchant'
+import MerchantProduct from '@/views/merchant/product'
 import Merchant from '@/views/merchant'
 import User from '@/views/user'
 import VoucherOrder from '@/views/voucher-order'
@@ -135,7 +136,22 @@ export function createRouter () {
               path: '/edit/:merchantId',
               name: 'edit-merchant',
               component: Merchant.MerchantForm
-            }
+            },
+            {
+              path: '/:merchantId/product',
+              name: 'merchant-product-list',
+              component: MerchantProduct.MerchantProductList
+            },
+            {
+              path: '/:merchantId/product/create',
+              name: 'create-merchant-product',
+              component: MerchantProduct.MerchantProductForm
+            },
+            {
+              path: '/:merchantId/product/edit/:merchantProductId',
+              name: 'edit-merchant-product',
+              component: MerchantProduct.MerchantProductForm
+            },
           ]),
 
           ...withPrefix('/user',[

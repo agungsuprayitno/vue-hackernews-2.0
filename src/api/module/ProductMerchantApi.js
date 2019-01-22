@@ -19,6 +19,23 @@ export default {
     })
   },
 
+  async getProductListApi() {
+    return await VoucherGeneratorAxios.get("/v1/rest/product/all").then(async (productList) => {
+      return await productList.data
+    }).catch((error) => {
+      throw error.response.data
+    })
+  },
+
+  async getMerchantProductApi(merchantId, pagination) {
+    let queryParams = setPagination(pagination)
+    return await VoucherGeneratorAxios.get("/v1/rest/merchant/" + merchantId + "/product-merchant/" + queryParams).then(async (productMerchants) => {
+      return await productMerchants.data
+    }).catch((error) => {
+      throw error.response.data
+    })
+  },
+
   async getProductMerchantListApi(productId) {
     return await VoucherGeneratorAxios.get("/v1/rest/product/" + productId + "/product-merchant/all").then(async (productMerchantList) => {
       let productMerchants = []

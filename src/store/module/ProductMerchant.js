@@ -4,7 +4,8 @@ const state  = () => ({
   productMerchants: {},
   productMerchant: {},
   productMerchantList: {},
-  merchantList: []
+  merchantList: [],
+  productList: []
 })
 
 const getters = {
@@ -23,6 +24,22 @@ const actions = {
 
   async getProductMerchant (store, {productId, pagination}) {
     await ProductMerchantApi.getProductMerchantApi(productId, pagination).then((productMerchants) => {
+      store.commit('SET_PRODUCT_MERCHANTS', productMerchants)
+    }).catch(error => {
+      store.dispatch("Notification/setNotification", error, {root: true})
+    })
+  },
+
+  async getAllProduct (store) {
+    await ProductMerchantApi.getProductListApi().then((productList) => {
+      store.commit('SET_PRODUCT_LIST', productList)
+    }).catch(error => {
+      store.dispatch("Notification/setNotification", error, {root: true})
+    })
+  },
+
+  async getMerchantProduct (store, {merchantId, pagination}) {
+    await ProductMerchantApi.getMerchantProductApi(merchantId, pagination).then((productMerchants) => {
       store.commit('SET_PRODUCT_MERCHANTS', productMerchants)
     }).catch(error => {
       store.dispatch("Notification/setNotification", error, {root: true})
@@ -100,6 +117,9 @@ const mutations = {
   },
   'SET_MERCHANT_LIST' (state, merchantList) {
     state.merchantList = merchantList
+  },
+  'SET_PRODUCT_LIST' (state, productList) {
+    state.productList = productList
   }
 }
 
