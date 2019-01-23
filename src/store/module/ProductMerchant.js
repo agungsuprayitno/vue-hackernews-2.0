@@ -38,22 +38,6 @@ const actions = {
     })
   },
 
-  async getMerchantProduct (store, {merchantId, pagination}) {
-    await ProductMerchantApi.getMerchantProductApi(merchantId, pagination).then((productMerchants) => {
-      store.commit('SET_PRODUCT_MERCHANTS', productMerchants)
-    }).catch(error => {
-      store.dispatch("Notification/setNotification", error, {root: true})
-    })
-  },
-
-  async getProductMerchantList (store, productId) {
-    await ProductMerchantApi.getProductMerchantListApi(productId).then((productMerchantList) => {
-      store.commit('SET_PRODUCT_MERCHANT_LIST', productMerchantList)
-    }).catch(error => {
-      store.dispatch("Notification/setNotification", error, {root: true})
-    })
-  },
-
   async getProductMerchantByProductMerchantId (store, {productId, productMerchantId}) {
     await ProductMerchantApi.getProductMerchantByProductMerchantIdApi(productId, productMerchantId).then((productMerchant) => {
       store.commit('SET_PRODUCT_MERCHANT', productMerchant)
@@ -102,7 +86,41 @@ const actions = {
     }).catch(error => {
       store.dispatch("Notification/setNotification", error, {root: true})
     })
-  }
+  },
+
+  async enableAllMerchantForProduct (store, productId) {
+    await ProductMerchantApi.enableAllMerchantForProductApi(productId).then((productMerchants) => {
+      //  TODO: set notifikasi insert product merchant is processing
+    }).catch(error => {
+      store.dispatch("Notification/setNotification", error, {root: true})
+    })
+  },
+
+  //  Accessed from Merchant -> Product page
+  async getMerchantProduct (store, {merchantId, pagination}) {
+    await ProductMerchantApi.getMerchantProductApi(merchantId, pagination).then((productMerchants) => {
+      store.commit('SET_PRODUCT_MERCHANTS', productMerchants)
+    }).catch(error => {
+      store.dispatch("Notification/setNotification", error, {root: true})
+    })
+  },
+
+  async getProductMerchantList (store, productId) {
+    await ProductMerchantApi.getProductMerchantListApi(productId).then((productMerchantList) => {
+      store.commit('SET_PRODUCT_MERCHANT_LIST', productMerchantList)
+    }).catch(error => {
+      store.dispatch("Notification/setNotification", error, {root: true})
+    })
+  },
+
+  async enableAllProductForMerchant (store, merchantId) {
+    await ProductMerchantApi.enableAllProductForMerchantApi(merchantId).then((merchantProducts) => {
+      //  TODO: set notifikasi insert product merchant is processing
+    }).catch(error => {
+      store.dispatch("Notification/setNotification", error, {root: true})
+    })
+  },
+
 }
 
 const mutations = {

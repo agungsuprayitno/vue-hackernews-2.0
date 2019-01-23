@@ -2,21 +2,8 @@
   <div class="col-12">
     <div class="col-12 my-4 px-0">
       <router-link :to="{name: 'create-product-merchant'}" class="btn btn-primary"><i class="fa fa-plus-square"></i> Enable Merchant</router-link> &nbsp;
-      <b-button :size="'md'" :variant="'success'" class="shadow"><i class="fa fa-plus-square"></i> Enable All Merchant</b-button>
+      <b-button :size="'md'" :variant="'success'" class="shadow" @click.prevent="enableAllMerchant()" v-if="$lodash.isEmpty(productMerchants.data)"><i class="fa fa-plus-square"></i> Enable All Merchant</b-button>
     </div>
-
-    <!--<b-row>-->
-      <!--<b-col md="6" class="my-1">-->
-        <!--<b-form-group horizontal label="Filter" class="mb-0">-->
-          <!--<b-input-group>-->
-            <!--<b-form-input v-model="filter" placeholder="Type to Search" />-->
-            <!--<b-input-group-append>-->
-              <!--<b-button :disabled="!filter" @click="filter = ''">Clear</b-button>-->
-            <!--</b-input-group-append>-->
-          <!--</b-input-group>-->
-        <!--</b-form-group>-->
-      <!--</b-col>-->
-    <!--</b-row>-->
 
     <div class="col-12 my-4 px-0">
       <notification v-if="!$lodash.isEmpty(notification)"></notification>
@@ -91,7 +78,8 @@ export default {
       getProductMerchant: 'getting-product-merchant',
       activateProductMerchant: 'activating-product-merchant',
       blockProductMerchant: 'blocking-product-merchant',
-      deleteProductMerchant: 'deleting-product-merchant'
+      deleteProductMerchant: 'deleting-product-merchant',
+      enableAllMerchantForProduct: 'deleting-product-merchant'
     }),
     async getProductMerchants(ctx) {
       // //  set pagination
@@ -123,6 +111,13 @@ export default {
           productId: this.$route.params.productId
         }
         await this.deleteProductMerchant(productMerchantInput)
+        this.$refs.productMerchantTable.refresh()
+      }
+    },
+
+    async enableAllMerchant(){
+      if(confirm('Are you sure want to enable all merchant for this product?')) {
+        await this.enableAllMerchantForProduct(this.$route.params.productId)
         this.$refs.productMerchantTable.refresh()
       }
     }

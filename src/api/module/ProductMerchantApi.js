@@ -92,5 +92,22 @@ export default {
     }).catch((error) => {
       throw error.response.data
     })
+  },
+
+  async enableAllMerchantForProductApi(productId) {
+    return await VoucherGeneratorAxios.post("/v1/rest/product/" + parseInt(productId) + "/product-merchant/enable-all-merchant").then(async (productMerchants) => {
+      return await productMerchants.data
+    }).catch((error) => {
+      throw error.response.data
+    })
+  },
+
+  //  called from store merchant -> product page
+  async enableAllProductForMerchantApi(merchantId) {
+    return await VoucherGeneratorAxios.post("/v1/rest/merchant/" + parseInt(merchantId) + "/product-merchant").then(async (merchantProduct) => {
+      return await merchantProduct.data
+    }).catch((error) => {
+      throw error.response.data
+    })
   }
 }

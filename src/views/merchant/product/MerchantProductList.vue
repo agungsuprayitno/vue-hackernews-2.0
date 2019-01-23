@@ -2,7 +2,7 @@
   <div class="col-12">
     <div class="col-12 my-4 px-0">
       <router-link :to="{name: 'create-product-merchant'}" class="btn btn-primary"><i class="fa fa-plus-square"></i> Enable Product</router-link> &nbsp;
-      <b-button :size="'md'" :variant="'success'" class="shadow"><i class="fa fa-plus-square"></i> Enable All Product</b-button>
+      <b-button :size="'md'" :variant="'success'" class="shadow" @click.prevent="enableAllProduct()" v-if="$lodash.isEmpty(productMerchants.data)"><i class="fa fa-plus-square"></i> Enable All Product</b-button>
     </div>
 
     <div class="col-12 my-4 px-0">
@@ -74,10 +74,11 @@ export default {
     }),
 
     ...mapWaitingActions('ProductMerchant', {
-      getMerchantProduct: 'getting-product-merchant',
-      activateProductMerchant: 'activating-product-merchant',
-      blockProductMerchant: 'blocking-product-merchant',
-      deleteProductMerchant: 'deleting-product-merchant'
+      getMerchantProduct: 'getting-merchant-product',
+      activateProductMerchant: 'activating-merchant-product',
+      blockProductMerchant: 'blocking-merchant-product',
+      deleteProductMerchant: 'deleting-merchant-product',
+      enableAllProductForMerchant: 'enabling-merchant-product'
     }),
     async getMerchantProducts(ctx) {
       // //  set pagination
@@ -109,6 +110,13 @@ export default {
           merchantId: this.$route.params.merchantId
         }
         await this.deleteProductMerchant(merchantProductInput)
+        this.$refs.merchantProductTable.refresh()
+      }
+    },
+
+    async enableAllProduct(){
+      if(confirm('Are you sure want to enable all product for this merchant?')) {
+        await this.enableAllProductForMerchant(this.$route.params.merchantId)
         this.$refs.merchantProductTable.refresh()
       }
     }
