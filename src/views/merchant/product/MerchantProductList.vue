@@ -1,7 +1,7 @@
 <template>
   <div class="col-12">
     <div class="col-12 my-4 px-0">
-      <router-link :to="{name: 'create-product-merchant'}" class="btn btn-primary"><i class="fa fa-plus-square"></i> Enable Product</router-link> &nbsp;
+      <router-link :to="{name: 'create-merchant-product'}" class="btn btn-primary"><i class="fa fa-plus-square"></i> Enable Product</router-link> &nbsp;
       <b-button :size="'md'" :variant="'success'" class="shadow" @click.prevent="enableAllProduct()" v-if="$lodash.isEmpty(productMerchants.data)"><i class="fa fa-plus-square"></i> Enable All Product</b-button>
     </div>
 

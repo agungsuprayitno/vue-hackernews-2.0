@@ -12,13 +12,13 @@
             <content-loader v-if="waitAny"></content-loader>
           </b-row>
 
-          <b-form-group label="Merchant" :label-cols="3" :horizontal="true">
+          <b-form-group label="Product" :label-cols="3" :horizontal="true">
 
-            <b-form-select v-model="productMerchantData.productId">
+            <b-form-select v-model="productMerchantData.productId" v-validate="'required'" data-vv-as="Product" name="product">
               <option v-for="product in products.data" :value="product.id">{{product.name}}</option>
             </b-form-select>
-            <!--<b-form-input v-model="productMerchantData.merchantId" :disabled="isRouteVariantIdExist" v-validate="'required'" data-vv-as="Merchant" name="merchant" ref="merchant" type="text"></b-form-input>-->
-            <!--<span v-show="errors.has('merchant')" class="text-danger is-danger">{{ errors.first('merchant') }}</span>-->
+
+            <span v-show="errors.has('product')" class="text-danger is-danger">{{ errors.first('product') }}</span>
           </b-form-group>
 
           <div slot="footer">
@@ -40,7 +40,7 @@ export default {
   data () {
     return {
       resetValues: {},
-      merchantProductData: {
+      productMerchantData: {
         merchantId: '',
         productId: '',
         status: ''
@@ -50,14 +50,14 @@ export default {
   },
 
   created(){
-    this.$store.dispatch("ProductMerchant/getAllMerchant")
+    this.$store.dispatch("ProductMerchant/getAllProduct")
   },
 
   computed: {
     ...mapState({
       productMerchant: state => state.ProductMerchant.productMerchant,
       notification: state => state.Notification.notification,
-      merchants: state => state.ProductMerchant.merchantList
+      products: state => state.ProductMerchant.productList
     }),
     isRouteVariantIdExist() {
       //  check if page on edit mode
@@ -75,7 +75,7 @@ export default {
 
   methods: {
     ...mapActions({
-      createProductMerchant: 'ProductMerchant/createProductMerchant',
+      createMerchantProduct: 'ProductMerchant/createMerchantProduct',
       updateProductMerchant: 'ProductMerchant/updateProductMerchant',
       getProductMerchantById: 'ProductMerchant/getProductMerchantByProductMerchantId'
     }),
@@ -83,8 +83,8 @@ export default {
       let __self = this
       let input = {
         merchantId: __self.$route.params.merchantId,
-        status: __self.merchantProductData.status,
-        productId: __self.merchantProductData.productId
+        status: __self.productMerchantData.status,
+        productId: __self.productMerchantData.productId
       }
 
       //  dispatch Actions Create on product
@@ -97,7 +97,7 @@ export default {
                 input.id = __self.$route.params.merchantProductId
                 __self.updateProductMerchant({productMerchant: input, router: __self.$router})
             }else {
-                __self.createProductMerchant({productMerchant: input, router: __self.$router})
+                __self.createMerchantProduct({productMerchant: input, router: __self.$router})
             }
           }
         }
@@ -105,7 +105,7 @@ export default {
     },
     reset () {
       //  reset text input
-      this.merchantProductData = {...this.resetValues.productMerchant}
+      this.productMerchantData = {...this.resetValues.productMerchant}
 
       window.scrollTo(0, 0)
       this.$refs.merchant.focus()

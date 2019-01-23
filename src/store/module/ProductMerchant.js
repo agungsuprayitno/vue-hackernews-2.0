@@ -55,6 +55,15 @@ const actions = {
     })
   },
 
+  async createMerchantProduct (store, {productMerchant, router}) {
+    await ProductMerchantApi.createProductMerchantApi(productMerchant).then((productMerchant) => {
+      store.commit('SET_PRODUCT_MERCHANT', productMerchant)
+      router.push({name: 'merchant-product-list'})
+    }).catch(error => {
+      store.dispatch("Notification/setNotification", error, {root: true})
+    })
+  },
+
   async updateProductMerchant (store, {productMerchant, router}) {
     await ProductMerchantApi.updateProductMerchantApi(productMerchant).then((productMerchant) => {
       store.commit('SET_PRODUCT_MERCHANT', productMerchant)
