@@ -30,7 +30,8 @@
             <div class="row" v-for="(voucherOrderItem, index) in voucherOrderItemArr" :key="index">
               <div class="col-md-4">
                 <label>Product</label>
-                <b-form-select size="md" :options="productList" value-field="id" text-field="title" v-model="voucherOrderItem.product" v-validate="'required'" data-vv-as="Product" name="product" value="Please select" class="mb3" v-on:input="productOnChange(voucherOrderItem.product, index)">
+                <b-form-select size="md" value-field="id" text-field="title" v-model="voucherOrderItem.product" v-validate="'required'" data-vv-as="Product" name="product" value="Please select" class="mb3" v-on:input="productOnChange(voucherOrderItem.product, index)">
+                  <option v-for="product in productList.data" :value="product.id"> {{ product.name }} </option>
                 </b-form-select>
                 <span v-show="errors.has('product')" class="text-danger is-danger">{{ errors.first('product') }}</span>
               </div>

@@ -1,7 +1,7 @@
 <template>
   <div class="col-12">
     <div class="col-12 my-4 px-0">
-      <router-link :to="{name: 'create-product'}" class="btn btn-primary"> Create Product</router-link>
+      <router-link :to="{name: 'create-product'}" class="btn btn-primary"><i class="fa fa-plus-square"></i> Create Product</router-link>
     </div>
     <div class="col-12 my-4 px-0">
 
@@ -20,10 +20,11 @@
 
         <template slot="actions" slot-scope="row">
           <!--router-link :to="{name: 'edit-product', params: {productId: row.item.id}}" class="font-weight-bold btn btn-outline-warning btn-sm shadow">Edit</router-link> &nbsp;-->
-          <router-link :to="{name: 'product-variant-list', params: {productId: row.item.id}}" class="font-weight-bold btn btn-outline-primary btn-sm shadow">Variant</router-link> &nbsp;
-          <b-button :size="'sm'" :variant="'outline-danger'" class="font-weight-bold shadow" v-if="row.item.status == $constant.status.activeStatus" @click="toDeactivateProduct(row.item.id)">Block</b-button>
-          <b-button :size="'sm'" :variant="'outline-success'" class="font-weight-bold shadow" @click="toActivateProduct(row.item.id)" v-else>Activate</b-button>
-          &nbsp;<b-button :size="'sm'" :variant="'outline-danger'" class="font-weight-bold shadow" @click="toDeleteProduct(row.item.id)">Delete</b-button>
+          <router-link :to="{name: 'product-variant-list', params: {productId: row.item.id}}" class="font-weight-bold btn btn-outline-primary btn-sm shadow"><i class="fa fa-list-alt"></i> Variant</router-link> &nbsp;
+          <b-button :size="'sm'" :variant="'outline-danger'" class="font-weight-bold shadow" v-if="row.item.status == $constant.status.activeStatus" @click="toDeactivateProduct(row.item.id)"><i class="fa fa-ban"></i> Block</b-button>
+          <b-button :size="'sm'" :variant="'outline-success'" class="font-weight-bold shadow" @click="toActivateProduct(row.item.id)" v-else><i class="fa fa-check"></i> Activate</b-button>
+          &nbsp;<b-button :size="'sm'" :variant="'outline-danger'" class="font-weight-bold shadow" @click="toDeleteProduct(row.item.id)"><i class="fa fa-trash"></i> Delete</b-button>
+          &nbsp;<router-link :to="{name: 'product-merchant-list', params: {productId: row.item.id}}" :size="'sm'" :variant="'outline-danger'" class="btn btn-success btn-sm font-weight-bold shadow" > <i class="fa fa-users"></i> Merchant</router-link>
         </template>
       </b-table>
     </div>

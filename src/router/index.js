@@ -13,6 +13,8 @@ import InvalidResetPasswordCodePage from '@/views/InvalidResetPasswordCodePage.v
 import Product from '@/views/product'
 import Client from '@/views/client'
 import ProductVariant from '@/views/product/variant'
+import ProductMerchant from '@/views/product/merchant'
+import MerchantProduct from '@/views/merchant/product'
 import Merchant from '@/views/merchant'
 import User from '@/views/user'
 import VoucherOrder from '@/views/voucher-order'
@@ -101,7 +103,22 @@ export function createRouter () {
               path: '/:productId/variant/edit/:productVariantId',
               name: 'edit-product-variant',
               component: ProductVariant.ProductVariantForm
-            }
+            },
+            {
+              path: '/:productId/merchant',
+              name: 'product-merchant-list',
+              component: ProductMerchant.ProductMerchantList
+            },
+            {
+              path: '/:productId/merchant/create',
+              name: 'create-product-merchant',
+              component: ProductMerchant.ProductMerchantForm
+            },
+            {
+              path: '/:productId/merchant/edit/:productMerchantId',
+              name: 'edit-product-merchant',
+              component: ProductMerchant.ProductMerchantForm
+            },
           ]),
 
           ...withPrefix('/merchant',[
@@ -119,7 +136,22 @@ export function createRouter () {
               path: '/edit/:merchantId',
               name: 'edit-merchant',
               component: Merchant.MerchantForm
-            }
+            },
+            {
+              path: '/:merchantId/product',
+              name: 'merchant-product-list',
+              component: MerchantProduct.MerchantProductList
+            },
+            {
+              path: '/:merchantId/product/create',
+              name: 'create-merchant-product',
+              component: MerchantProduct.MerchantProductForm
+            },
+            {
+              path: '/:merchantId/product/edit/:merchantProductId',
+              name: 'edit-merchant-product',
+              component: MerchantProduct.MerchantProductForm
+            },
           ]),
 
           ...withPrefix('/user',[

@@ -1,7 +1,7 @@
 <template>
   <div class="col-12">
     <div class="col-12 my-4 px-0">
-      <router-link :to="{name: 'create-merchant'}" class="btn btn-primary"> Create Merchant</router-link>
+      <router-link :to="{name: 'create-merchant'}" class="btn btn-primary"> <i class="fa fa-plus-square"></i> Create Merchant</router-link>
     </div>
     <div class="col-12 my-4 px-0">
       <notification v-if="!$lodash.isEmpty(notification)"></notification>
@@ -18,10 +18,11 @@
         </template>
 
         <template slot="actions" slot-scope="row">
-          <router-link :to="{name: 'edit-merchant', params: {merchantId: row.item.id}}" class="font-weight-bold btn btn-outline-success btn-sm">Edit</router-link> &nbsp;
-          <b-button :size="'sm'" :variant="'outline-danger'" class="font-weight-bold shadow" v-if="row.item.status == $constant.status.activeStatus" @click="toBlockMerchant(row.item.id)">Block</b-button>
-          <b-button :size="'sm'" :variant="'outline-success'" class="font-weight-bold shadow" @click="toActivateMerchant(row.item.id)" v-else>Activate</b-button>
-          &nbsp;<b-button :size="'sm'" :variant="'outline-warning'" class="font-weight-bold shadow" @click="toDeleteMerchant(row.item.id)">Delete</b-button>
+          <router-link :to="{name: 'edit-merchant', params: {merchantId: row.item.id}}" class="font-weight-bold btn btn-outline-success btn-sm"><i class="fa fa-pencil-alt"></i> Edit</router-link> &nbsp;
+          <b-button :size="'sm'" :variant="'outline-danger'" class="font-weight-bold shadow" v-if="row.item.status == $constant.status.activeStatus" @click="toBlockMerchant(row.item.id)"><i class="fa fa-ban"></i> Block</b-button>
+          <b-button :size="'sm'" :variant="'outline-success'" class="font-weight-bold shadow" @click="toActivateMerchant(row.item.id)" v-else><i class="fa fa-check"></i> Activate</b-button>
+          &nbsp;<b-button :size="'sm'" :variant="'outline-danger'" class="font-weight-bold shadow" @click="toDeleteMerchant(row.item.id)"><i class="fa fa-trash"></i> Delete</b-button> &nbsp;
+          <router-link :to="{name: 'merchant-product-list', params: {merchantId: row.item.id}}" class="font-weight-bold btn btn-outline-primary btn-sm"><i class="fa fa-list-alt"></i> Product</router-link> &nbsp;
         </template>
       </b-table>
     </div>
@@ -53,7 +54,7 @@ export default {
     fields (){
       return {
         name: {label: 'NAME', sortable: false},
-        code: {label: 'CODE', sortable: false},
+        // code: {label: 'CODE', sortable: false},
         email: {label: 'EMAIL', sortable: false},
         phoneNumber: {label: 'PHONE NUMBER', sortable: false},
         status: {label: 'STATUS', sortable: false},

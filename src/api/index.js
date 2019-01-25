@@ -3,6 +3,7 @@ import Access from './module/AccessApi'
 import Product from './module/ProductApi'
 import Client from './module/ClientApi'
 import ProductVariant from './module/ProductVariantApi'
+import ProductMerchant from './module/ProductMerchantApi'
 import Merchant from './module/MerchantApi'
 import VoucherOrder from './module/VoucherOrderApi'
 import Voucher from './module/VoucherApi'
@@ -13,6 +14,7 @@ export const AccessApi = Access
 export const ProductApi = Product
 export const ClientApi = Client
 export const ProductVariantApi = ProductVariant
+export const ProductMerchantApi = ProductMerchant
 export const MerchantApi = Merchant
 export const VoucherOrderApi = VoucherOrder
 export const VoucherApi = Voucher
@@ -27,5 +29,6 @@ export default {
   MerchantApi,
   VoucherOrderApi,
   VoucherApi,
-  AuthApi
+  AuthApi,
+  ProductMerchantApi
 }

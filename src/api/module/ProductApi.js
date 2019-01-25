@@ -13,9 +13,7 @@ export default {
 
   async getAllProductListApi() {
     return await VoucherGeneratorAxios.get("/v1/rest/product/all").then(async (productList) => {
-      let products = []
-      productList.data.forEach(data => products.push({id: data.id , title: data.name}))
-      return await products
+      return await productList.data
     }).catch((error) => {
       throw error.response.data
     })
