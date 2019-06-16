@@ -9,7 +9,7 @@ const getters = {
 
 const actions = {
   async setNotification (store, notification) {
-    await store.dispatch("setNotificationType", notification.status)
+    await store.dispatch("setNotificationType", notification.Status)
     await store.commit('SET_NOTIFICATION', notification)
   },
 

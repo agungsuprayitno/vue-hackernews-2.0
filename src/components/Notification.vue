@@ -27,7 +27,7 @@
         notificationType: state => state.Notification.notificationType
       }),
       notificationMessage() {
-        return(this.message === undefined) ? this.notification.responseDescription: this.message
+        return(this.message === undefined) ? this.notification.ResponseDescription: this.message
       }
     },
 
